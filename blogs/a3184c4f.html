@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="killBase," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="通过 UML 图，我们可以更好的了解类与类之间的关系。可以对架构进行更加深入的分析。">
+<meta name="keywords" content="killBase">
+<meta property="og:type" content="article">
+<meta property="og:title" content="killBase系列 -- UML 图入门">
+<meta property="og:url" content="https://3dot141.com/blogs/a3184c4f.html">
+<meta property="og:site_name" content="killCode">
+<meta property="og:description" content="通过 UML 图，我们可以更好的了解类与类之间的关系。可以对架构进行更加深入的分析。">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://ovmspkp0s.bkt.clouddn.com/201804211726_419.png">
+<meta property="og:image" content="http://ovmspkp0s.bkt.clouddn.com/201804211736_912.png">
+<meta property="og:image" content="http://ovmspkp0s.bkt.clouddn.com/201804230932_432.png">
+<meta property="og:image" content="http://ovmspkp0s.bkt.clouddn.com/201804230944_281.png">
+<meta property="og:image" content="http://ovmspkp0s.bkt.clouddn.com/201804230943_336.png">
+<meta property="og:image" content="http://ovmspkp0s.bkt.clouddn.com/201804231000_201.png">
+<meta property="og:image" content="http://ovmspkp0s.bkt.clouddn.com/201804231020_862.png">
+<meta property="og:image" content="http://ovmspkp0s.bkt.clouddn.com/201804231012_370.png">
+<meta property="og:updated_time" content="2018-07-08T14:28:52.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="killBase系列 -- UML 图入门">
+<meta name="twitter:description" content="通过 UML 图，我们可以更好的了解类与类之间的关系。可以对架构进行更加深入的分析。">
+<meta name="twitter:image" content="http://ovmspkp0s.bkt.clouddn.com/201804211726_419.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://3dot141.com/blogs/a3184c4f.html"/>
+
+
+
+
+
+  <title>killBase系列 -- UML 图入门 | killCode</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">killCode</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://3dot141.com/blogs/a3184c4f.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="3Dot141">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="killCode">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">killBase系列 -- UML 图入门</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-20T00:00:00+08:00">
+                2018-04-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Code/" itemprop="url" rel="index">
+                    <span itemprop="name">Code</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  通过 UML 图，我们可以更好的了解类与类之间的关系。可以对架构进行更加深入的分析。
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="UML-类"><a href="#UML-类" class="headerlink" title="UML 类"></a>UML 类</h2><p><img src="http://ovmspkp0s.bkt.clouddn.com/201804211726_419.png" alt=""></p>
+<h2 id="UML-的多重性修饰"><a href="#UML-的多重性修饰" class="headerlink" title="UML 的多重性修饰"></a>UML 的多重性修饰</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">0..*    0 个到多个</span><br><span class="line">*       0 个到多个</span><br><span class="line">1..*    1 个到多个</span><br><span class="line">6       刚好 6 个</span><br><span class="line">3，6    3 个或 6 个</span><br></pre></td></tr></table></figure>
+<h2 id="UML-类间关系"><a href="#UML-类间关系" class="headerlink" title="UML 类间关系"></a>UML 类间关系</h2><ol>
+<li>继承</li>
+<li>实现</li>
+<li><p>依赖<br>可以简单的理解，就是一个类A使用到了另一个类B，而这种使用关系是具有偶然性的、、临时性的、非常弱的，但是B类的变化会影响到A；比如某人要过河，需要借用一条船，此时人与船之间的关系就是依赖；表现在代码层面，为类B作为参数被类A在某个method方法中使用；<br><img src="http://ovmspkp0s.bkt.clouddn.com/201804211736_912.png" alt=""></p>
+</li>
+<li><p>关联<br>他体现的是两个类、或者类与接口之间语义级别的一种强依赖关系，比如我和我的朋友；这种关系比依赖更强、不存在依赖关系的偶然性、关系也不是临时性的，一般是长期性的，而且双方的关系一般是平等的、关联可以是单向、双向的；表现在代码层面，为被关联类B以类属性的形式出现在关联类A中，也可能是关联类A引用了一个类型为被关联类B的全局变量；<br><img src="http://ovmspkp0s.bkt.clouddn.com/201804230932_432.png" alt=""></p>
+</li>
+</ol>
+<ol start="5">
+<li>聚合<br>聚合是关联关系的一种特例，他体现的是整体与部分、拥有的关系，即<strong>has-a</strong>的关系，<strong>此时整体与部分之间是可分离的，他们可以具有各自的生命周期</strong>，部分可以属于多个整体对象，也可以为多个整体对象共享；比如计算机与CPU、公司与员工的关系等；表现在代码层面，和关联关系是一致的，只能从语义级别来区分；<br><img src="http://ovmspkp0s.bkt.clouddn.com/201804230944_281.png" alt=""></li>
+</ol>
+<ol start="6">
+<li>组合<br>组合也是关联关系的一种特例，他体现的是一种<strong>contains-a</strong>的关系，这种关系比聚合更强，也称为强聚合；他同样体现整体与部分间的关系，但<strong>此时整体与部分是不可分的，整体的生命周期结束也就意味着部分的生命周期结束</strong>；比如你和你的大脑；表现在代码层面，和关联关系是一致的，只能从语义级别来区分；<br><img src="http://ovmspkp0s.bkt.clouddn.com/201804230943_336.png" alt=""></li>
+</ol>
+<p><strong>强弱程度 ：</strong> 组合&gt;聚合&gt;关联&gt;依赖</p>
+<h2 id="UML-时序图"><a href="#UML-时序图" class="headerlink" title="UML 时序图"></a>UML 时序图</h2><p><img src="http://ovmspkp0s.bkt.clouddn.com/201804231000_201.png" alt=""></p>
+<h2 id="UML-状态图"><a href="#UML-状态图" class="headerlink" title="UML 状态图"></a>UML 状态图</h2><p><img src="http://ovmspkp0s.bkt.clouddn.com/201804231020_862.png" alt=""><br>状态是用圆角矩形表示。这个矩形可以有两个分隔栏。<br>顶部分隔栏是对状态进行命名。<br>底部分隔栏是状态的内部迁移。 使用 事件名/动作 表示<br>可以有两个特殊的事件，进入 – entry , 退出 – exit</p>
+<p><img src="http://ovmspkp0s.bkt.clouddn.com/201804231012_370.png" alt=""></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/killBase/" rel="tag"># killBase</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blogs/1d89bf34.html" rel="next" title="tool -- ios 中 url scheme 的使用">
+                <i class="fa fa-chevron-left"></i> tool -- ios 中 url scheme 的使用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blogs/2bb530bc.html" rel="prev" title="记一次讯飞平台的 api 使用问题。">
+                记一次讯飞平台的 api 使用问题。 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">3Dot141</p>
+              <p class="site-description motion-element" itemprop="description">Nothing is impossible to a willing heart.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">49</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#UML-类"><span class="nav-number">1.</span> <span class="nav-text">UML 类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UML-的多重性修饰"><span class="nav-number">2.</span> <span class="nav-text">UML 的多重性修饰</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UML-类间关系"><span class="nav-number">3.</span> <span class="nav-text">UML 类间关系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UML-时序图"><span class="nav-number">4.</span> <span class="nav-text">UML 时序图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UML-状态图"><span class="nav-number">5.</span> <span class="nav-text">UML 状态图</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">3Dot141</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="killJava," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="前言在中文分词器中， IKAnalyzer 做的是相对不错的，有着细度分割和智能使用两个模式 。但是，这个版本因为太陈旧，作者不再维护，（项目估计是。。。），所以与现在的Lucene 6.6 版本差距有些大。所以，我就根据网上各位大神的文章，加上自己对 API 与源码的阅读，稍微的进行了改动，可以简单的运行。">
+<meta name="keywords" content="killJava">
+<meta property="og:type" content="article">
+<meta property="og:title" content="搜索为将 -- IKAnalyzer中文搜词器">
+<meta property="og:url" content="https://3dot141.com/blogs/47564.html">
+<meta property="og:site_name" content="killCode">
+<meta property="og:description" content="前言在中文分词器中， IKAnalyzer 做的是相对不错的，有着细度分割和智能使用两个模式 。但是，这个版本因为太陈旧，作者不再维护，（项目估计是。。。），所以与现在的Lucene 6.6 版本差距有些大。所以，我就根据网上各位大神的文章，加上自己对 API 与源码的阅读，稍微的进行了改动，可以简单的运行。">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://static.oschina.net/uploads/img/201707/21162511_ZqhY.png">
+<meta property="og:image" content="https://static.oschina.net/uploads/img/201707/21162655_jwKt.png">
+<meta property="og:updated_time" content="2018-04-05T14:22:42.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="搜索为将 -- IKAnalyzer中文搜词器">
+<meta name="twitter:description" content="前言在中文分词器中， IKAnalyzer 做的是相对不错的，有着细度分割和智能使用两个模式 。但是，这个版本因为太陈旧，作者不再维护，（项目估计是。。。），所以与现在的Lucene 6.6 版本差距有些大。所以，我就根据网上各位大神的文章，加上自己对 API 与源码的阅读，稍微的进行了改动，可以简单的运行。">
+<meta name="twitter:image" content="https://static.oschina.net/uploads/img/201707/21162511_ZqhY.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://3dot141.com/blogs/47564.html"/>
+
+
+
+
+
+  <title>搜索为将 -- IKAnalyzer中文搜词器 | killCode</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">killCode</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://3dot141.com/blogs/47564.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="3Dot141">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="killCode">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">搜索为将 -- IKAnalyzer中文搜词器</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-12T00:00:00+08:00">
+                2017-10-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Code/" itemprop="url" rel="index">
+                    <span itemprop="name">Code</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在中文分词器中， IKAnalyzer 做的是相对不错的，有着细度分割和智能使用两个模式 。<br>但是，这个版本因为太陈旧，作者不再维护，（项目估计是。。。），所以与现在的Lucene 6.6 版本差距有些大。所以，我就根据网上各位大神的文章，加上自己对 API 与源码的阅读，稍微的进行了改动，可以简单的运行。<br><a id="more"></a><br><strong>注：</strong> 这里的简单是指，可以简单的运行<em>源码</em> 中的简单案例。</p>
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><h3 id="项目介绍"><a href="#项目介绍" class="headerlink" title="项目介绍"></a>项目介绍</h3><ol>
+<li>IKAnaylzer版本： IK Analyzer 2012FF<br>感谢提供的分词源码  <a href="http://git.oschina.net/wltea/IK-Analyzer-2012FF" target="_blank" rel="noopener">http://git.oschina.net/wltea/IK-Analyzer-2012FF</a></li>
+<li>lucene 版本：lucene 6.60</li>
+</ol>
+<h3 id="代码改动"><a href="#代码改动" class="headerlink" title="代码改动"></a>代码改动</h3><h4 id="1-对IKTokenizer的改动"><a href="#1-对IKTokenizer的改动" class="headerlink" title="1. 对IKTokenizer的改动"></a>1. 对<strong>IKTokenizer</strong>的改动</h4><p>源码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * Lucene 4.0 Tokenizer适配器类构造函数</span><br><span class="line"> * @param in</span><br><span class="line"> * @param useSmart</span><br><span class="line"> */</span><br><span class="line">public IKTokenizer(Reader in, boolean useSmart) &#123;</span><br><span class="line">  super(in);</span><br><span class="line">  offsetAtt = addAttribute(OffsetAttribute.class);</span><br><span class="line">  termAtt = addAttribute(CharTermAttribute.class);</span><br><span class="line">  typeAtt = addAttribute(TypeAttribute.class);</span><br><span class="line">  _IKImplement = new IKSegmenter(input, useSmart);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>经查阅 <strong>lucene</strong> 源码<br>Tokenizer类的构造器已经不再接收 Reader 源码如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">protected Tokenizer() &#123;</span><br><span class="line">    this.input = ILLEGAL_STATE_READER;</span><br><span class="line">    this.inputPending = ILLEGAL_STATE_READER;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">protected Tokenizer(AttributeFactory factory) &#123;</span><br><span class="line">    super(factory);</span><br><span class="line">    this.input = ILLEGAL_STATE_READER;</span><br><span class="line">    this.inputPending = ILLEGAL_STATE_READER;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>因此改动 <strong>IKTokenizer</strong> 类 ，如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public IKTokenizer( boolean useSmart) &#123;</span><br><span class="line">    super();</span><br><span class="line">    offsetAtt = addAttribute(OffsetAttribute.class);</span><br><span class="line">    termAtt = addAttribute(CharTermAttribute.class);</span><br><span class="line">    typeAtt = addAttribute(TypeAttribute.class);</span><br><span class="line">    //传入 IKSegmenter 的 input Reader  流，会被 父类 Tokenizer 类的无参构造器</span><br><span class="line">    //初始化为 this.input = ILLEGAL_STATE_READER;</span><br><span class="line">    _IKImplement = new IKSegmenter(input, useSmart);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>去除了 Reader 形参 。 默认调用 父类 的 无参构造函数 <em>Tokenizer()</em><br>注：在该<a href="https://m.baidu.com/from=1011440l/bd_page_type=1/ssid=0/uid=0/pu=usm%401%2Csz%40320_1001%2Cta%40iphone_2_6.0_3_537/baiduid=2E22EE2ECDC06CD17ECFCFDDC6786461/w=0_10_/t=iphone/l=3/tc?ref=www_iphone&amp;lid=14500985251722113881&amp;order=4&amp;fm=alop&amp;tj=www_normal_4_0_10_title&amp;vit=osres&amp;m=8&amp;srd=1&amp;cltj=cloud_title&amp;asres=1&amp;title=Solr6.5%E9%85%8D%E7%BD%AE%E4%B8%AD%E6%96%87%E5%88%86%E8%AF%8D%E5%99%A8-%E6%96%9C%E6%9C%88%E6%B8%85%E9%A3%8E-%E5%8D%9A%E5%AE%A2%E5%9B%AD&amp;dict=30&amp;w_qd=IlPT2AEptyoA_ykzqA5bxwGuCVNUi9m6GRaDshO5de2zGvhU4lk2mJaH&amp;sec=22624&amp;di=b5ccaf7d5d6ab0f1&amp;bdenc=1&amp;tch=124.252.31.809.1.274&amp;nsrc=IlPT2AEptyoA_yixCFOxXnANedT62v3IEQGG_ytK1DK6mlrte4viZQRAWzryL7mCIkm9w7aFcdkYwk0b3mRU8xl3qK6is8N8nyC-&amp;eqid=c93dd941c6133000100000055970d955&amp;wd=&amp;clk_info=%7B%22srcid%22%3A%221599%22%2C%22tplname%22%3A%22www_normal%22%2C%22t%22%3A1500567906532%2C%22sig%22%3A%2212311%22%2C%22xpath%22%3A%22div-a-h3-em%22%7D&amp;sfOpen=1&amp;winzoom=1" target="_blank" rel="noopener">博客</a>下发现，还需要配置分词器工厂类，因此还要多增加一段构造器代码，如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">//方便创建 工厂类</span><br><span class="line">public IKTokenizer(AttributeFactory factory, boolean useSmart) &#123;</span><br><span class="line">    super(factory);</span><br><span class="line">    offsetAtt = addAttribute(OffsetAttribute.class);</span><br><span class="line">    termAtt = addAttribute(CharTermAttribute.class);</span><br><span class="line">    typeAtt = addAttribute(TypeAttribute.class);</span><br><span class="line">    _IKImplement = new IKSegmenter(input, useSmart);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="2-对IKAnalyzer-的改动"><a href="#2-对IKAnalyzer-的改动" class="headerlink" title="2. 对IKAnalyzer  的改动"></a>2. 对<strong>IKAnalyzer </strong> 的改动</h4><p>源码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 重载Analyzer接口，构造分词组件</span><br><span class="line"> */</span><br><span class="line">@Override</span><br><span class="line">protected TokenStreamComponents createComponents(String fieldName, final Reader in) &#123;</span><br><span class="line">  Tokenizer _IKTokenizer = new IKTokenizer(in, this.useSmart());</span><br><span class="line">  return new TokenStreamComponents(_IKTokenizer);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>lucene 6.6 关于 Analyzer 接口中 关于 createComponents() 方法的源码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">protected abstract Analyzer.TokenStreamComponents createComponents(String var1);</span><br></pre></td></tr></table></figure></p>
+<p>结合上文中对 IKTokenizer 源码的改动，因此需要去除  参数 Reader in<br>改动的代码 如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 重载Analyzer接口，构造分词组件</span><br><span class="line"> */</span><br><span class="line">@Override</span><br><span class="line">protected TokenStreamComponents createComponents(String fieldName) &#123;</span><br><span class="line">	Tokenizer _IKTokenizer = new IKTokenizer(this.useSmart());</span><br><span class="line">	return new Analyzer.TokenStreamComponents(_IKTokenizer);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="3-对SWMCQueryBuilder-的改动"><a href="#3-对SWMCQueryBuilder-的改动" class="headerlink" title="3. 对SWMCQueryBuilder  的改动"></a>3. 对SWMCQueryBuilder  的改动</h4><p>源码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// 借助lucene queryparser 生成SWMC Query</span><br><span class="line">QueryParser qp = new QueryParser(Version.LUCENE_43, fieldName, new StandardAnalyzer(</span><br><span class="line">    Version.LUCENE_43));</span><br><span class="line">qp.setDefaultOperator(QueryParser.AND_OPERATOR);</span><br><span class="line">qp.setAutoGeneratePhraseQueries(true);</span><br></pre></td></tr></table></figure></p>
+<p>由于新版本的  lucene 已经不在使用  Version 类 进行定义，（我的上一篇<a href="IKQueryExpressionParser">lucene6.6 学习心得</a>说的很清楚）因此需要将之移除。<br>移除后，改动版本如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//借助lucene queryparser 生成SWMC Query</span><br><span class="line">QueryParser qp = new QueryParser(fieldName, new StandardAnalyzer());</span><br><span class="line">qp.setDefaultOperator(QueryParser.AND_OPERATOR);</span><br><span class="line">qp.setAutoGeneratePhraseQueries(true);</span><br></pre></td></tr></table></figure></p>
+<h4 id="4-对IKQueryExpressionParser-的改动"><a href="#4-对IKQueryExpressionParser-的改动" class="headerlink" title="4. 对IKQueryExpressionParser  的改动"></a>4. 对<strong>IKQueryExpressionParser </strong> 的改动</h4><p>IKQueryExpressionParser 类中方法 BooleanQuery ，在近期的 lucene 中有了较大改动，不知道的话，可以 查阅我的上一篇文章<a href="https://my.oschina.net/kxln1314/blog/1477042" target="_blank" rel="noopener">lucene6.6 学习心得</a>.<br>因此源码中对 IKQueryExpressionParser 类中关于 BooleanQuery 的方法都需要进行更改。<br>因为方法中代码过多 ， 因此，我选取其中比较关键的几个地方，进行展示。<br>关键源码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">private Query toBooleanQuery(Element op) &#123;</span><br><span class="line">BooleanQuery resultQuery = new BooleanQuery();</span><br><span class="line">Query q2 = this.querys.pop();</span><br><span class="line">Query q1 = this.querys.pop();</span><br><span class="line">BooleanClause[] clauses = ((BooleanQuery) q1).getClauses();</span><br><span class="line">resultQuery.add(c);</span><br><span class="line">return resultQuery;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>改动代码如下：<br>1.数组版本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">private Query toBooleanQuery(Element op)&#123;</span><br><span class="line">BooleanQuery.Builder builder = new BooleanQuery.Builder();</span><br><span class="line">Query q2 = this.querys.pop();    </span><br><span class="line">Query q1 = this.querys.pop();</span><br><span class="line"></span><br><span class="line"> //因为，我看源码，并没有发现会增删的地方 ，于是直接转成了数组 </span><br><span class="line">//迭代器版本的在下文</span><br><span class="line">if(q1 instanceof BooleanQuery)&#123;    </span><br><span class="line">    BooleanClause[] clauses =(BooleanClause[]) ((BooleanQuery)q1).clauses().toArray();</span><br><span class="line"> if(clauses.length &gt; 0</span><br><span class="line">    &amp;&amp; clauses[0].getOccur() == Occur.MUST)&#123;</span><br><span class="line">    for(BooleanClause c : clauses)&#123;</span><br><span class="line">        builder.add(c);</span><br><span class="line">    &#125;</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">    builder.add(q1,Occur.MUST);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">     return builder.build();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>2.迭代器版本    </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">private Query toBooleanQuery(Element op)&#123;</span><br><span class="line">BooleanQuery.Builder builder = new BooleanQuery.Builder();</span><br><span class="line"></span><br><span class="line">Query q2 = this.querys.pop();    </span><br><span class="line">Query q1 = this.querys.pop();</span><br><span class="line"></span><br><span class="line">if(q1 instanceof BooleanQuery)&#123;</span><br><span class="line">    Iterator&lt;BooleanClause&gt; clauses = ((BooleanQuery) q1).iterator();</span><br><span class="line">    while (clauses.hasNext()) &#123;</span><br><span class="line">    BooleanClause clause = clauses.next();</span><br><span class="line">    if (clause.getOccur() == Occur.MUST) &#123;</span><br><span class="line">    builder.add(clause);</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">    builder.add(q1,Occur.MUST);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;    </span><br><span class="line"></span><br><span class="line">return builder.build();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="5-项目运行"><a href="#5-项目运行" class="headerlink" title="5. 项目运行"></a>5. 项目运行</h4><p>打开包中的测试代码<br>1.IKAnalzyerDemo<br>运行结果如下图<br><img src="https://static.oschina.net/uploads/img/201707/21162511_ZqhY.png" alt="输入图片说明"></p>
+<p>2.LuceneIndexAndSearchDemo<br>运行结果如下图    </p>
+<p><img src="https://static.oschina.net/uploads/img/201707/21162655_jwKt.png" alt="输入图片说明"></p>
+<h4 id="6-源码与整合包的下载"><a href="#6-源码与整合包的下载" class="headerlink" title="6. 源码与整合包的下载"></a>6. 源码与整合包的下载</h4><p>源码与整合包 已经上传至我的 <a href="https://github.com/Cupid13/IKAnalyzer/tree/master" target="_blank" rel="noopener">GitHub</a>  上，有兴趣的可以去那里下载，不嫌弃的话，<strong>Star</strong> 一下 ，也是可以的哦~</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/killJava/" rel="tag"># killJava</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blogs/3153.html" rel="prev" title="killBase系列 -- C/S 与 B/S 架构的区别">
+                killBase系列 -- C/S 与 B/S 架构的区别 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">3Dot141</p>
+              <p class="site-description motion-element" itemprop="description">Nothing is impossible to a willing heart.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">49</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#正文"><span class="nav-number">2.</span> <span class="nav-text">正文</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#项目介绍"><span class="nav-number">2.1.</span> <span class="nav-text">项目介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码改动"><span class="nav-number">2.2.</span> <span class="nav-text">代码改动</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-对IKTokenizer的改动"><span class="nav-number">2.2.1.</span> <span class="nav-text">1. 对IKTokenizer的改动</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-对IKAnalyzer-的改动"><span class="nav-number">2.2.2.</span> <span class="nav-text">2. 对IKAnalyzer  的改动</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-对SWMCQueryBuilder-的改动"><span class="nav-number">2.2.3.</span> <span class="nav-text">3. 对SWMCQueryBuilder  的改动</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-对IKQueryExpressionParser-的改动"><span class="nav-number">2.2.4.</span> <span class="nav-text">4. 对IKQueryExpressionParser  的改动</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-项目运行"><span class="nav-number">2.2.5.</span> <span class="nav-text">5. 项目运行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-源码与整合包的下载"><span class="nav-number">2.2.6.</span> <span class="nav-text">6. 源码与整合包的下载</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">3Dot141</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

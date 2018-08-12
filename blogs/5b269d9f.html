@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="killBase," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="设计模式过去，曾经看过一本书， Head First 设计模式。那是第一次真正意义上的接触设计模式上面的东西。生动形象加上贴图作为例子。可以说是对设计模式有了一点初步的了解，但是，碍于时间原因，不过是浅尝辄止吧。不过，现在入职后，因为要阅读大量的源码，所以，需要对代码结构有更深层次的了解。因此，通过设计模式进行对照，一方面方便源码的阅读，一方面加深自己对设计模式的印象。 不过这一次的博客，不能像过">
+<meta name="keywords" content="killBase">
+<meta property="og:type" content="article">
+<meta property="og:title" content="killBase系列 -- 设计模式">
+<meta property="og:url" content="https://3dot141.com/blogs/5b269d9f.html">
+<meta property="og:site_name" content="killCode">
+<meta property="og:description" content="设计模式过去，曾经看过一本书， Head First 设计模式。那是第一次真正意义上的接触设计模式上面的东西。生动形象加上贴图作为例子。可以说是对设计模式有了一点初步的了解，但是，碍于时间原因，不过是浅尝辄止吧。不过，现在入职后，因为要阅读大量的源码，所以，需要对代码结构有更深层次的了解。因此，通过设计模式进行对照，一方面方便源码的阅读，一方面加深自己对设计模式的印象。 不过这一次的博客，不能像过">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-08-02T11:58:04.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="killBase系列 -- 设计模式">
+<meta name="twitter:description" content="设计模式过去，曾经看过一本书， Head First 设计模式。那是第一次真正意义上的接触设计模式上面的东西。生动形象加上贴图作为例子。可以说是对设计模式有了一点初步的了解，但是，碍于时间原因，不过是浅尝辄止吧。不过，现在入职后，因为要阅读大量的源码，所以，需要对代码结构有更深层次的了解。因此，通过设计模式进行对照，一方面方便源码的阅读，一方面加深自己对设计模式的印象。 不过这一次的博客，不能像过">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://3dot141.com/blogs/5b269d9f.html"/>
+
+
+
+
+
+  <title>killBase系列 -- 设计模式 | killCode</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">killCode</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://3dot141.com/blogs/5b269d9f.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="3Dot141">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="killCode">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">killBase系列 -- 设计模式</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-03T00:00:00+08:00">
+                2018-08-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Code/" itemprop="url" rel="index">
+                    <span itemprop="name">Code</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h1><p>过去，曾经看过一本书， Head First 设计模式。<br>那是第一次真正意义上的接触设计模式上面的东西。生动形象加上贴图作为例子。<br>可以说是对设计模式有了一点初步的了解，但是，碍于时间原因，不过是浅尝辄止吧。<br>不过，现在入职后，因为要阅读大量的源码，所以，需要对代码结构有更深层次的了解。<br>因此，通过设计模式进行对照，一方面方便源码的阅读，一方面加深自己对设计模式的印象。</p>
+<p>不过这一次的博客，不能像过去那样，只是作为一个知识的储存场所。应该是整理思维脉络的时候。<br>所以，这一次的大概逻辑是</p>
+<ol>
+<li>先把自己能想象到的设计模式列出来。</li>
+<li>然后把作用列出来。</li>
+<li>然后是 Uml 图。</li>
+<li>最后做补充。</li>
+</ol>
+<h2 id="Factory-Method"><a href="#Factory-Method" class="headerlink" title="Factory Method"></a>Factory Method</h2><p>生成实例的工厂。 有别于静态工厂。</p>
+<h2 id="Template-Method"><a href="#Template-Method" class="headerlink" title="Template Method"></a>Template Method</h2><p>将逻辑写到抽象类中，然后具体实现由子类实现</p>
+<h2 id="Iterator-模式"><a href="#Iterator-模式" class="headerlink" title="Iterator 模式"></a>Iterator 模式</h2><p>帮助遍历整个集合</p>
+<h2 id="Adapter"><a href="#Adapter" class="headerlink" title="Adapter"></a>Adapter</h2><p>将两个不同的类，组合起来。并对外界表现为其中一个的模样</p>
+<h2 id="Bridge"><a href="#Bridge" class="headerlink" title="Bridge"></a>Bridge</h2><p>桥接，说明有两个岸。分别代表功能层次与实现层次</p>
+<h2 id="State"><a href="#State" class="headerlink" title="State"></a>State</h2><p>取消 if 语句</p>
+<h2 id="Builder"><a href="#Builder" class="headerlink" title="Builder"></a>Builder</h2><p>灵活的创建相应的对象。</p>
+<h2 id="Composite"><a href="#Composite" class="headerlink" title="Composite"></a>Composite</h2><p>File 与 Directory ， 但是同属于 Item</p>
+<h2 id="Abstract-Factory"><a href="#Abstract-Factory" class="headerlink" title="Abstract Factory"></a>Abstract Factory</h2><p>上面的工厂是生成不同的实例，而这里的工厂是生成不同的工厂。</p>
+<h2 id="Visitor-模式"><a href="#Visitor-模式" class="headerlink" title="Visitor 模式"></a>Visitor 模式</h2><p>交给 拜访者 做某些事情。</p>
+<h2 id="Chain-of-Responsibility"><a href="#Chain-of-Responsibility" class="headerlink" title="Chain of Responsibility"></a>Chain of Responsibility</h2><p>一层层的向下推卸责任。</p>
+<h2 id="Command"><a href="#Command" class="headerlink" title="Command"></a>Command</h2><p>这里的主体，是 Command , 但往往每个命令存在单一的指令。。不是单一的策略。而是可以多个命令顺序执行。并且是由命令执行。 <code>execute</code></p>
+<h2 id="Strategy"><a href="#Strategy" class="headerlink" title="Strategy"></a>Strategy</h2><p>这里的策略内的方法是实现上一层逻辑的基础，内部可能存在多个方法，只要替换了这个类，整个逻辑就不一样了。</p>
+<h2 id="Observer"><a href="#Observer" class="headerlink" title="Observer"></a>Observer</h2><h2 id="Mediator-模式"><a href="#Mediator-模式" class="headerlink" title="Mediator 模式"></a>Mediator 模式</h2><p>交给中立者仲裁</p>
+<h2 id="Decorator-模式"><a href="#Decorator-模式" class="headerlink" title="Decorator 模式"></a>Decorator 模式</h2><p>添加装饰<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">new SideBorder(</span><br><span class="line">    new FullBorder(</span><br><span class="line">        new SideBoder(</span><br><span class="line">            new SideBoder()</span><br><span class="line">        )</span><br><span class="line">    )</span><br><span class="line">)</span><br></pre></td></tr></table></figure></p>
+<p>类似于这种，可以一致持续下去。</p>
+<h2 id="Facade-模式"><a href="#Facade-模式" class="headerlink" title="Facade 模式"></a>Facade 模式</h2><p>将处理的逻辑隐藏起来。·</p>
+<h2 id="Memento-模式"><a href="#Memento-模式" class="headerlink" title="Memento 模式"></a>Memento 模式</h2><p>储存 snapshot</p>
+<h2 id="Protype-模式"><a href="#Protype-模式" class="headerlink" title="Protype 模式"></a>Protype 模式</h2><p>基于原型的模式上，加入一些新功能。<br>利用了 clone() 方法 – 默认浅拷贝</p>
+<ol>
+<li>使用原型模式创建对象比直接new一个对象在性能上要好的多，因为Object类的clone方法是一个本地方法，它直接操作内存中的二进制流，特别是复制大对象时，性能的差别非常明显。</li>
+<li>使用原型模式的另一个好处是简化对象的创建，使得创建对象就像我们在编辑文档时的复制粘贴一样简单。</li>
+<li>因为以上优点，所以在需要重复地创建相似对象时可以考虑使用原型模式。比如需要在一个循环体内创建对象，假如对象创建过程比较复杂或者循环次数很多的话，使用原型模式不但可以简化创建过程，而且可以使系统的整体性能提高很多。</li>
+</ol>
+<h2 id="Flyweight-模式"><a href="#Flyweight-模式" class="headerlink" title="Flyweight 模式"></a>Flyweight 模式</h2><h2 id="Proxy-模式"><a href="#Proxy-模式" class="headerlink" title="Proxy 模式"></a>Proxy 模式</h2>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/killBase/" rel="tag"># killBase</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blogs/b493d1fd.html" rel="next" title="book -- 人月神话">
+                <i class="fa fa-chevron-left"></i> book -- 人月神话
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blogs/bbd7ce62.html" rel="prev" title="book -- 学会提问">
+                book -- 学会提问 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">3Dot141</p>
+              <p class="site-description motion-element" itemprop="description">Nothing is impossible to a willing heart.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">49</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#设计模式"><span class="nav-number">1.</span> <span class="nav-text">设计模式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Factory-Method"><span class="nav-number">1.1.</span> <span class="nav-text">Factory Method</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Template-Method"><span class="nav-number">1.2.</span> <span class="nav-text">Template Method</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Iterator-模式"><span class="nav-number">1.3.</span> <span class="nav-text">Iterator 模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Adapter"><span class="nav-number">1.4.</span> <span class="nav-text">Adapter</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Bridge"><span class="nav-number">1.5.</span> <span class="nav-text">Bridge</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#State"><span class="nav-number">1.6.</span> <span class="nav-text">State</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Builder"><span class="nav-number">1.7.</span> <span class="nav-text">Builder</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Composite"><span class="nav-number">1.8.</span> <span class="nav-text">Composite</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Abstract-Factory"><span class="nav-number">1.9.</span> <span class="nav-text">Abstract Factory</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Visitor-模式"><span class="nav-number">1.10.</span> <span class="nav-text">Visitor 模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Chain-of-Responsibility"><span class="nav-number">1.11.</span> <span class="nav-text">Chain of Responsibility</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Command"><span class="nav-number">1.12.</span> <span class="nav-text">Command</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Strategy"><span class="nav-number">1.13.</span> <span class="nav-text">Strategy</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Observer"><span class="nav-number">1.14.</span> <span class="nav-text">Observer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mediator-模式"><span class="nav-number">1.15.</span> <span class="nav-text">Mediator 模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Decorator-模式"><span class="nav-number">1.16.</span> <span class="nav-text">Decorator 模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Facade-模式"><span class="nav-number">1.17.</span> <span class="nav-text">Facade 模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Memento-模式"><span class="nav-number">1.18.</span> <span class="nav-text">Memento 模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Protype-模式"><span class="nav-number">1.19.</span> <span class="nav-text">Protype 模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Flyweight-模式"><span class="nav-number">1.20.</span> <span class="nav-text">Flyweight 模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Proxy-模式"><span class="nav-number">1.21.</span> <span class="nav-text">Proxy 模式</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">3Dot141</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

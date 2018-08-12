@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="killWork," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="简单记录一下这一周遇到的 bug">
+<meta name="keywords" content="killWork">
+<meta property="og:type" content="article">
+<meta property="og:title" content="killWork -- bug&#39;s party -- 180729">
+<meta property="og:url" content="https://3dot141.com/blogs/84398cd3.html">
+<meta property="og:site_name" content="killCode">
+<meta property="og:description" content="简单记录一下这一周遇到的 bug">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-08-03T00:46:02.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="killWork -- bug&#39;s party -- 180729">
+<meta name="twitter:description" content="简单记录一下这一周遇到的 bug">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://3dot141.com/blogs/84398cd3.html"/>
+
+
+
+
+
+  <title>killWork -- bug's party -- 180729 | killCode</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">killCode</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://3dot141.com/blogs/84398cd3.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="3Dot141">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="killCode">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">killWork -- bug's party -- 180729</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-07-29T00:00:00+08:00">
+                2018-07-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Code/" itemprop="url" rel="index">
+                    <span itemprop="name">Code</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  简单记录一下这一周遇到的 bug
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="class-的热替换"><a href="#class-的热替换" class="headerlink" title="class 的热替换"></a>class 的热替换</h1><ol>
+<li>class 的热替换包含 tomcat<br><a href="http://www.importnew.com/22462.html" target="_blank" rel="noopener">http://www.importnew.com/22462.html</a><br>jar 包的读取<br><a href="https://blog.csdn.net/hy_timer/article/details/76268759" target="_blank" rel="noopener">https://blog.csdn.net/hy_timer/article/details/76268759</a><h1 id="netty-selector-原理"><a href="#netty-selector-原理" class="headerlink" title="netty selector 原理"></a>netty selector 原理</h1></li>
+<li>NIO 中 selector 是通过 epoll 实现<br><a href="https://cloud.tencent.com/developer/article/1005481" target="_blank" rel="noopener">https://cloud.tencent.com/developer/article/1005481</a></li>
+</ol>
+<p>[1]select、poll、epoll_wait 陷入内核，判断监控的socket是否有关心的事件发生了，如果没，则为当前 process 构建一个 wait_entry 节点，然后插入到监控 socket 的 sleep_list<br>[2]进入循环的schedule 直到关心的事件发生了<br>[3]关心的事件发生后，将当前 process 的 wait_entry 节点从 socket 的 sleep_list 中删除。</p>
+<p>[1]socket 的事件发生了，然后 socket 顺序遍历其睡眠队列，依次调用每个 wait_entry 节点的 callback 函数<br>[2]直到完成队列的遍历或遇到某个 wait_entry 节点是排他的才停止。<br>[3]一般情况下callback 包含两个逻辑：<br>1.wait_entry自定义的私有逻辑；<br>2.唤醒的公共逻辑，主要用于将该 wait_entry 的 process 放入CPU的就绪队列，让CPU随后可以调度其执行。</p>
+<h2 id="select-逻辑"><a href="#select-逻辑" class="headerlink" title="select 逻辑"></a>select 逻辑</h2><ol>
+<li>我们应该block在等待事件的发生上，这个事件简单点就是”关心的N个socket中一个或多个socket有数据可读了”，当block解除的时候，就意味着，我们一定可以找到一个或多个socket上有可读的数据。</li>
+<li>另一方面，根据上面的socket wakeup callback机制，我们不知道什么时候，哪个socket会有读事件发生，于是，process需要同时插入到这N个socket的sleep_list上等待任意一个socket可读事件发生而被唤醒，当时process被唤醒的时候，其callback里面应该有个逻辑去检查具体那些socket可读了。</li>
+</ol>
+<p>当用户process调用select的时候，<br>select会将需要监控的readfds集合拷贝到 <strong>内核空间</strong>（假设监控的仅仅是socket可读），<br>然后遍历自己监控的socket_sk，挨个调用sk的poll逻辑以便检查该sk是否有可读事件，<br>遍历完所有的sk后, 如果没有任何一个sk可读，那么select会调用schedule_timeout进入schedule循环，使得process进入睡眠。<br>如果在timeout时间内某个sk上有数据可读了，或者等待timeout了，则调用select的process会被唤醒，接下来select就是遍历监控的sk集合，挨个收集可读事件并返回给用户了</p>
+<h2 id="epoll-逻辑"><a href="#epoll-逻辑" class="headerlink" title="epoll 逻辑"></a>epoll 逻辑</h2><h3 id="fds集合拷贝问题的解决"><a href="#fds集合拷贝问题的解决" class="headerlink" title="fds集合拷贝问题的解决"></a>fds集合拷贝问题的解决</h3><p>epoll引入了epoll_ctl系统调用，将高频调用的epoll_wait和低频的epoll_ctl隔离开。<br>epoll_ctl通过(EPOLL_CTL_ADD、EPOLL_CTL_MOD、EPOLL_CTL_DEL)三个操作来分散对需要监控的fds集合的修改，做到了有变化才变更，<br>将select或poll高频、大块内存拷贝(集中处理)变成epoll_ctl的低频、小块内存的拷贝(分散处理)，避免了大量的内存拷贝。</p>
+<p>同时，对于高频epoll_wait的可读就绪的fd集合返回的拷贝问题，epoll通过内核与用户空间mmap(内存映射)同一块内存来解决。mmap将用户空间的一块地址和内核空间的一块地址同时映射到相同的一块物理内存地址（不管是用户空间还是内核空间都是虚拟地址，最终要通过地址映射映射到物理地址），使得这块物理内存对内核和对用户均可见，减少用户态和内核态之间的数据交换。</p>
+<p>epoll通过epoll_ctl来对监控的fds集合来进行增、删、改，那么必须涉及到fd的快速查找问题，于是，一个低时间复杂度的增、删、改、查的数据结构来组织被监控的fds集合是必不可少的了。<br>fds 集合为红黑树。</p>
+<h3 id="按需遍历就绪的fds集合"><a href="#按需遍历就绪的fds集合" class="headerlink" title="按需遍历就绪的fds集合"></a>按需遍历就绪的fds集合</h3><p>通过上面的socket的睡眠队列唤醒逻辑我们知道，socket唤醒睡眠在其睡眠队列的 wait_entry(process )的时候会调用wait_entry的回调函数callback，<br>并且，我们可以在callback中做任何事情。为了做到只遍历就绪的fd，我们需要有个地方来组织那些已经就绪的fd。<br>为此，epoll引入了一个中间层，一个双向链表(ready_list)<strong>作为</strong>一个单独的<strong>睡眠队列(single_epoll_wait_list)</strong>，<br>并且，与select或poll不同的是，epoll的process不需要同时插入到多路复用的socket集合的所有睡眠队列中，<br>相反process只是插入到中间层的epoll的单独睡眠队列中，process睡眠在epoll的单独队列上，等待事件的发生。</p>
+<p>同时，引入一个中间的wait_entry_sk，它与某个socket_sk密切相关，wait_entry_sk睡眠在sk的睡眠队列上，<br>其callback函数逻辑是将当前sk排入到epoll的ready_list中，并唤醒epoll的single_epoll_wait_list。<br>而single_epoll_wait_list上睡眠的process的回调函数就明朗了：遍历 ready_list 上的所有sk，挨个调用sk的poll函数收集事件，然后唤醒 process 从 epoll_wait 返回。</p>
+<h3 id="ET-Edge-Triggered-边沿触发-vs-LT-Level-Triggered-水平触发"><a href="#ET-Edge-Triggered-边沿触发-vs-LT-Level-Triggered-水平触发" class="headerlink" title="ET(Edge Triggered 边沿触发) vs LT(Level Triggered 水平触发)"></a>ET(Edge Triggered 边沿触发) vs LT(Level Triggered 水平触发)</h3><p>Edge Triggered (ET) 边沿触发</p>
+<ol>
+<li>socket的接收缓冲区状态变化时触发读事件，即空的接收缓冲区刚接收到数据时触发读事件</li>
+<li>socket的发送缓冲区状态变化时触发写事件，即满的缓冲区刚空出空间时触发读事件<br>仅在缓冲区状态变化时触发事件，比如数据缓冲去从无到有的时候(不可读-可读)</li>
+</ol>
+<p>Level Triggered (LT) 水平触发</p>
+<ol>
+<li>socket接收缓冲区不为空，有数据可读，则读事件一直触发</li>
+<li>socket发送缓冲区不满可以继续写入数据，则写事件一直触发</li>
+</ol>
+<h1 id="ifcfg-eth33-prefix-参数"><a href="#ifcfg-eth33-prefix-参数" class="headerlink" title="ifcfg-eth33 prefix 参数"></a>ifcfg-eth33 prefix 参数</h1><p>为了自己的虚拟机里的 Linux 可以连接上网，不知道在哪拷贝了一段代码，<br>加入到了自己的文件里。<br>但是还是连接不上，经过排错后，发现是 因为 prefix 参数的问题。<br>如果 prefix 参数设置不对，那么 ip 地址和 网关 不管怎么修改，都不对。<br>最简单的方法，删除 prefix 参数。</p>
+<h1 id="isAssignableFrom-与-instanceof-区别"><a href="#isAssignableFrom-与-instanceof-区别" class="headerlink" title="isAssignableFrom() 与 instanceof() 区别"></a>isAssignableFrom() 与 instanceof() 区别</h1><ul>
+<li>isAssignableFrom()方法是从类继承的角度去判断，instanceof()方法是从实例继承的角度去判断。</li>
+<li>isAssignableFrom()方法是判断是否为某个类的父类，instanceof()方法是判断是否某个类的子类。</li>
+</ul>
+<h1 id="JDK-自带的监控器模式"><a href="#JDK-自带的监控器模式" class="headerlink" title="JDK 自带的监控器模式"></a>JDK 自带的监控器模式</h1><p>在Java中通过Observable类和Observer接口实现了观察者模式。Observer对象是观察者，Observable对象是被观察者。<br>实现观察者模式非常简单，<br>[1]创建被观察者类，它继承自java.util.Observable类；<br>[2]创建观察者类，它实现java.util.Observer接口；<br>[3]对于被观察者类，<br>添加它的观察者：<br>void addObserver(Observer o)</p>
+<p>addObserver()方法把观察者对象添加到观察者对象列表中。</p>
+<p>当被观察事件发生时，执行：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">setChanged();</span><br><span class="line">notifyObservers();</span><br></pre></td></tr></table></figure></p>
+<p>setChange()方法用来设置一个内部标志位注明数据发生了变化；notifyObservers()方法会去调用观察者对象列表中所有的Observer的update()方法，通知它们数据发生了变化。<br>只有在setChange()被调用后，notifyObservers()才会去调用update()。</p>
+<p>[4]对于观察者类，实现Observer接口的唯一方法update<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">void update(Observable o, Object arg)</span><br></pre></td></tr></table></figure></p>
+<p>形参Object arg，对应一个由notifyObservers(Object arg);传递来的参数，当执行的是notifyObservers();时，arg为null。</p>
+<h1 id="获取-Annotation-相关的注解"><a href="#获取-Annotation-相关的注解" class="headerlink" title="获取 Annotation 相关的注解"></a>获取 Annotation 相关的注解</h1><p><a href="http://liuxi.name/blog/20161227/java-annotations-api.html" target="_blank" rel="noopener">http://liuxi.name/blog/20161227/java-annotations-api.html</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">getAnnotation</span><br><span class="line">getAnnotations</span><br><span class="line">getAnnotationByType</span><br><span class="line">// 1. 忽略继承</span><br><span class="line">// 2. JDK 1.8 以下没用</span><br><span class="line">getDeclaredAnnotation</span><br><span class="line">getDeclaredAnnotations</span><br><span class="line">getDeclaredAnnotationByType</span><br></pre></td></tr></table></figure>
+<h1 id="getResourceAsStream-–-getSystemResourceAsStream"><a href="#getResourceAsStream-–-getSystemResourceAsStream" class="headerlink" title="getResourceAsStream – getSystemResourceAsStream"></a>getResourceAsStream – getSystemResourceAsStream</h1><p>ClassLoader().getSystemResource()<br>只能获取 jvm 的 ClassLoader, 获取不到 tomcat 的 ClassLoader</p>
+<p>this.getClass().getClassLoader().getResource()<br>获取当前类的 ClassLoader – 随环境改变</p>
+<p>this.getClass().getResource()<br>相对路径，会判断文件路径 “/” 还是 “./” <strong>必须加入 /</strong></p>
+<p>Thread.currentThread().getContextClasLoader().getResource()<br>加载当前线程的 ClassLoader</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">System.out.println(ClassLoader.getSystemResource(&quot;&quot;).getPath());</span><br><span class="line">// 当前类目录</span><br><span class="line">System.out.println(getClass().getResource(&quot;&quot;).getPath());</span><br><span class="line">// 根目录</span><br><span class="line">System.out.println(getClass().getResource(&quot;/&quot;).getPath());</span><br><span class="line">// 相对目录</span><br><span class="line">System.out.println(getClass().getResource(&quot;./&quot;).getPath());</span><br><span class="line">System.out.println(getClass().getResource(&quot;../&quot;).getPath());</span><br><span class="line"></span><br><span class="line">System.out.println(getClass().getClassLoader().getResource(&quot;&quot;).getPath());</span><br><span class="line">System.out.println(getClass().getClassLoader().getResource(&quot;&quot;).getPath());</span><br></pre></td></tr></table></figure>
+<p><strong> 输出 </strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">/D:/Programme/Tomcat-8/webapps/FR/WEB-INF/classes/</span><br><span class="line">/D:/Programme/Tomcat-8/webapps/FR/WEB-INF/classes/com/fr/env/util/</span><br><span class="line">/D:/Programme/Tomcat-8/webapps/FR/WEB-INF/classes/</span><br><span class="line">/D:/Programme/Tomcat-8/webapps/FR/WEB-INF/classes/com/fr/env/util/</span><br><span class="line">/D:/Programme/Tomcat-8/webapps/FR/WEB-INF/classes/com/fr/env/</span><br><span class="line">/D:/Programme/Tomcat-8/webapps/FR/WEB-INF/classes/</span><br><span class="line">/D:/Programme/Tomcat-8/webapps/FR/WEB-INF/classes/</span><br></pre></td></tr></table></figure>
+<h1 id="双重校验锁的-volatie-变量"><a href="#双重校验锁的-volatie-变量" class="headerlink" title="双重校验锁的 volatie 变量"></a>双重校验锁的 volatie 变量</h1><p>申请内存空间，<br>初始化默认值（区别于构造器方法的初始化），<br>执行构造器方法<br>连接引用和实例。</p>
+<p>这4个步骤后两个有可能会重排序，1234 1243都有可能，造成未初始化完全的对象发布。<br>volatile可以禁止指令重排序，从而避免这个问题。</p>
+<h1 id="File"><a href="#File" class="headerlink" title="File"></a>File</h1><p>new File(String Path)<br>path 不能为这种形式。<br>Tomcat 8.</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/killWork/" rel="tag"># killWork</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blogs/64ec65cd.html" rel="next" title="killWork -- bug's party -- 180723">
+                <i class="fa fa-chevron-left"></i> killWork -- bug's party -- 180723
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blogs/b493d1fd.html" rel="prev" title="book -- 人月神话">
+                book -- 人月神话 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">3Dot141</p>
+              <p class="site-description motion-element" itemprop="description">Nothing is impossible to a willing heart.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">49</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#class-的热替换"><span class="nav-number">1.</span> <span class="nav-text">class 的热替换</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#netty-selector-原理"><span class="nav-number">2.</span> <span class="nav-text">netty selector 原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#select-逻辑"><span class="nav-number">2.1.</span> <span class="nav-text">select 逻辑</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#epoll-逻辑"><span class="nav-number">2.2.</span> <span class="nav-text">epoll 逻辑</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#fds集合拷贝问题的解决"><span class="nav-number">2.2.1.</span> <span class="nav-text">fds集合拷贝问题的解决</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#按需遍历就绪的fds集合"><span class="nav-number">2.2.2.</span> <span class="nav-text">按需遍历就绪的fds集合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ET-Edge-Triggered-边沿触发-vs-LT-Level-Triggered-水平触发"><span class="nav-number">2.2.3.</span> <span class="nav-text">ET(Edge Triggered 边沿触发) vs LT(Level Triggered 水平触发)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ifcfg-eth33-prefix-参数"><span class="nav-number">3.</span> <span class="nav-text">ifcfg-eth33 prefix 参数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#isAssignableFrom-与-instanceof-区别"><span class="nav-number">4.</span> <span class="nav-text">isAssignableFrom() 与 instanceof() 区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JDK-自带的监控器模式"><span class="nav-number">5.</span> <span class="nav-text">JDK 自带的监控器模式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#获取-Annotation-相关的注解"><span class="nav-number">6.</span> <span class="nav-text">获取 Annotation 相关的注解</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#getResourceAsStream-–-getSystemResourceAsStream"><span class="nav-number">7.</span> <span class="nav-text">getResourceAsStream – getSystemResourceAsStream</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#双重校验锁的-volatie-变量"><span class="nav-number">8.</span> <span class="nav-text">双重校验锁的 volatie 变量</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#File"><span class="nav-number">9.</span> <span class="nav-text">File</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">3Dot141</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

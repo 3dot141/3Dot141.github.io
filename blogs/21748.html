@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="killJava," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="前言最近作项目的时候，用java获取文件。虽然用框架很容易，但是其内部的原理让我很疑惑。在自己写相似的代码的时候，往往会出现各种各样的错误。所以这里，对相关的类以及方法进行一个整合。比如 file 类，path 类。 绝对路径与相对路径。 getResource 方法 ， getRealPath方法等。">
+<meta name="keywords" content="killJava">
+<meta property="og:type" content="article">
+<meta property="og:title" content="killJava系列 -- 文件类相关">
+<meta property="og:url" content="https://3dot141.com/blogs/21748.html">
+<meta property="og:site_name" content="killCode">
+<meta property="og:description" content="前言最近作项目的时候，用java获取文件。虽然用框架很容易，但是其内部的原理让我很疑惑。在自己写相似的代码的时候，往往会出现各种各样的错误。所以这里，对相关的类以及方法进行一个整合。比如 file 类，path 类。 绝对路径与相对路径。 getResource 方法 ， getRealPath方法等。">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://ovmspkp0s.bkt.clouddn.com/201709172153_892.png">
+<meta property="og:image" content="http://ovmspkp0s.bkt.clouddn.com/201709172154_836.png">
+<meta property="og:image" content="http://ovmspkp0s.bkt.clouddn.com/201709172336_740.png">
+<meta property="og:image" content="http://ovmspkp0s.bkt.clouddn.com/201709172357_508.png">
+<meta property="og:image" content="http://ovmspkp0s.bkt.clouddn.com/201709172153_892.png">
+<meta property="og:image" content="http://ovmspkp0s.bkt.clouddn.com/201709172154_836.png">
+<meta property="og:image" content="http://ovmspkp0s.bkt.clouddn.com/201709172357_508.png">
+<meta property="og:updated_time" content="2018-04-05T14:15:40.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="killJava系列 -- 文件类相关">
+<meta name="twitter:description" content="前言最近作项目的时候，用java获取文件。虽然用框架很容易，但是其内部的原理让我很疑惑。在自己写相似的代码的时候，往往会出现各种各样的错误。所以这里，对相关的类以及方法进行一个整合。比如 file 类，path 类。 绝对路径与相对路径。 getResource 方法 ， getRealPath方法等。">
+<meta name="twitter:image" content="http://ovmspkp0s.bkt.clouddn.com/201709172153_892.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://3dot141.com/blogs/21748.html"/>
+
+
+
+
+
+  <title>killJava系列 -- 文件类相关 | killCode</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">killCode</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://3dot141.com/blogs/21748.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="3Dot141">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="killCode">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">killJava系列 -- 文件类相关</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-12T00:00:00+08:00">
+                2017-10-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Code/" itemprop="url" rel="index">
+                    <span itemprop="name">Code</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>最近作项目的时候，用java获取文件。<br>虽然用框架很容易，但是其内部的原理让我很疑惑。在自己写相似的代码的时候，往往会出现各种各样的错误。所以这里，对相关的类以及方法进行一个整合。<br>比如 file 类，path 类。 绝对路径与相对路径。 getResource 方法 ， getRealPath方法等。<br><a id="more"></a></p>
+<h3 id="绝对路径与相对路径"><a href="#绝对路径与相对路径" class="headerlink" title="绝对路径与相对路径"></a>绝对路径与相对路径</h3><p>在使用 File 类的时候，发现绝对路径和相对路径的使用有很大的区别。<br>大家都知道：File类是用来构造文件或文件夹的类,在其构造函数中要求传入一个String类型的参数,用于指示文件所在的路径<br><code>绝对路径名</code>是完整的路径名，不需要任何其他信息就可以定位自身表示的文件。<br><code>相对路径名</code>必须使用来自其他路径名的信息进行解释</p>
+<p>因为我使用的是 idea ，所以下面，我就用idea 给大家演示一下，他们的区别。<br>废话不多说，直接上代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">testFile</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        <span class="comment">// 绝对路径</span></span><br><span class="line">        File fi1 = <span class="keyword">new</span> File(<span class="string">"D://sy.ini"</span>);</span><br><span class="line">        <span class="comment">// 相对路径</span></span><br><span class="line">        File fi2 = <span class="keyword">new</span> File(<span class="string">"sy.ini"</span>);</span><br><span class="line">        String test = <span class="string">"000"</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">// 将 test 分别写入 fi1 fi2</span></span><br><span class="line">            FileOutputStream fo1 = <span class="keyword">new</span> FileOutputStream(fi1);</span><br><span class="line">            FileOutputStream fo2 = <span class="keyword">new</span> FileOutputStream(fi2);</span><br><span class="line">            fo1.write(test.getBytes());</span><br><span class="line">            fo2.write(test.getBytes());</span><br><span class="line">        &#125; <span class="keyword">catch</span> (FileNotFoundException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 验证 getPath 与 getAbsolubtePath 的区别。</span></span><br><span class="line">        System.out.println(fi1.getPath());</span><br><span class="line">        System.out.println(fi1.getAbsolutePath());</span><br><span class="line"></span><br><span class="line">        System.out.println(fi2.getPath());</span><br><span class="line">        System.out.println(fi2.getAbsolutePath());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出的结果如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">D:\sy.ini</span><br><span class="line">D:\sy.ini</span><br><span class="line">sy.ini</span><br><span class="line">D:\Programme\0-Java\J_Example\Arithmetic\sy.ini</span><br></pre></td></tr></table></figure>
+<p>用两张图片辅助结果</p>
+<p><img src="http://ovmspkp0s.bkt.clouddn.com/201709172153_892.png" alt=""></p>
+<p><img src="http://ovmspkp0s.bkt.clouddn.com/201709172154_836.png" alt=""></p>
+<p>从这个结果中，我们可以看出两点</p>
+<ol>
+<li>getPath 只是简单的返回 你赋予的String 值，不管是 相对路径还是绝对路径。</li>
+<li>相对路径是相对于自身的项目地址。并且不加 <strong>“/“</strong>。</li>
+</ol>
+<h3 id="getResource"><a href="#getResource" class="headerlink" title="getResource"></a>getResource</h3><p>用代码说话。。。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">URL resource = testFile.class.getClassLoader().getResource(&quot;.&quot;);</span><br><span class="line">URL resource1 = testFile.class.getResource(&quot;.&quot;);</span><br><span class="line">System.out.println(resource);</span><br><span class="line">System.out.println(resource1);</span><br></pre></td></tr></table></figure></p>
+<p>输出的结果为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">file:/D:/Programme/0-Java/J_Example/Arithmetic/out/production/3_basic/</span><br><span class="line">file:/D:/Programme/0-Java/J_Example/Arithmetic/out/production/3_basic/test_01/</span><br></pre></td></tr></table></figure>
+<p>所以对于 getResource 来说 。    </p>
+<ol>
+<li>如果使用 Class 类 ，则代表该类所在的包为 相对路径的起点。</li>
+<li>如果使用 ClassLoader类 , 则代表该类所在的 模块为 相对路径的起点。</li>
+</ol>
+<h3 id="JSP-中的路径"><a href="#JSP-中的路径" class="headerlink" title="JSP 中的路径"></a>JSP 中的路径</h3><p>使用 <strong>EL</strong>  表达式<br><strong>${pageContext.request.contextPath}</strong> 这里的路径指的是 <strong>web</strong> 的根目录.</p>
+<h3 id="File类-与-Path类"><a href="#File类-与-Path类" class="headerlink" title="File类 与 Path类"></a>File类 与 Path类</h3><p>Path 类 是 JDK 7 中加入的新内容。比File 类更快，而且有报错机制，所以更容易使用。</p>
+<p>他们两个的 <code>区别</code> 我会写在内部的 注释中。<br>就不单独拿出来写了。</p>
+<ol>
+<li>创建文件<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">// 如果存在重复 会报错。</span><br><span class="line">Path path = Paths.get(&quot;D://test.txt&quot;);</span><br><span class="line">Files.createFile(path);</span><br><span class="line">// 这里有一个 方法，可直接设置文件的属性。</span><br><span class="line">Set perms= PosixFilePermissions.fromString(&quot;rw-rw-rw-&quot;)</span><br><span class="line">Files.crateFile(path,perms);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// 如果存在重复，会重新创建。</span><br><span class="line">// 可以使用 file.exists() 来确认是否存在重复。</span><br><span class="line">File file = new File(&quot;D://test02.txt&quot;);</span><br><span class="line">file.createNewFile();</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>共同点： 想要创建多级目录下的文件，都必须先创建目录，才能创建文件。</p>
+<ol start="2">
+<li><p>创建目录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">// 可以直接创建多级目录</span><br><span class="line">Path path = Paths.get(&quot;D://test/test01/&quot;);</span><br><span class="line">Files.createDirectories(path);</span><br><span class="line"></span><br><span class="line">// mkdir 只能创建一级目录</span><br><span class="line">// mkdirs 可以创建多级目录</span><br><span class="line">File file = new File(&quot;D://test02/test3/test3&quot;);</span><br><span class="line">file.mkdir();</span><br><span class="line">file.mkdirs();</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>删除</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// 如果文件夹下存在多级目录，则报错</span><br><span class="line">// DirectoryNotEmptyException</span><br><span class="line">Path path = Paths.get(&quot;D://test/&quot;);</span><br><span class="line">Files.delete(path);</span><br><span class="line"></span><br><span class="line">// 如果文件夹下存在多级目录，则没有反应。。</span><br><span class="line">File file = new File(&quot;D://test02&quot;);</span><br><span class="line">file.delete();</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>如果想要删除相应的文件，直接将 路径更改为文件的路径即可。</p>
+<ol start="4">
+<li>遍历文件</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">public static void fileForEach(String path) &#123;</span><br><span class="line">    File file = new File(path);</span><br><span class="line">    File[] files = file.listFiles();</span><br><span class="line">    for (File f : files) &#123;</span><br><span class="line">        // 判断是 文件还是 目录</span><br><span class="line">        if (f.isFile()) &#123;</span><br><span class="line">            System.out.println(f.getName() + &quot;是文件!&quot;);</span><br><span class="line">        &#125; else if (f.isDirectory()) &#123;</span><br><span class="line">            System.out.println(f.getName());</span><br><span class="line">            fileForEach(f.getPath());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public static void main(String[] args) throws IOException &#123;</span><br><span class="line">    Path path = Paths.get(&quot;D://test/&quot;);</span><br><span class="line">    Files.walkFileTree(path, new SimpleFileVisitor&lt;Path&gt;() &#123;</span><br><span class="line">        // 访问文件夹前使用</span><br><span class="line">        @Override</span><br><span class="line">        public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException &#123;</span><br><span class="line">            System.out.println(dir.getFileName());</span><br><span class="line">            return super.preVisitDirectory(dir, attrs);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        // 访问文件夹后使用</span><br><span class="line">        @Override</span><br><span class="line">        public FileVisitResult postVisitDirectory(Path dir, IOException exc) throws IOException &#123;</span><br><span class="line">            return super.postVisitDirectory(dir, exc);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        // 访问文件时使用</span><br><span class="line">        @Override</span><br><span class="line">        public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException &#123;</span><br><span class="line">            if (file.toString().endsWith(&quot;.txt&quot;)) &#123;</span><br><span class="line">                System.out.println(file.getFileName());</span><br><span class="line">            &#125;</span><br><span class="line">            return super.visitFile(file, attrs);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        // 访问文件失败使用</span><br><span class="line">        @Override</span><br><span class="line">        public FileVisitResult visitFileFailed(Path file, IOException exc) throws IOException &#123;</span><br><span class="line">            return super.visitFileFailed(file, exc);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    fileForEach(&quot;D://test02/&quot;);</span><br><span class="line">&#125;&#125;</span><br></pre></td></tr></table></figure>
+<p>这里出现了 <strong>SimpleFileVisitor</strong> 这个类，具体使用方法就是覆写其内部方法。<br>经过我的测试 ， 因为这个类的方法， 可以比 <strong> fileForEach</strong> 快大约 <strong> 30% </strong> 。</p>
+<ol start="5">
+<li>复制与移动<br>移动的同时可以更改名字。这一点，都一样。并且与 linux 的操作也类似</li>
+</ol>
+<p>Path 类<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Path path = Paths.get(&quot;D://test/test01/cs.txt&quot;);</span><br><span class="line">Path to = Paths.get(&quot;D://test/test01/test2.txt&quot;);</span><br><span class="line">Files.move(path, to, StandardCopyOption.REPLACE_EXISTING);</span><br><span class="line">Files.copy(path, to, StandardCopyOption.REPLACE_EXISTING);</span><br></pre></td></tr></table></figure></p>
+<p>这里的 <strong> StandardCopyOption </strong> 有三个属性。<br>注意： ATOMIC_MOVE 方法只支持 move 方法。如果将之使用到 copy 方法，则会报错。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">/* 如果存在则覆盖</span><br><span class="line"> * Replace an existing file if it exists. </span><br><span class="line"> */</span><br><span class="line">REPLACE_EXISTING,</span><br><span class="line">/* 将属性一同拷贝。</span><br><span class="line"> * Copy attributes to the new file.</span><br><span class="line"> */</span><br><span class="line">COPY_ATTRIBUTES,</span><br><span class="line">/* 只支持 move 方法，不支持 copy 方法</span><br><span class="line"> * Move the file as an atomic file system operation.</span><br><span class="line"> */</span><br><span class="line">ATOMIC_MOVE;</span><br></pre></td></tr></table></figure>
+<p>下面是file 类</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">// 拷贝 方法</span><br><span class="line">public void copyFile(String oldFile,String newFile)&#123;</span><br><span class="line">try&#123;</span><br><span class="line">int bytesum = 0;</span><br><span class="line">int byteread = 0;</span><br><span class="line">File oldfile = new File(oldFile);</span><br><span class="line">//判断文件是否存在，如果文件存在则实现该文件向新文件的复制</span><br><span class="line">if(oldfile.exists())&#123;</span><br><span class="line">    //读取原文件</span><br><span class="line">    InputStream ins = new FileInputStream(oldFile);</span><br><span class="line">    //创建文件输出流，写入文件</span><br><span class="line">    FileOutputStream outs = new FileOutputStream(newFile);</span><br><span class="line">    //创建缓冲区，大小为500字节</span><br><span class="line">    byte[] buffer = new byte[500];</span><br><span class="line">    //每次从文件流中读取500字节数据，计算当前为止读取的数据总数</span><br><span class="line">    while((byteread = ins.read(buffer)) != -1)&#123;</span><br><span class="line">    bytesum += byteread;</span><br><span class="line">    System.out.println(bytesum);</span><br><span class="line">    //把当前缓冲区中的数据写入新文件</span><br><span class="line">    outs.write(buffer,0,byteread);</span><br><span class="line">    &#125;</span><br><span class="line">    ins.close();</span><br><span class="line">&#125;</span><br><span class="line">else  //如果原文件不存在，则扔出异常</span><br><span class="line">    throw new Exception();</span><br><span class="line">&#125;catch(Exception ex)&#123;</span><br><span class="line">System.out.print(&quot;原文件不存在！&quot;);</span><br><span class="line">ex.printStackTrace();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 移动 方法</span><br><span class="line">File file = new File(&quot;D://test02/test02/test02.txt&quot;);</span><br><span class="line">file.renameTo(new File(&quot;D://test02/test02/test.txt&quot;));</span><br></pre></td></tr></table></figure>
+<p>从这里我们可以看出， path 类相对应的 复制方法 非常简单，不需要使用 直接使用输入输出流就可以复制文件。</p>
+<ol start="6">
+<li>输入输出流</li>
+</ol>
+<p>Path类<br><img src="http://ovmspkp0s.bkt.clouddn.com/201709172336_740.png" alt=""></p>
+<p>File类<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">File file = new File(&quot;D://test02/test02/test02.txt&quot;);</span><br><span class="line">FileInputStream fileInputStream = new FileInputStream(file);</span><br><span class="line">FileReader fileReader = new FileReader(file);</span><br></pre></td></tr></table></figure></p>
+<p>相对比，我们也可以看出，Path类相对 file类也简化了很多操作。更有利于开发。</p>
+<ol start="7">
+<li>相互转化<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">path.toFile()</span><br><span class="line">File.toPath()</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ol>
+<li>关于路径的使用总结。<br><img src="http://ovmspkp0s.bkt.clouddn.com/201709172357_508.png" alt=""></li>
+<li>关于Path 与 File 类的使用总结。<br>Path 类 相比较于 File 类 ，在操作上更直观，没有涉及到更深的层面.可以看出 研发人员 从中作出了很多改进。 可以让人更专注于逻辑的编写，而非是 底层的基础。<br>虽然并没有针对其 性能作出确切的比较，不过就现有的网络统计来说， Path 类在使用中大都会比 File 类快 , 并且在最新的 lucene 中，也是用 Path 代替了 file 的操作， 相关的文章请参考 []。<br>综上，推荐使用 Path 类替代 File 类。</li>
+</ol>
+<h3 id="前言-1"><a href="#前言-1" class="headerlink" title="前言"></a>前言</h3><p>最近作项目的时候，用java获取文件。<br>虽然用框架很容易，但是其内部的原理让我很疑惑。在自己写相似的代码的时候，往往会出现各种各样的错误。所以这里，对相关的类以及方法进行一个整合。<br>比如 file 类，path 类。 绝对路径与相对路径。 getResource 方法 ， getRealPath方法等。</p>
+<h3 id="绝对路径与相对路径-1"><a href="#绝对路径与相对路径-1" class="headerlink" title="绝对路径与相对路径"></a>绝对路径与相对路径</h3><p>在使用 File 类的时候，发现绝对路径和相对路径的使用有很大的区别。<br>大家都知道：File类是用来构造文件或文件夹的类,在其构造函数中要求传入一个String类型的参数,用于指示文件所在的路径<br><code>绝对路径名</code>是完整的路径名，不需要任何其他信息就可以定位自身表示的文件。<br><code>相对路径名</code>必须使用来自其他路径名的信息进行解释</p>
+<p>因为我使用的是 idea ，所以下面，我就用idea 给大家演示一下，他们的区别。<br>废话不多说，直接上代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">testFile</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        <span class="comment">// 绝对路径</span></span><br><span class="line">        File fi1 = <span class="keyword">new</span> File(<span class="string">"D://sy.ini"</span>);</span><br><span class="line">        <span class="comment">// 相对路径</span></span><br><span class="line">        File fi2 = <span class="keyword">new</span> File(<span class="string">"sy.ini"</span>);</span><br><span class="line">        String test = <span class="string">"000"</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">// 将 test 分别写入 fi1 fi2</span></span><br><span class="line">            FileOutputStream fo1 = <span class="keyword">new</span> FileOutputStream(fi1);</span><br><span class="line">            FileOutputStream fo2 = <span class="keyword">new</span> FileOutputStream(fi2);</span><br><span class="line">            fo1.write(test.getBytes());</span><br><span class="line">            fo2.write(test.getBytes());</span><br><span class="line">        &#125; <span class="keyword">catch</span> (FileNotFoundException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 验证 getPath 与 getAbsolubtePath 的区别。</span></span><br><span class="line">        System.out.println(fi1.getPath());</span><br><span class="line">        System.out.println(fi1.getAbsolutePath());</span><br><span class="line"></span><br><span class="line">        System.out.println(fi2.getPath());</span><br><span class="line">        System.out.println(fi2.getAbsolutePath());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出的结果如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">D:\sy.ini</span><br><span class="line">D:\sy.ini</span><br><span class="line">sy.ini</span><br><span class="line">D:\Programme\0-Java\J_Example\Arithmetic\sy.ini</span><br></pre></td></tr></table></figure>
+<p>用两张图片辅助结果</p>
+<p><img src="http://ovmspkp0s.bkt.clouddn.com/201709172153_892.png" alt=""></p>
+<p><img src="http://ovmspkp0s.bkt.clouddn.com/201709172154_836.png" alt=""></p>
+<p>从这个结果中，我们可以看出两点</p>
+<ol>
+<li>getPath 只是简单的返回 你赋予的String 值，不管是 相对路径还是绝对路径。</li>
+<li>相对路径是相对于自身的项目地址。并且不加 <strong>“/“</strong>。</li>
+</ol>
+<h3 id="getResource-1"><a href="#getResource-1" class="headerlink" title="getResource"></a>getResource</h3><p>用代码说话。。。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">URL resource = testFile.class.getClassLoader().getResource(&quot;.&quot;);</span><br><span class="line">URL resource1 = testFile.class.getResource(&quot;.&quot;);</span><br><span class="line">System.out.println(resource);</span><br><span class="line">System.out.println(resource1);</span><br></pre></td></tr></table></figure></p>
+<p>输出的结果为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">file:/D:/Programme/0-Java/J_Example/Arithmetic/out/production/3_basic/</span><br><span class="line">file:/D:/Programme/0-Java/J_Example/Arithmetic/out/production/3_basic/test_01/</span><br></pre></td></tr></table></figure>
+<p>所以对于 getResource 来说 。    </p>
+<ol>
+<li>如果使用 Class 类 ，则代表该类所在的包为 相对路径的起点。</li>
+<li>如果使用 ClassLoader类 , 则代表该类所在的 模块为 相对路径的起点。</li>
+</ol>
+<h3 id="JSP-中的路径-1"><a href="#JSP-中的路径-1" class="headerlink" title="JSP 中的路径"></a>JSP 中的路径</h3><p>使用 <strong>EL</strong>  表达式<br><strong>${pageContext.request.contextPath}</strong> 这里的路径指的是 <strong>web</strong> 的根目录.</p>
+<h3 id="File类-与-Path类-1"><a href="#File类-与-Path类-1" class="headerlink" title="File类 与 Path类"></a>File类 与 Path类</h3><p>Path 类 是 JDK 7 中加入的新内容。比File 类更快，而且有报错机制，所以更容易使用。</p>
+<p>他们两个的 <figure class="highlight plain"><figcaption><span>我会写在内部的 注释中。</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">就不单独拿出来写了。</span><br><span class="line"></span><br><span class="line">1. 创建文件</span><br></pre></td></tr></table></figure></p>
+<pre><code>// 如果存在重复 会报错。
+Path path = Paths.get(&quot;D://test.txt&quot;);
+Files.createFile(path);
+// 这里有一个 方法，可直接设置文件的属性。
+Set perms= PosixFilePermissions.fromString(&quot;rw-rw-rw-&quot;)
+Files.crateFile(path,perms);
+
+
+// 如果存在重复，会重新创建。
+// 可以使用 file.exists() 来确认是否存在重复。
+File file = new File(&quot;D://test02.txt&quot;);
+file.createNewFile();
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">共同点： 想要创建多级目录下的文件，都必须先创建目录，才能创建文件。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">2. 创建目录</span><br></pre></td></tr></table></figure>
+<pre><code>// 可以直接创建多级目录
+Path path = Paths.get(&quot;D://test/test01/&quot;);
+Files.createDirectories(path);
+
+// mkdir 只能创建一级目录
+// mkdirs 可以创建多级目录
+File file = new File(&quot;D://test02/test3/test3&quot;);
+file.mkdir();
+file.mkdirs();
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">3. 删除</span><br></pre></td></tr></table></figure>
+<pre><code>// 如果文件夹下存在多级目录，则报错
+// DirectoryNotEmptyException
+Path path = Paths.get(&quot;D://test/&quot;);
+Files.delete(path);
+
+// 如果文件夹下存在多级目录，则没有反应。。
+File file = new File(&quot;D://test02&quot;);
+file.delete();
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">如果想要删除相应的文件，直接将 路径更改为文件的路径即可。</span><br><span class="line"></span><br><span class="line">4. 遍历文件</span><br></pre></td></tr></table></figure>
+<pre><code>public static void fileForEach(String path) {
+    File file = new File(path);
+    File[] files = file.listFiles();
+    for (File f : files) {
+        // 判断是 文件还是 目录
+        if (f.isFile()) {
+            System.out.println(f.getName() + &quot;是文件!&quot;);
+        } else if (f.isDirectory()) {
+            System.out.println(f.getName());
+            fileForEach(f.getPath());
+        }
+    }
+}
+
+public static void main(String[] args) throws IOException {
+    Path path = Paths.get(&quot;D://test/&quot;);
+    Files.walkFileTree(path, new SimpleFileVisitor&lt;Path&gt;() {
+        // 访问文件夹前使用
+        @Override
+        public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
+            System.out.println(dir.getFileName());
+            return super.preVisitDirectory(dir, attrs);
+        }
+
+        // 访问文件夹后使用
+        @Override
+        public FileVisitResult postVisitDirectory(Path dir, IOException exc) throws IOException {
+            return super.postVisitDirectory(dir, exc);
+        }
+
+        // 访问文件时使用
+        @Override
+        public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+            if (file.toString().endsWith(&quot;.txt&quot;)) {
+                System.out.println(file.getFileName());
+            }
+            return super.visitFile(file, attrs);
+        }
+
+        // 访问文件失败使用
+        @Override
+        public FileVisitResult visitFileFailed(Path file, IOException exc) throws IOException {
+            return super.visitFileFailed(file, exc);
+        }
+    });
+
+    fileForEach(&quot;D://test02/&quot;);
+}}
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">这里出现了 **SimpleFileVisitor** 这个类，具体使用方法就是覆写其内部方法。</span><br><span class="line">经过我的测试 ， 因为这个类的方法， 可以比 ** fileForEach** 快大约 ** 30% ** 。</span><br><span class="line"></span><br><span class="line">5. 复制与移动</span><br><span class="line">移动的同时可以更改名字。这一点，都一样。并且与 linux 的操作也类似</span><br><span class="line"></span><br><span class="line">Path 类</span><br></pre></td></tr></table></figure>
+<pre><code>Path path = Paths.get(&quot;D://test/test01/cs.txt&quot;);
+Path to = Paths.get(&quot;D://test/test01/test2.txt&quot;);
+Files.move(path, to, StandardCopyOption.REPLACE_EXISTING);
+Files.copy(path, to, StandardCopyOption.REPLACE_EXISTING);
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">这里的 ** StandardCopyOption ** 有三个属性。</span><br><span class="line">注意： ATOMIC_MOVE 方法只支持 move 方法。如果将之使用到 copy 方法，则会报错。</span><br></pre></td></tr></table></figure>
+<pre><code>/* 如果存在则覆盖
+ * Replace an existing file if it exists. 
+ */
+REPLACE_EXISTING,
+/* 将属性一同拷贝。
+ * Copy attributes to the new file.
+ */
+COPY_ATTRIBUTES,
+/* 只支持 move 方法，不支持 copy 方法
+ * Move the file as an atomic file system operation.
+ */
+ATOMIC_MOVE;
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">下面是file 类</span><br></pre></td></tr></table></figure>
+<pre><code>// 拷贝 方法
+public void copyFile(String oldFile,String newFile){
+try{
+int bytesum = 0;
+int byteread = 0;
+File oldfile = new File(oldFile);
+//判断文件是否存在，如果文件存在则实现该文件向新文件的复制
+if(oldfile.exists()){
+    //读取原文件
+    InputStream ins = new FileInputStream(oldFile);
+    //创建文件输出流，写入文件
+    FileOutputStream outs = new FileOutputStream(newFile);
+    //创建缓冲区，大小为500字节
+    byte[] buffer = new byte[500];
+    //每次从文件流中读取500字节数据，计算当前为止读取的数据总数
+    while((byteread = ins.read(buffer)) != -1){
+    bytesum += byteread;
+    System.out.println(bytesum);
+    //把当前缓冲区中的数据写入新文件
+    outs.write(buffer,0,byteread);
+    }
+    ins.close();
+}
+else  //如果原文件不存在，则扔出异常
+    throw new Exception();
+}catch(Exception ex){
+System.out.print(&quot;原文件不存在！&quot;);
+ex.printStackTrace();
+}
+
+// 移动 方法
+File file = new File(&quot;D://test02/test02/test02.txt&quot;);
+file.renameTo(new File(&quot;D://test02/test02/test.txt&quot;));
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">从这里我们可以看出， path 类相对应的 复制方法 非常简单，不需要使用 直接使用输入输出流就可以复制文件。</span><br><span class="line"></span><br><span class="line">6. 输入输出流</span><br><span class="line"></span><br><span class="line">Path类</span><br><span class="line">![](http://ovmspkp0s.bkt.clouddn.com/201709172336_740.png)</span><br><span class="line"></span><br><span class="line">File类</span><br></pre></td></tr></table></figure>
+<pre><code>File file = new File(&quot;D://test02/test02/test02.txt&quot;);
+FileInputStream fileInputStream = new FileInputStream(file);
+FileReader fileReader = new FileReader(file);
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">相对比，我们也可以看出，Path类相对 file类也简化了很多操作。更有利于开发。</span><br><span class="line"></span><br><span class="line">7. 相互转化</span><br></pre></td></tr></table></figure>
+<p>path.toFile()<br>File.toPath()</p>
+<p><code>`</code></p>
+<h3 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h3><ol>
+<li>关于路径的使用总结。<br><img src="http://ovmspkp0s.bkt.clouddn.com/201709172357_508.png" alt=""></li>
+<li>关于Path 与 File 类的使用总结。<br>Path 类 相比较于 File 类 ，在操作上更直观，没有涉及到更深的层面.可以看出 研发人员 从中作出了很多改进。 可以让人更专注于逻辑的编写，而非是 底层的基础。<br>虽然并没有针对其 性能作出确切的比较，不过就现有的网络统计来说， Path 类在使用中大都会比 File 类快 , 并且在最新的 lucene 中，也是用 Path 代替了 file 的操作， 相关的文章请参考 []。<br>综上，推荐使用 Path 类替代 File 类。</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/killJava/" rel="tag"># killJava</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blogs/21184.html" rel="next" title="从 Socket 编程 到 OkHttp 框架">
+                <i class="fa fa-chevron-left"></i> 从 Socket 编程 到 OkHttp 框架
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blogs/25108.html" rel="prev" title="版本控制 -- SVN 整合 idea">
+                版本控制 -- SVN 整合 idea <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">3Dot141</p>
+              <p class="site-description motion-element" itemprop="description">Nothing is impossible to a willing heart.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">49</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#绝对路径与相对路径"><span class="nav-number">2.</span> <span class="nav-text">绝对路径与相对路径</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#getResource"><span class="nav-number">3.</span> <span class="nav-text">getResource</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JSP-中的路径"><span class="nav-number">4.</span> <span class="nav-text">JSP 中的路径</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#File类-与-Path类"><span class="nav-number">5.</span> <span class="nav-text">File类 与 Path类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#前言-1"><span class="nav-number">7.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#绝对路径与相对路径-1"><span class="nav-number">8.</span> <span class="nav-text">绝对路径与相对路径</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#getResource-1"><span class="nav-number">9.</span> <span class="nav-text">getResource</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JSP-中的路径-1"><span class="nav-number">10.</span> <span class="nav-text">JSP 中的路径</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#File类-与-Path类-1"><span class="nav-number">11.</span> <span class="nav-text">File类 与 Path类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结-1"><span class="nav-number">12.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">3Dot141</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

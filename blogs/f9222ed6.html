@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="killJava," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="最近做项目，涉及到 JVM 的一些知识，所以又整理了一下。 加固自己的基础。">
+<meta name="keywords" content="killJava">
+<meta property="og:type" content="article">
+<meta property="og:title" content="killJava -- JVM 基础知识">
+<meta property="og:url" content="https://3dot141.com/blogs/f9222ed6.html">
+<meta property="og:site_name" content="killCode">
+<meta property="og:description" content="最近做项目，涉及到 JVM 的一些知识，所以又整理了一下。 加固自己的基础。">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-07-10T14:55:26.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="killJava -- JVM 基础知识">
+<meta name="twitter:description" content="最近做项目，涉及到 JVM 的一些知识，所以又整理了一下。 加固自己的基础。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://3dot141.com/blogs/f9222ed6.html"/>
+
+
+
+
+
+  <title>killJava -- JVM 基础知识 | killCode</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">killCode</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://3dot141.com/blogs/f9222ed6.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="3Dot141">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="killCode">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">killJava -- JVM 基础知识</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-07-10T00:00:00+08:00">
+                2018-07-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Code/" itemprop="url" rel="index">
+                    <span itemprop="name">Code</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  最近做项目，涉及到 JVM 的一些知识，所以又整理了一下。 加固自己的基础。
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="jvm-基础知识"><a href="#jvm-基础知识" class="headerlink" title="jvm 基础知识"></a>jvm 基础知识</h2><ol>
+<li>如何自定义默认的 类加载器。</li>
+</ol>
+<p>loadclass – 双亲委派模型<br><a href="http://blog.csdn.net/seu_calvin/article/details/52315125" target="_blank" rel="noopener">loadclass 源码</a></p>
+<p><a href="https://www.ibm.com/developerworks/cn/java/j-lo-classloader/" target="_blank" rel="noopener">https://www.ibm.com/developerworks/cn/java/j-lo-classloader/</a><br><a href="https://www.cnblogs.com/xrq730/p/4847337.html" target="_blank" rel="noopener">https://www.cnblogs.com/xrq730/p/4847337.html</a></p>
+<ol start="2">
+<li><p>JVM 表示一个类是同一个类有两个条件，</p>
+<ol>
+<li>类的完整类名</li>
+<li>加载这个类的 classloader 是否是同一个实例。</li>
+</ol>
+</li>
+<li><p>如何实现 java 的热部署<br>因为java 不能加载重复的类， 但是 只要classloader 不同，就不是重复，所以可以创建同一个 classloader 的不同实例，从而达到 java 热部署的目的。 </p>
+</li>
+</ol>
+<h2 id="jvm-类的加载"><a href="#jvm-类的加载" class="headerlink" title="jvm 类的加载"></a>jvm 类的加载</h2><h3 id="预先加载以及按需加载"><a href="#预先加载以及按需加载" class="headerlink" title="预先加载以及按需加载"></a>预先加载以及按需加载</h3><p>1 预先加载<br>Java 运行环境为了优化系统，提高程序的执行速度，在 JRE 运行的开始会将 Java 运行所需要的基本类采用预先加载（ pre-loading ）的方法全部加载要内存当中，因为这些单元在 Java 程序运行的过程当中经常要使用的，主要包括 JRE 的 rt.jar 文件里面所有的 .class 文件<br>当 java.exe 虚拟机开始运行以后，它会找到安装在机器上的 JRE 环境，然后把控制权交给 JRE ， JRE 的类加载器会将 lib 目录下的 rt.jar 基础类别文件库加载进内存，这些文件是 Java 程序执行所必须的，所以系统在开始就将这些文件加载，避免以后的多次 IO 操作，从而提高程序执行效率。<br><strong>注：</strong> 这里应该是使用 启动类加载器(BootStrap)</p>
+<p>2 按需加载<br>我们在定义一个类实例的时候，比如 TestClassA testClassA ，这个时候 testClassA 的值为 null ，也就是说还没有初始化，没有调用 TestClassA 的构造函数，只有当执行 testClassA = new TestClassA() 以后， JRE 才正真把 TestClassA 加载进来。</p>
+<h3 id="隐式加载和显示加载"><a href="#隐式加载和显示加载" class="headerlink" title="隐式加载和显示加载"></a>隐式加载和显示加载</h3><ol>
+<li>隐式加载<br>new 一个对象</li>
+<li>显示加载<br>class.forName()</li>
+</ol>
+<h3 id="加载流程"><a href="#加载流程" class="headerlink" title="加载流程"></a>加载流程</h3><p>当执行 java .class **<br>的时候， java.exe 会帮助我们找到 JRE ，接着找到位于 JRE 内部的 jvm.dll ，这才是真正的 Java 虚拟机器 , 最后加载动态库，激活 Java 虚拟机器。<br>虚拟机器激活以后，会先做一些初始化的动作，比如说读取系统参数等。<br>一旦初始化动作完成之后，就会产生第一个类加载器―― Bootstrap Loader ， Bootstrap Loader 是由 C++ 所撰写而成，<br>这个 Bootstrap Loader 所做的初始工作中，除了一些基本的初始化动作之外，最重要的就是加载 Launcher.java 之中的 ExtClassLoader ，并设定其 Parent 为 null ，代表其父加载器为 BootstrapLoader 。<br>然后 Bootstrap Loader 再要求加载 Launcher.java 之中的 AppClassLoader ，并设定其 Parent 为之前产生的 ExtClassLoader 实体。<br>这两个加载器都是以静态类的形式存在的。这里要请大家注意的是， Launcher$ExtClassLoader.class 与 Launcher$AppClassLoader.class 都是由 Bootstrap Loader 所加载，所以 Parent 和由哪个类加载器加载没有关系。</p>
+<h3 id="动态编译"><a href="#动态编译" class="headerlink" title="动态编译"></a>动态编译</h3><p>java中早就提供了用java方式去动态编译java源文件的接口，有关java动态编译的API都在javax.tools包中。本文主要使用jdk1.6以上版本提供的JavaCompiler工具来动态编译java源文件。<br>我们可以通过ToolProvider类的静态方法getSystemJavaCompiler得到JavaCompiler对象实例。 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 获取编译器实例    </span><br><span class="line">JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();</span><br></pre></td></tr></table></figure>
+<p>得到JavaCompiler对象实例后，<br>我们可以调用该工具的<br>getTask(Writer out, JavaFileManager fileManager, DiagnosticListener&lt;? super JavaFileObject&gt; diagnosticListener, Iterable<string> options, Iterable<string> classes, Iterable&lt;? extends JavaFileObject&gt; compilationUnits)<br>方法获取一个编译任务对象。 </string></string></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CompilationTask compilationTask = compiler.getTask(null, fileManager, diagnostics, options, null, compilationUnits);</span><br></pre></td></tr></table></figure>
+<p>该方法<br><strong>第一个参数</strong>为文件输出，这里我们可以不指定，<br><strong>第二个参数</strong>为文件管理器实例 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 获取标准文件管理器实例    </span><br><span class="line">StandardJavaFileManager fileManager = compiler.getStandardFileManager(null, null, null);</span><br></pre></td></tr></table></figure>
+<p>该文件管理器实例的作用就是将我们需要动态编译的java源文件转换为getTask需要的编译单元。 </p>
+<p><strong>第三个参数</strong>DiagnosticCollector<javafileobject> diagnostics是在编译出错时，存放编译错误信息。 </javafileobject></p>
+<p><strong>第四个参数</strong>为编译命令选项，就是javac命令的可选项，这里我们主要使用了-d和-sourcepath这两个选项。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">/**  </span><br><span class="line">* 编译选项，在编译java文件时，编译程序会自动的去寻找java文件引用的其他的java源文件或者class。 -sourcepath选项就是定义java源文件的查找目录， -classpath选项就是定义class文件的查找目录，-d就是编译文件的输出目录。  </span><br><span class="line">*/    </span><br><span class="line">Iterable&lt;String&gt; options = Arrays.asList(&quot;-d&quot;, targetDir, &quot;-sourcepath&quot;, sourceDir);</span><br></pre></td></tr></table></figure>
+<p>第五个参数为类名称，具体作用没研究清楚。<br>第六个参数为上面提到的编译单元，就是我们需要编译的java源文件 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 获取要编译的编译单元    </span><br><span class="line">Iterable&lt;? extends JavaFileObject&gt; compilationUnits = fileManager.getJavaFileObjectsFromFiles(sourceFileList);</span><br></pre></td></tr></table></figure>
+<p>当我们得到CompilationTask compilationTask编译任务后，我们就可以调用compilationTask.call()方法进行编译工作 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 运行编译任务   </span><br><span class="line">compilationTask.call()</span><br></pre></td></tr></table></figure>
+<h3 id="动态加载"><a href="#动态加载" class="headerlink" title="动态加载"></a>动态加载</h3><p>VirtualMachine + Attach + Agent + Instrumentation + ClassFileTransformer</p>
+<p>这里的主要重点是 <strong>Instrumentation</strong></p>
+<h4 id="Instrumentation"><a href="#Instrumentation" class="headerlink" title="Instrumentation"></a>Instrumentation</h4><p>Java Instrutment只提供了JVM TI中非常小的一个功能子集，<br>一个是允许在类加载之前，修改类字节(ClassFileTransformer)(JDK5中开始提供，即使随JVM启动的Agent)，<br>另外一个是在类加载之后，触发JVM重新进行类加载(JDK6中开始提供，用于JVM启动之后通过Attach去加载Agent)。<br><strong>第二种方法</strong> 主要是用于 loadAgent 生成 Agent 类</p>
+<p>下面是通过 <code>ViusalMachine.attach()</code> 方法后得到 <code>VisualMachine</code> 类。<br>然后加载 JMX Agent 得到本地的 JMX 链接地址。<br>然后创建 相应的 JMXConnetor 。从而得到相应的信息。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">// 被监控jvm的pid(windows上可以通过任务管理器查看)  </span><br><span class="line">            String targetVmPid = &quot;5936&quot;;  </span><br><span class="line">            // Attach到被监控的JVM进程上  </span><br><span class="line">            VirtualMachine virtualmachine = VirtualMachine.attach(targetVmPid);  </span><br><span class="line">  </span><br><span class="line">            // 让JVM加载jmx Agent  </span><br><span class="line">            String javaHome = virtualmachine.getSystemProperties().getProperty(&quot;java.home&quot;);  </span><br><span class="line">            String jmxAgent = javaHome + File.separator + &quot;lib&quot; + File.separator + &quot;management-agent.jar&quot;;  </span><br><span class="line">            virtualmachine.loadAgent(jmxAgent, &quot;com.sun.management.jmxremote&quot;);  </span><br><span class="line">  </span><br><span class="line">            // 获得连接地址  </span><br><span class="line">            Properties properties = virtualmachine.getAgentProperties();  </span><br><span class="line">            String address = (String) properties.get(&quot;com.sun.management.jmxremote.localConnectorAddress&quot;);  </span><br><span class="line">  </span><br><span class="line">            // Detach  </span><br><span class="line">            virtualmachine.detach();  </span><br><span class="line">            // 通过jxm address来获取RuntimeMXBean对象，从而得到虚拟机运行时相关信息  </span><br><span class="line">            JMXServiceURL url = new JMXServiceURL(address);  </span><br><span class="line">            JMXConnector connector = JMXConnectorFactory.connect(url);  </span><br><span class="line">            RuntimeMXBean rmxb = ManagementFactory.newPlatformMXBeanProxy(connector.getMBeanServerConnection(), &quot;java.lang:type=Runtime&quot;,  </span><br><span class="line">                    RuntimeMXBean.class);  </span><br><span class="line">            // 得到目标虚拟机占用cpu时间  </span><br><span class="line">            System.out.println(rmxb.getUptime());</span><br></pre></td></tr></table></figure></p>
+<h4 id="Agent"><a href="#Agent" class="headerlink" title="Agent"></a>Agent</h4><p>目前Agent类的启动有两种方式，<br>一种是在JDK5版本中提供随JVM启动的Agent，我们称之为premain方式。<br>另一种是在JDK6中在JDK5的基础之上又提供了JVM启动之后通过Attach去加载的Agent类，我们称之为agentmain方式。<br>Agent类的两种实现方式：<br>在这两种启动方式下，Agent JAR文件中的代理类中都必须实现特定的方法，如下所示： </p>
+<p><strong>1、随JVM启动的Agent方式必须实现下面两个方法中的其中一个： </strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">public static void premain(String agentArgs, Instrumentation inst);[1]  </span><br><span class="line">public static void premain(String agentArgs);[2]</span><br></pre></td></tr></table></figure>
+<p>JVM 首先尝试在代理类上调用以下方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public static void premain(String agentArgs, Instrumentation inst);</span><br></pre></td></tr></table></figure></p>
+<p>如果代理类没有实现此方法，那么 JVM 将尝试调用： </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public static void premain(String agentArgs);</span><br></pre></td></tr></table></figure>
+<p><strong>2、通过Attach去启动Agent类方式必须实现下面两个方法中的其中一个： </strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">public static void agentmain (String agentArgs, Instrumentation inst);[1]   </span><br><span class="line">public static void agentmain (String agentArgs);[2]</span><br></pre></td></tr></table></figure>
+<p>代理类必须实现公共静态agentmain方法。系统类加载器（ClassLoader.getSystemClassLoader）必须支持将代理 JAR 文件添加到系统类路径的机制。代理 JAR 将被添加到系统类路径。系统类路径是通常加载包含应用程序 main 方法的类的类路径。代理类将被加载，JVM 尝试调用agentmain 方法。JVM 首先尝试对代理类调用以下方法： </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public static void agentmain(String agentArgs, Instrumentation inst);</span><br></pre></td></tr></table></figure>
+<p>如果代理类没有实现此方法，那么 JVM 将尝试调用： </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public static void agentmain(String agentArgs);</span><br></pre></td></tr></table></figure>
+<p><strong>如果是使用命令行选项启动代理，那么agentmain方法将不会被调用。 </strong></p>
+<p>代理类agent的加载：<br>代理类将被系统类加载器加载（参见 ClassLoader.getSystemClassLoader），系统类加载器是通常加载包含应用程序main方法的类的类加载器。 </p>
+<p>MANIFEST.MF文件配置：<br>Agent类(又称为代理类）必须被部署为JAR 文件。Agent代理类jar包中的MANIFEST.MF文件中，必须指定Premain-Class或者Agent-Class参数。MANIFEST.MF文件内容如下： </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Manifest-Version: 1.0  </span><br><span class="line">Created-By: 1.6.0 (Sun Microsystems Inc.)  </span><br><span class="line">Agent-Class: sun.management.Agent  </span><br><span class="line">Premain-Class: sun.management.Agent</span><br></pre></td></tr></table></figure>
+<h4 id="ClassFileTransformer"><a href="#ClassFileTransformer" class="headerlink" title="ClassFileTransformer"></a>ClassFileTransformer</h4><p>该类主要和 Instrumentation 类有关系，主要是为其添加一个更换字节码的转换器，从而在每次类加载之前，替换字节码，改变其作用。</p>
+<p>主要方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">byte[] transform(ClassLoader loader,String className, Class&lt;?&gt; classBeingRedefined,ProtectionDomain protectionDomain, byte[] classfileBuffer)throws IllegalClassFormatException</span><br></pre></td></tr></table></figure>
+<p>该接口只定义个一个方法transform，该方法会在加载新class类或者重新加载class类时，调用。例如，inst.addTransformer(new SdlTransformer(), true)当代码中增加了一个<strong>可重转换转换器</strong>后，每次类加载之前，就会调用transform方法。<br>若该方法返回null，则不改变加载的class字节码，若返回一个byte[]数组，则jvm将会用返回的byte[]数组替换掉原先应该加载的字节码。 </p>
+<p>byte[] transform(ClassLoader loader,<br>                 String className,<br>                 Class&lt;?&gt; classBeingRedefined,<br>                 ProtectionDomain protectionDomain,<br>                 byte[] classfileBuffer)<br>                 throws IllegalClassFormatException此方法的实现可以转换提供的类文件，并返回一个新的替换类文件。<br>有两种装换器，由 Instrumentation.addTransformer(ClassFileTransformer,boolean) 的 canRetransform 参数确定： </p>
+<p>可重转换 转换器，将 canRetransform 设为 true 可添加这种转换器<br>不可重转换 转换器，将 canRetransform 设为 false 或者使用 Instrumentation.addTransformer(ClassFileTransformer) 可添加这种转换器<br>在转换器使用 addTransformer 注册之后，每次定义新类和重定义类时都将调用该转换器。每次重转换类时还将调用可重转换转换器。对新类定义的请求通过 ClassLoader.defineClass 或其本机等价方法进行。对类重定义的请求通过 Instrumentation.redefineClasses 或其本机等价方法进行。对类重转换的请求将通过 Instrumentation.retransformClasses 或其本机等价方法进行。转换器是在验证或应用类文件字节之前的请求处理过程中调用的。 当存在多个转换器时，转换将由 transform 调用链组成。也就是说，一个 transform 调用返回的 byte 数组将成为下一个调用的输入（通过 classfileBuffer 参数）。 </p>
+<p>转换将按以下顺序应用： </p>
+<p>不可重转换转换器<br>不可重转换本机转换器<br>可重转换转换器<br>可重转换本机转换器<br>对于重转换，不会调用不可重转换转换器，而是重用前一个转换的结果。对于所有其他情况，调用此方法。在每个这种调用组中，转换器将按照注册的顺序调用。本机转换器由 Java 虚拟机 Tool 接口中的 ClassFileLoadHook 事件提供。 </p>
+<p>第一个转换器的输入（通过 classfileBuffer 参数）如下： </p>
+<p>对于新的类定义，是传递给 ClassLoader.defineClass 的 byte<br>对于类重定义，是 definitions.getDefinitionClassFile()，其中 definitions 是 Instrumentation.redefineClasses 的参数<br>对于类重转换，是传递给新类定义的 byte，或者是最后一个重定义（如果有重定义），所有不可转换转换器进行的转换都将自动重新应用并保持不变；有关细节，请参阅 Instrumentation.retransformClasses<br>如果实现方法确定不需要进行转换，则应返回 null。否则，它将创建一个新的 byte[] 数组，将输入 classfileBuffer 连同所有需要的转换复制到其中，并返回这个新数组。不得修改输入 classfileBuffer。 </p>
+<p>在重转换和重定义中，转换器必须支持重定义语义：如果转换器在初始定义期间更改的类在以后要重转换或重定义，那么转换器必须确保第二个输出类文件是第一个输出类文件的合法重定义文件。 </p>
+<p>如果转换器抛出异常（未捕获的异常），后续转换器仍然将被调用并加载，仍然将尝试重定义或重转换。因此，抛出异常与返回 null 的效果相同。若要使用转换器代码在生成未检验异常时防止不希望发生的行为，可以让转换器捕获 Throwable。如果转换器认为 classFileBuffer 不表示一个有效格式的类文件，则将抛出 IllegalClassFormatException；尽管这与返回 null 的效果相同，但它便于对格式毁坏进行记录或调试。 </p>
+<h2 id="jvm-内存管理"><a href="#jvm-内存管理" class="headerlink" title="jvm_内存管理"></a>jvm_内存管理</h2><ol>
+<li>堆</li>
+<li>线程</li>
+<li>类和类加载器 – permgen</li>
+<li>NIO – direct memory<br>system.gc() – –XX:DisableExplictGC</li>
+<li>JNI – native memory<br><strong>可以采用 openfiler 热点分析工具分析 当前系统执行的热点代码。</strong></li>
+</ol>
+<h2 id="GC-日志分析"><a href="#GC-日志分析" class="headerlink" title="GC 日志分析"></a>GC 日志分析</h2><p>1、 GC 输出参数：</p>
+<blockquote>
+<p>-verboes:gc<br>-XX:+PrintGCDetails<br>-XX:+PrintGCApplicationStoppedTime<br>-XX:+PrintGCDateStamps<br>-XX:+PrintHeapAtGC<br>-Xloggc:[file}</p>
+</blockquote>
+<p>2、 GC 日志格式</p>
+<blockquote>
+<p>[GC [<collector>:<starting occupancy1=""> -&gt; <ending occupancy1="">(total size1), <pause time1=""> secs] <starting occupancy2=""> -&gt; <ending occupancy2="">(total size2), <pause time2=""> secs]</pause></ending></starting></pause></ending></starting></collector></p>
+<p><collector> GC 收集器名称</collector></p>
+<p><starting occupancy1="">  Young 区在GC 前占用的内存</starting></p>
+<p><ending occupancy2=""> Young 区在 GC 后 占用的内存</ending></p>
+<p><pause time1=""> 表示  Young 区局部收集时 jvm 暂停处理的时间</pause></p>
+<p><starting occupancy2=""> jvm heap 在 gc 前占用的内存</starting></p>
+<p><ending occupancy2=""> jvm heap 在gc 后占用的内存</ending></p>
+<p><pause time2=""> gc过程中 jvm 暂停处理的总时间</pause></p>
+<p><ending occupancy1=""> - <starting occupancy1=""> = <endingoccupancy2> - <starting occupancy2=""> </starting></endingoccupancy2></starting></ending></p>
+</blockquote>
+<blockquote>
+<p>jstat -gcutil[pid][intervel][count]]</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>解析</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>S0</td>
+<td>Heap 上  Survirvor space 0 已经使用的空间比</td>
+</tr>
+<tr>
+<td>S1</td>
+<td>Heap 上  Survirvor space 1 已经使用的空间比</td>
+</tr>
+<tr>
+<td>E</td>
+<td>Eden space 已经使用的空间比</td>
+</tr>
+<tr>
+<td>O</td>
+<td>Old space 已经使用的空间比</td>
+</tr>
+<tr>
+<td>P</td>
+<td>Perm space 已经使用的空间比</td>
+</tr>
+<tr>
+<td>YGC</td>
+<td>Young GC 次数</td>
+</tr>
+<tr>
+<td>YGCT</td>
+<td>Young GC 时间</td>
+</tr>
+<tr>
+<td>FGC</td>
+</tr>
+<tr>
+<td>FGCT</td>
+</tr>
+<tr>
+<td>GCT</td>
+</tr>
+</tbody>
+</table>
+<p>3、 堆快照分析</p>
+<blockquote>
+<p>jamp -dump::format=b,file=[filename][pid]<br>-XX:+HeapDumpOnOutOfMemoryError 配置当内存耗尽时记录下的内存快照<br>-XX:+HeapDumpPath  指定文件路径</p>
+</blockquote>
+<p>4、 Jvm Crash 日志分析</p>
+<blockquote>
+<p>-XX:ErrorFile= 配置JVM 退出时在工作目录下产生日志文件<br>退出原因分类，退出的 Thread 信息，退出的 Process 状态信息， 退出时与操作系统相关的信息</p>
+<ol>
+<li>EXCEPTION_ACCESS_VIOLATION </li>
+<li>SIGSEGV</li>
+<li>EXCEPTION_STACK_OVERFLOW 涉及参数 -Xss , -XX:StackShadowPages=n</li>
+</ol>
+</blockquote>
+<p>thread 部分</p>
+<ol>
+<li>instructions: 当前系统执行的机器指令 – udis86</li>
+<li>stack: gbd + core文件</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/killJava/" rel="tag"># killJava</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blogs/1181d157.html" rel="next" title="killWork -- 入职一周查缺补漏">
+                <i class="fa fa-chevron-left"></i> killWork -- 入职一周查缺补漏
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blogs/5ba33d35.html" rel="prev" title="mood -- 不能这样">
+                mood -- 不能这样 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">3Dot141</p>
+              <p class="site-description motion-element" itemprop="description">Nothing is impossible to a willing heart.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">49</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#jvm-基础知识"><span class="nav-number">1.</span> <span class="nav-text">jvm 基础知识</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#jvm-类的加载"><span class="nav-number">2.</span> <span class="nav-text">jvm 类的加载</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#预先加载以及按需加载"><span class="nav-number">2.1.</span> <span class="nav-text">预先加载以及按需加载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#隐式加载和显示加载"><span class="nav-number">2.2.</span> <span class="nav-text">隐式加载和显示加载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#加载流程"><span class="nav-number">2.3.</span> <span class="nav-text">加载流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#动态编译"><span class="nav-number">2.4.</span> <span class="nav-text">动态编译</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#动态加载"><span class="nav-number">2.5.</span> <span class="nav-text">动态加载</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Instrumentation"><span class="nav-number">2.5.1.</span> <span class="nav-text">Instrumentation</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Agent"><span class="nav-number">2.5.2.</span> <span class="nav-text">Agent</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ClassFileTransformer"><span class="nav-number">2.5.3.</span> <span class="nav-text">ClassFileTransformer</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#jvm-内存管理"><span class="nav-number">3.</span> <span class="nav-text">jvm_内存管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GC-日志分析"><span class="nav-number">4.</span> <span class="nav-text">GC 日志分析</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">3Dot141</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

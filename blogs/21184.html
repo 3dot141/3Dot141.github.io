@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="killJava," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="前言最近在做一个项目的时候，因为项目要求跨域连接。所以，使用了Okhttp框架。其内部原理是基于 socket 网络编程的。因为自己在这方面比较薄弱，所以写这一篇文章进行相关的总结。">
+<meta name="keywords" content="killJava">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从 Socket 编程 到 OkHttp 框架">
+<meta property="og:url" content="https://3dot141.com/blogs/21184.html">
+<meta property="og:site_name" content="killCode">
+<meta property="og:description" content="前言最近在做一个项目的时候，因为项目要求跨域连接。所以，使用了Okhttp框架。其内部原理是基于 socket 网络编程的。因为自己在这方面比较薄弱，所以写这一篇文章进行相关的总结。">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://ovmspkp0s.bkt.clouddn.com/201709181056_373.png">
+<meta property="og:updated_time" content="2018-04-06T03:10:10.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="从 Socket 编程 到 OkHttp 框架">
+<meta name="twitter:description" content="前言最近在做一个项目的时候，因为项目要求跨域连接。所以，使用了Okhttp框架。其内部原理是基于 socket 网络编程的。因为自己在这方面比较薄弱，所以写这一篇文章进行相关的总结。">
+<meta name="twitter:image" content="http://ovmspkp0s.bkt.clouddn.com/201709181056_373.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://3dot141.com/blogs/21184.html"/>
+
+
+
+
+
+  <title>从 Socket 编程 到 OkHttp 框架 | killCode</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">killCode</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://3dot141.com/blogs/21184.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="3Dot141">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="killCode">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">从 Socket 编程 到 OkHttp 框架</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-12T00:00:00+08:00">
+                2017-10-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Code/" itemprop="url" rel="index">
+                    <span itemprop="name">Code</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近在做一个项目的时候，因为项目要求跨域连接。所以，使用了<strong>Okhttp</strong>框架。其内部原理是基于 socket 网络编程的。因为自己在这方面比较薄弱，所以写这一篇文章进行相关的总结。<br><a id="more"></a></p>
+<h2 id="基础知识（参考-图解TCP-IP-与-深入理解计算机系统）"><a href="#基础知识（参考-图解TCP-IP-与-深入理解计算机系统）" class="headerlink" title="基础知识（参考 图解TCP/IP 与 深入理解计算机系统）"></a>基础知识（参考 图解TCP/IP 与 深入理解计算机系统）</h2><ol>
+<li>TCP/IP 参考模型<br><a href="https://3dot141.cn/blogs/28952.html" target="_blank" rel="noopener">网络基础知识</a></li>
+<li>socket 套接字<br>每个套接字都是连接的一个端点，有相应的套接字地址。由一个IP地址与16位的整数端口组成.<br>一个连接由两端的套接字地址唯一确定。叫套接字对。<br>如:(cliaddr:cliport, servaddr:servport)<br>端口号分为：<br><strong>标准既定的端口号</strong>： 0~49151. 其中<strong>知名端口号</strong>由 0~1023 <strong> 组成。FTP 一般使用 21号端口号，HTTP 通信一般使用 80 号端口号。
+</strong>动态分配的端口号**： 49152~65535. 操作系统为之分配不同的端口号。然后应用程序使用时，由操作系统将连接建立。</li>
+<li>java 中的<strong>网络编程类</strong><br> InetAddress:用于标识网络上的硬件资源，主要是IP地址<br> URL：统一资源定位符，通过URL可以直接读取或写入网络上的数据<br> Sockets：使用TCP协议实现的网络通信Socket相关的类<br> Datagram:使用UDP协议，将数据保存在用户数据报中，通过网络进行通信。UDP协议中，使用 数据报 为传输单位。</li>
+</ol>
+<h2 id="java-网络编程类介绍"><a href="#java-网络编程类介绍" class="headerlink" title="java 网络编程类介绍"></a>java 网络编程类介绍</h2><h3 id="1-InetAddress"><a href="#1-InetAddress" class="headerlink" title="1. InetAddress"></a>1. InetAddress</h3><p>InetAddress类用于标识网络上的硬件资源，标识互联网协议(IP)地址。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//获取本机的InetAddress实例</span></span><br><span class="line">InetAddress address =InetAddress.getLocalHost();</span><br><span class="line"><span class="comment">//获取计算机名</span></span><br><span class="line">address.getHostName();</span><br><span class="line"><span class="comment">//获取IP地址</span></span><br><span class="line">address.getHostAddress();</span><br><span class="line"><span class="comment">//获取字节数组形式的IP地址,以点分隔的四部分</span></span><br><span class="line"><span class="keyword">byte</span>[] bytes = address.getAddress();</span><br><span class="line"></span><br><span class="line"><span class="comment">//获取其他主机的InetAddress实例</span></span><br><span class="line">InetAddress address2 =InetAddress.getByName(<span class="string">"其他主机名"</span>);</span><br><span class="line">InetAddress address3 =InetAddress.getByName(<span class="string">"IP地址"</span>);</span><br></pre></td></tr></table></figure></p>
+<h3 id="2-URL"><a href="#2-URL" class="headerlink" title="2. URL"></a>2. URL</h3><p>URL(Uniform Resource Locator)统一资源定位符，表示Internet上某一资源的地址，协议名：资源名称</p>
+<ol>
+<li><p>基础使用</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//创建一个URL的实例</span></span><br><span class="line">URL myBlog =<span class="keyword">new</span> URL(<span class="string">"https://3dot141.cn"</span>);</span><br><span class="line">URL url =<span class="keyword">new</span> URL(myBlog,<span class="string">"/blogs/33521.html?username=3dot141#test"</span>);<span class="comment">//？表示参数，#表示锚点</span></span><br><span class="line">url.getProtocol();<span class="comment">//获取协议</span></span><br><span class="line">url.getHost();<span class="comment">//获取主机</span></span><br><span class="line">url.getPort();<span class="comment">//如果没有指定端口号，根据协议不同使用默认端口。此时getPort()方法的返回值为 -1</span></span><br><span class="line">url.getPath();<span class="comment">//获取文件路径</span></span><br><span class="line">url.getFile();<span class="comment">//文件名，包括文件路径+参数</span></span><br><span class="line">url.getRef();<span class="comment">//相对路径，就是锚点，即#号后面的内容</span></span><br><span class="line">url.getQuery();<span class="comment">//查询字符串，即参数</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>读取网页内容</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//使用URL读取网页内容</span></span><br><span class="line"><span class="comment">//创建一个URL实例</span></span><br><span class="line">URL url =<span class="keyword">new</span> URL(<span class="string">"http://www.baidu.com"</span>);</span><br><span class="line">InputStream is = url.openStream();<span class="comment">//通过openStream方法获取资源的字节输入流</span></span><br><span class="line">InputStreamReader isr =newInputStreamReader(is,<span class="string">"UTF-8"</span>);<span class="comment">//将字节输入流转换为字符输入流,如果不指定编码，中文可能会出现乱码</span></span><br><span class="line">BufferedReader br =newBufferedReader(isr);<span class="comment">//为字符输入流添加缓冲，提高读取效率</span></span><br><span class="line">String data = br.readLine();<span class="comment">//读取数据</span></span><br><span class="line"><span class="keyword">while</span>(data!=<span class="keyword">null</span>)&#123;</span><br><span class="line">System.out.println(data);<span class="comment">//输出数据</span></span><br><span class="line">data = br.readerLine();</span><br><span class="line">&#125;</span><br><span class="line">br.close();</span><br><span class="line">isr.colose();</span><br><span class="line">is.close();</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="3-Socket"><a href="#3-Socket" class="headerlink" title="3. Socket"></a>3. Socket</h3><p>首先介绍下关于 linux 下的套接字连接原理，帮助理解</p>
+<p><img src="http://ovmspkp0s.bkt.clouddn.com/201709181056_373.png" alt=""></p>
+<p>下面介绍java 下 Socket的使用</p>
+<h4 id="1-Socket-的构造方法"><a href="#1-Socket-的构造方法" class="headerlink" title="1.Socket 的构造方法"></a>1.Socket 的构造方法</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">（<span class="number">1</span>）Socket()</span><br><span class="line"></span><br><span class="line">（<span class="number">2</span>）Socket(InetAddress address, <span class="keyword">int</span> port)<span class="keyword">throws</span> UnknownHostException,IOException</span><br><span class="line"></span><br><span class="line"><span class="comment">// 设定远程服务器地址与客户端地址</span></span><br><span class="line">（<span class="number">3</span>）Socket(InetAddress address, <span class="keyword">int</span> port, InetAddress localAddr, <span class="keyword">int</span> localPort)<span class="keyword">throws</span> IOException</span><br><span class="line"></span><br><span class="line">（<span class="number">4</span>）Socket(String host, <span class="keyword">int</span> port) <span class="keyword">throws</span> UnknownHostException,IOException</span><br><span class="line"></span><br><span class="line"><span class="comment">// 设定远程服务器地址与客户端地址</span></span><br><span class="line">（<span class="number">5</span>）Socket(String host, <span class="keyword">int</span> port, InetAddress localAddr, <span class="keyword">int</span> localPort) <span class="keyword">throws</span> IOException</span><br></pre></td></tr></table></figure>
+<h4 id="2-获取Socket信息"><a href="#2-获取Socket信息" class="headerlink" title="2.获取Socket信息"></a>2.获取Socket信息</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>. getInetAddress()：获得远程服务器的IP地址。</span><br><span class="line"></span><br><span class="line"><span class="number">2</span>. getPort()：获得远程服务器的端口。</span><br><span class="line"></span><br><span class="line"><span class="number">3</span>. getLocalAddress()：获得客户本地的IP地址。</span><br><span class="line"></span><br><span class="line"><span class="number">4</span>. getLocalPort()：获得客户本地的端口。</span><br><span class="line"></span><br><span class="line"><span class="number">5</span>. getInputStream()：获得输入流。如果Socket还没有连接，或者已经关闭，或者已经通过shutdownInput()方法关闭输入流，那么此方法会抛出IOException。</span><br><span class="line"></span><br><span class="line"><span class="number">6</span>. getOutputStream()：获得输出流。如果Socket还没有连接，或者已经关闭，或者已经通过shutdownOutput()方法关闭输出流，那么此方法会抛出IOException。</span><br></pre></td></tr></table></figure>
+<h4 id="3-Socket-状态"><a href="#3-Socket-状态" class="headerlink" title="3.Socket 状态"></a>3.Socket 状态</h4><ol>
+<li><p>关闭状态</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>. close()</span><br><span class="line"></span><br><span class="line"><span class="comment">// 状态测试方法</span></span><br><span class="line"><span class="number">1</span>. isClosed()</span><br><span class="line"><span class="number">2</span>. IsConnected()</span><br><span class="line"><span class="number">3</span>. isBound()</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>半关闭状态</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>. shutdownInput()</span><br><span class="line"><span class="number">2</span>. shutdownOutput()</span><br><span class="line"></span><br><span class="line"><span class="comment">// 状态测试方法</span></span><br><span class="line"><span class="number">1</span>. isInputShutDown()</span><br><span class="line"><span class="number">2</span>. isOutputShutdown()</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="4-Socket-使用实例"><a href="#4-Socket-使用实例" class="headerlink" title="4.Socket 使用实例"></a>4.Socket 使用实例</h4><p>以上就是 Socket 类的基本方法。 下面让我们进入实战，来看一下，Socket 类如何使用</p>
+<ol>
+<li><p>服务器端</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 基于TCP协议的Socket通信，实现用户登录，服务端</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="comment">//1、创建一个服务器端Socket，即ServerSocket，指定绑定的端口，并监听此端口</span></span><br><span class="line">ServerSocket serverSocket =newServerSocket(<span class="number">33521</span>);<span class="comment">//1024-65535的某个端口</span></span><br><span class="line"><span class="comment">//2、调用accept()方法开始监听，等待客户端的连接</span></span><br><span class="line">Socket socket = serverSocket.accept();</span><br><span class="line"><span class="comment">//3、获取输入流，并读取客户端信息</span></span><br><span class="line">InputStream is = socket.getInputStream();</span><br><span class="line">InputStreamReader isr =newInputStreamReader(is);</span><br><span class="line">BufferedReader br =newBufferedReader(isr);</span><br><span class="line">String info =<span class="keyword">null</span>;</span><br><span class="line"><span class="keyword">while</span>((info=br.readLine())!=<span class="keyword">null</span>)&#123;</span><br><span class="line">System.out.println(<span class="string">"我是服务器，客户端说："</span>+info)；</span><br><span class="line">&#125;</span><br><span class="line">socket.shutdownInput();<span class="comment">//关闭输入流</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//4、获取输出流，响应客户端的请求</span></span><br><span class="line">OutputStream os = socket.getOutputStream();</span><br><span class="line">PrintWriter pw = <span class="keyword">new</span> PrintWriter(os);</span><br><span class="line">pw.write(<span class="string">"欢迎您！"</span>);</span><br><span class="line">pw.flush();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//5、关闭资源</span></span><br><span class="line">pw.close();</span><br><span class="line">os.close();</span><br><span class="line">br.close();</span><br><span class="line">isr.close();</span><br><span class="line">is.close();</span><br><span class="line">socket.close();</span><br><span class="line">serverSocket.close();</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>客户端</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//客户端</span></span><br><span class="line"><span class="comment">//1、创建客户端Socket，指定服务器地址和端口</span></span><br><span class="line">Socket socket =newSocket(<span class="string">"localhost"</span>,<span class="number">33521</span>);</span><br><span class="line"><span class="comment">//2、获取输出流，向服务器端发送信息</span></span><br><span class="line">OutputStream os = socket.getOutputStream();<span class="comment">//字节输出流</span></span><br><span class="line">PrintWriter pw =newPrintWriter(os);<span class="comment">//将输出流包装成打印流</span></span><br><span class="line">pw.write(<span class="string">"用户名：3dot141；密码：hahah"</span>);</span><br><span class="line">pw.flush();</span><br><span class="line">socket.shutdownOutput();</span><br><span class="line"><span class="comment">//3、获取输入流，并读取服务器端的响应信息</span></span><br><span class="line">InputStream is = socket.getInputStream();</span><br><span class="line">BufferedReader br = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(is));</span><br><span class="line">String info = <span class="keyword">null</span>;</span><br><span class="line"><span class="keyword">while</span>((info=br.readLine())!<span class="keyword">null</span>)&#123;</span><br><span class="line"> System.out.println(<span class="string">"我是客户端，服务器说："</span>+info);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//4、关闭资源</span></span><br><span class="line">br.close();</span><br><span class="line">is.close();</span><br><span class="line">pw.close();</span><br><span class="line">os.close();</span><br><span class="line">socket.close();</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>结果</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">我是服务器，客户端说：用户名：<span class="number">3</span>dot141；密码：hahah</span><br><span class="line">我是客户端，服务器说：欢迎您!</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>多线程中的运用</p>
+<ul>
+<li>服务器端创建ServerSocket，使用<strong>while(true)</strong>循环调用accept()等待客户端连接</li>
+<li>客户端创建一个socket并请求和服务器端连接</li>
+<li>服务器端接受请求，创建socket与该客户建立专线连接</li>
+<li>建立连接的两个socket在一个单独的线程上对话</li>
+<li>服务器端继续等待新的连接  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">public class ServerThread implements runnable&#123;</span><br><span class="line">//服务器线程处理</span><br><span class="line">//和本线程相关的socket</span><br><span class="line">Socket socket =null;</span><br><span class="line">//</span><br><span class="line">public ServerThread(Socket socket)&#123;</span><br><span class="line">this.socket = socket;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">publicvoid run()&#123;</span><br><span class="line">//服务器处理代码</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//服务器代码</span><br><span class="line">ServerSocket serverSocket =newServerSocket(33521);</span><br><span class="line">Socket socket =null;</span><br><span class="line">int count =0;//记录客户端的数量</span><br><span class="line">while(true)&#123;</span><br><span class="line">socket = serverScoket.accept();</span><br><span class="line">ServerThread serverThread =new ServerThread(socket);</span><br><span class="line"> serverThread.start();</span><br><span class="line"> count++;</span><br><span class="line">System.out.println(&quot;客户端连接的数量：&quot;+count);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="4-UDP-编程"><a href="#4-UDP-编程" class="headerlink" title="4. UDP 编程"></a>4. UDP 编程</h3><h4 id="1-简单介绍"><a href="#1-简单介绍" class="headerlink" title="1. 简单介绍"></a>1. 简单介绍</h4><p>UDP 是面向无连接的协议，反应迅速，适用于适时场景，但是丢包后不能发现。<br>用于 直播等网速要求较高的应用</p>
+<p><code>DatagramSocket</code> 端到端的通信类.<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//本机地址</span></span><br><span class="line"><span class="comment">// 随机</span></span><br><span class="line">DatagramSocket()</span><br><span class="line"><span class="comment">// 指定</span></span><br><span class="line">DatagramSocket(<span class="keyword">int</span> port, InetAddress)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 发送与接收</span></span><br><span class="line">send(DatagramPacket) </span><br><span class="line">receive(DatagramPacket)</span><br></pre></td></tr></table></figure></p>
+<p><code>DatagramPacket</code> 数据报, 为 IP 和 UDP 等网络层以上的包的单位 。虽然这些都是包，但不同的层拥有不同的称呼。数据链路层中 叫<strong> 帧</strong> , TCP 则表示 为<strong> 段</strong> .<br><strong>方法</strong> ：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 构造方法</span></span><br><span class="line"><span class="comment">// 接收时</span></span><br><span class="line">DatagramPacket(<span class="keyword">byte</span>[] buf, <span class="keyword">int</span> length);</span><br><span class="line"><span class="comment">// 发送时</span></span><br><span class="line">DatagramPacket(<span class="keyword">byte</span>[] buf, <span class="keyword">int</span> length, InetAddress iAdrr, <span class="keyword">int</span> Port);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用方法</span></span><br><span class="line"><span class="comment">// 用于服务器获得 客户端地址</span></span><br><span class="line">getAddress()</span><br><span class="line"><span class="comment">// 用于服务器获得 客户端接口</span></span><br><span class="line">getPort()</span><br></pre></td></tr></table></figure></p>
+<h4 id="2-基本使用"><a href="#2-基本使用" class="headerlink" title="2. 基本使用"></a>2. 基本使用</h4><ol>
+<li><p>服务器端</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">//服务器端，实现基于UDP的用户登录</span><br><span class="line">//1、创建服务器端DatagramSocket，指定端口</span><br><span class="line">DatagramSocket socket =new datagramSocket(33521);</span><br><span class="line">//2、创建数据报，用于接受客户端发送的数据</span><br><span class="line">byte[] data =newbyte[1024];//</span><br><span class="line">DatagramPacket packet =newDatagramPacket(data,data.length);</span><br><span class="line">//3、接受客户端发送的数据</span><br><span class="line">socket.receive(packet);//此方法在接受数据报之前会一致阻塞</span><br><span class="line">//4、读取数据</span><br><span class="line">String info =newString(data,o,data.length);</span><br><span class="line">System.out.println(&quot;我是服务器，客户端告诉我&quot;+info);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//=========================================================</span><br><span class="line">//向客户端响应数据</span><br><span class="line">//1、定义客户端的地址、端口号、数据</span><br><span class="line">// 这里也可以自己设置</span><br><span class="line">InetAddress address = packet.getAddress();</span><br><span class="line">int port = packet.getPort();</span><br><span class="line">byte[] data2 = &quot;欢迎您！&quot;.geyBytes();</span><br><span class="line">//2、创建数据报，包含响应的数据信息</span><br><span class="line">DatagramPacket packet2 = new DatagramPacket(data2,data2.length,address,port);</span><br><span class="line">//3、响应客户端</span><br><span class="line">socket.send(packet2);</span><br><span class="line">//4、关闭资源</span><br><span class="line">socket.close();</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>客户端</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">//客户端</span><br><span class="line">//1、定义服务器的地址、端口号、数据</span><br><span class="line">InetAddress address =InetAddress.getByName(&quot;localhost&quot;);</span><br><span class="line">int port =33521;</span><br><span class="line">byte[] data =&quot;用户名：3dot141;密码：hahah&quot;.getBytes();</span><br><span class="line">//2、创建数据报，包含发送的数据信息</span><br><span class="line">DatagramPacket packet = newDatagramPacket(data,data,length,address,port);</span><br><span class="line">//3、创建DatagramSocket对象</span><br><span class="line">DatagramSocket socket =newDatagramSocket();</span><br><span class="line">//4、向服务器发送数据</span><br><span class="line">socket.send(packet);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//接受服务器端响应数据</span><br><span class="line">//======================================</span><br><span class="line">//1、创建数据报，用于接受服务器端响应数据</span><br><span class="line">byte[] data2 = new byte[1024];</span><br><span class="line">DatagramPacket packet2 = new DatagramPacket(data2,data2.length);</span><br><span class="line">//2、接受服务器响应的数据</span><br><span class="line">socket.receive(packet2);</span><br><span class="line">String raply = new String(data2,0,packet2.getLenth());</span><br><span class="line">System.out.println(&quot;我是客户端，服务器说：&quot;+reply);</span><br><span class="line">//4、关闭资源</span><br><span class="line">socket.close();</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="OkHttp-框架"><a href="#OkHttp-框架" class="headerlink" title="OkHttp 框架"></a>OkHttp 框架</h2><p>在项目中，我对 <strong>OkHttp</strong> 进行了简单的封装，基本满足我在项目中的需要。<br>下面贴上我的 <strong>工具类</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OkhttpUtil</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> MediaType JSON = MediaType.parse(<span class="string">"application/json;charset=UTF-8"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">doGet</span><span class="params">(String url)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        OkHttpClient client = <span class="keyword">new</span> OkHttpClient();</span><br><span class="line">        Request get = <span class="keyword">new</span> Request.Builder().url(url).build();</span><br><span class="line">        Response response = client.newCall(get).execute();</span><br><span class="line">        <span class="keyword">return</span> response.body().string();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">doGet</span><span class="params">(String url, Map&lt;String, String&gt; map)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        OkHttpClient client = <span class="keyword">new</span> OkHttpClient();</span><br><span class="line">        String newUrl = url;</span><br><span class="line">        <span class="keyword">if</span> (map != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">int</span> loop = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span> (String key : map.keySet()) &#123;</span><br><span class="line">                <span class="keyword">if</span> (loop == <span class="number">0</span>) &#123;</span><br><span class="line">                    newUrl = newUrl + <span class="string">"?"</span> + key + <span class="string">"="</span> + map.get(key);</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    newUrl = newUrl + <span class="string">"&amp;"</span> + key + <span class="string">"="</span> + map.get(key);</span><br><span class="line">                &#125;</span><br><span class="line">                loop = <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        Request get = <span class="keyword">new</span> Request.Builder().url(newUrl).build();</span><br><span class="line">        Response response = client.newCall(get).execute();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> response.body().string();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">doPost</span><span class="params">(String url, String requestBody)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        OkHttpClient client = <span class="keyword">new</span> OkHttpClient();</span><br><span class="line">        Request post = <span class="keyword">new</span> Request.Builder().url(url).post(RequestBody.create(JSON, requestBody)).build();</span><br><span class="line">        Response response = client.newCall(post).execute();</span><br><span class="line">        <span class="keyword">if</span> (!response.isSuccessful()) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IOException(<span class="string">"没能得到数据"</span> + response);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> response.body().string();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果有对 okhttp 框架感兴趣的，可以参阅下面的网址。我就不献丑了。<br><a href="http://www.jcodecraeer.com/a/anzhuokaifa/androidkaifa/2015/0326/2643.html" target="_blank" rel="noopener">okhttp 源码解析</a><br><a href="http://www.jcodecraeer.com/a/anzhuokaifa/androidkaifa/2015/0106/2275.html" target="_blank" rel="noopener">okhttp 使用教程</a></p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>路漫漫其修远兮，吾将上下而求索。<br>在程序员的道路上，我还只是一个刚上路的小学生，怀着对代码世界的向往，砥砺前行。</p>
+<blockquote>
+<p>stay hungry, stay foolish<br>与诸君共勉。<br>您的每一次点赞，关注都是对我的一种激励。<br>我的个人博客 – <a href="https://3dot141.cn" target="_blank" rel="noopener">killCode</a><br>谢谢。</p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/killJava/" rel="tag"># killJava</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blogs/43623.html" rel="next" title="搜索为将 -- lucene 6.6 学习心得">
+                <i class="fa fa-chevron-left"></i> 搜索为将 -- lucene 6.6 学习心得
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blogs/21748.html" rel="prev" title="killJava系列 -- 文件类相关">
+                killJava系列 -- 文件类相关 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">3Dot141</p>
+              <p class="site-description motion-element" itemprop="description">Nothing is impossible to a willing heart.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">49</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基础知识（参考-图解TCP-IP-与-深入理解计算机系统）"><span class="nav-number">2.</span> <span class="nav-text">基础知识（参考 图解TCP/IP 与 深入理解计算机系统）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#java-网络编程类介绍"><span class="nav-number">3.</span> <span class="nav-text">java 网络编程类介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-InetAddress"><span class="nav-number">3.1.</span> <span class="nav-text">1. InetAddress</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-URL"><span class="nav-number">3.2.</span> <span class="nav-text">2. URL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Socket"><span class="nav-number">3.3.</span> <span class="nav-text">3. Socket</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Socket-的构造方法"><span class="nav-number">3.3.1.</span> <span class="nav-text">1.Socket 的构造方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-获取Socket信息"><span class="nav-number">3.3.2.</span> <span class="nav-text">2.获取Socket信息</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-Socket-状态"><span class="nav-number">3.3.3.</span> <span class="nav-text">3.Socket 状态</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-Socket-使用实例"><span class="nav-number">3.3.4.</span> <span class="nav-text">4.Socket 使用实例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-UDP-编程"><span class="nav-number">3.4.</span> <span class="nav-text">4. UDP 编程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-简单介绍"><span class="nav-number">3.4.1.</span> <span class="nav-text">1. 简单介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-基本使用"><span class="nav-number">3.4.2.</span> <span class="nav-text">2. 基本使用</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OkHttp-框架"><span class="nav-number">4.</span> <span class="nav-text">OkHttp 框架</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结语"><span class="nav-number">5.</span> <span class="nav-text">结语</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">3Dot141</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

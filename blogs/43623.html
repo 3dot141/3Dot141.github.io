@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="killJava," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="我在学习lucene 的时候，发现网上的资料大多已经过时。我找到的学习的资料是 lucene 4.10 版本，比较沉旧，查阅最新的 lucene 版本 6.6 的官方文档，整理出以下几个使用中的不同。">
+<meta name="keywords" content="killJava">
+<meta property="og:type" content="article">
+<meta property="og:title" content="搜索为将 -- lucene 6.6 学习心得">
+<meta property="og:url" content="https://3dot141.com/blogs/43623.html">
+<meta property="og:site_name" content="killCode">
+<meta property="og:description" content="我在学习lucene 的时候，发现网上的资料大多已经过时。我找到的学习的资料是 lucene 4.10 版本，比较沉旧，查阅最新的 lucene 版本 6.6 的官方文档，整理出以下几个使用中的不同。">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-04-05T14:23:44.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="搜索为将 -- lucene 6.6 学习心得">
+<meta name="twitter:description" content="我在学习lucene 的时候，发现网上的资料大多已经过时。我找到的学习的资料是 lucene 4.10 版本，比较沉旧，查阅最新的 lucene 版本 6.6 的官方文档，整理出以下几个使用中的不同。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://3dot141.com/blogs/43623.html"/>
+
+
+
+
+
+  <title>搜索为将 -- lucene 6.6 学习心得 | killCode</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">killCode</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://3dot141.com/blogs/43623.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="3Dot141">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="killCode">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">搜索为将 -- lucene 6.6 学习心得</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-12T00:00:00+08:00">
+                2017-10-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Code/" itemprop="url" rel="index">
+                    <span itemprop="name">Code</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  我在学习lucene 的时候，发现网上的资料大多已经过时。我找到的学习的资料是 lucene 4.10 版本，比较沉旧，查阅最新的 lucene 版本 6.6 的官方文档，整理出以下几个使用中的不同。
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本文首发于<a href="https://segmentfault.com/a/1190000010367206" target="_blank" rel="noopener">segmentfault的个人专栏</a><br>学习的资料是 lucene 4.10 版本，比较沉旧，查阅最新的 lucene 版本 6.6 的官方文档，整理出以下几个使用中的不同。<br>从浅入深依次为    （注：不是根据版本先后）</p>
+<ol>
+<li>IndexWriterConfig 的构造方法</li>
+<li>Directory 的生成方法 FSDirectory.open()</li>
+<li>legacy<strong>XX</strong>Field 与legacy<strong>Numeric</strong>RangeQuery 的废弃</li>
+<li>BooleanQuery() 方法的改变</li>
+<li>setBoost()方法的废除    </li>
+<li>中文分词器的改进</li>
+</ol>
+<p>下面，就让我详细的整理出不同。</p>
+<h2 id="1-IndexWriterConfig"><a href="#1-IndexWriterConfig" class="headerlink" title="1.IndexWriterConfig"></a>1.IndexWriterConfig</h2><p>以下是 IndexWriterConfig 4.10 的源码部分<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public IndexWriterConfig(Version matchVersion, Analyzer analyzer) &#123;</span><br><span class="line">    super(analyzer, matchVersion);</span><br><span class="line">&#125;</span><br><span class="line">//这里的version 一般要写为     </span><br><span class="line">Version 类中</span><br><span class="line">public static final Version LATEST;</span><br></pre></td></tr></table></figure></p>
+<p>而 IndexWriterConfig 6.6 中<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">//无参构造方法 </span><br><span class="line">public IndexWriterConfig() &#123;</span><br><span class="line">    this(new StandardAnalyzer());</span><br><span class="line">&#125;</span><br><span class="line">//有参构造方法</span><br><span class="line">public IndexWriterConfig(Analyzer analyzer) &#123;</span><br><span class="line">    super(analyzer);</span><br><span class="line">    this.writer = new SetOnce();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>可以看出，在 6.6 版本中 version 不再是必要的，并且，存在无参构造方法，可以直接使用默认的 StandardAnalyzer 分词器。</p>
+<h2 id="2-Directory"><a href="#2-Directory" class="headerlink" title="2.Directory"></a>2.Directory</h2><p>正常创建 Directory 类的方法如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Directory di = FSdirectory.open();</span><br></pre></td></tr></table></figure></p>
+<p>以下是 IndexWriterConfig 4.10 的源码部分<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public static FSDirectory open(File path) throws IOException &#123;</span><br><span class="line">    return open(path, (LockFactory)null);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这里可以看出 open 方法 用的参数类型 为File</p>
+<p>而 IndexWriterConfig 6.6 中<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public static FSDirectory open(Path path) throws IOException &#123;</span><br><span class="line">    return open(path, FSLockFactory.getDefault());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>open</strong> 方法使用了 <strong>Path</strong> 类，这个类是 NIO 中的类，可以提高查询的效率。<br>由 File 转化为 Path 的 方法<br>—&gt;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">File file = new File (absolutePath);</span><br><span class="line">Path path = file.toPath()</span><br></pre></td></tr></table></figure></p>
+<h2 id="3-legacyXXField-与legacyNumericRangeQuery"><a href="#3-legacyXXField-与legacyNumericRangeQuery" class="headerlink" title="3.legacyXXField 与legacyNumericRangeQuery"></a>3.legacyXXField 与legacyNumericRangeQuery</h2><h3 id="1-分析"><a href="#1-分析" class="headerlink" title="1. 分析"></a>1. 分析</h3><p>根据 官方的 <a href="https://lucene.apache.org/core/6_6_0/index.html" target="_blank" rel="noopener">Migration Guide</a> 中的说法</p>
+<blockquote>
+<p>PointValues replaces NumericField (LUCENE-6917)    </p>
+</blockquote>
+<blockquote>
+<p>PointValues provides faster indexing and searching, a smaller index size, and less heap used at search time. See org.apache.lucene.index.PointValues for an introduction.    </p>
+</blockquote>
+<blockquote>
+<p>Legacy numeric encodings from previous versions of Lucene are deprecated as LegacyIntField, LegacyFloatField, LegacyLongField, and LegacyDoubleField, and can be searched with LegacyNumericRangeQuery.</p>
+</blockquote>
+<p>以及<a href="https://issues.apache.org/jira/browse/LUCENE-6917" target="_blank" rel="noopener">开发者的测试</a></p>
+<blockquote>
+<p>DimensionalValues seems to be better across the board (indexing time, indexing size, search-speed, search-time heap required) than NumericField, at least in my testing so far.<br>I think for 6.0 we should move IntField, LongField, FloatField, DoubleField and NumericRangeQuery to backward-codecs, and rename with Legacy prefix?</p>
+</blockquote>
+<h3 id="2-结论："><a href="#2-结论：" class="headerlink" title="2.结论："></a>2.结论：</h3><blockquote>
+<p>   <strong>PointValues</strong> 取代了<strong>NumericField</strong><br>    因为PointValues 更快，更小，更便于资源的利用。所以，所有的 legacy**都被取代了。</p>
+</blockquote>
+<h3 id="3-代码对比"><a href="#3-代码对比" class="headerlink" title="3.代码对比"></a>3.代码对比</h3><p>代码的话，<a href="https://lucene.apache.org/core/6_6_0/core/index.html" target="_blank" rel="noopener">lucene 的官方文档</a>给了一个简单的例子<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// add year 1970 to document</span><br><span class="line">document.add(new IntPoint(&quot;year&quot;, 1970));</span><br><span class="line">// index document</span><br><span class="line">writer.addDocument(document);</span><br><span class="line">...</span><br><span class="line">// issue range query of 1960-1980</span><br><span class="line">Query query = IntPoint.newRangeQuery(&quot;year&quot;, 1960, 1980);</span><br><span class="line">TopDocs docs = searcher.search(query, ...);</span><br></pre></td></tr></table></figure></p>
+<p>另外我自己写了一个 已经<strong>@Deprecated</strong>的方法 与上面 进行对比<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">   // add year 1970 to document</span><br><span class="line">document.add(new IntField(&quot;year&quot;, 1970));</span><br><span class="line">// index document</span><br><span class="line">writer.addDocument(document);</span><br><span class="line">...</span><br><span class="line">// issue range query of 1960-1980</span><br><span class="line">Query query = new NumericRangeQuery(&quot;year&quot;, 1960, 1980,false,false);</span><br><span class="line">TopDocs docs = searcher.search(query, ...);</span><br></pre></td></tr></table></figure></p>
+<p><strong>还要注意的是:</strong>    </p>
+<ol>
+<li>如果要存储，必须创建同名的StoredField类</li>
+<li>如果要排序使用，必须同时创建同名的StoredField类与NumericDocValuesField类<br> 例：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">doc.add(new NumericDocValuesField(&quot;price&quot;,price));  </span><br><span class="line">doc.add(new IntPoint(&quot;price&quot;,price));  </span><br><span class="line">doc.add(new StoredField(&quot;price&quot;,price));</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="4-BooleanQuery-的构造方法改变"><a href="#4-BooleanQuery-的构造方法改变" class="headerlink" title="4.BooleanQuery() 的构造方法改变"></a>4.BooleanQuery() 的构造方法改变</h2><h3 id="1-分析-1"><a href="#1-分析-1" class="headerlink" title="1.分析"></a>1.分析</h3><p>根据 官方的 <a href="https://lucene.apache.org/core/6_6_0/index.html" target="_blank" rel="noopener">Migration Guide</a> 中的说法</p>
+<blockquote>
+<p>PhraseQuery, MultiPhraseQuery, and BooleanQuery made immutable (LUCENE-6531 LUCENE-7064 LUCENE-6570)<br>也就是说， BooleanQuery这个类 一旦建立就不能再改变了。    </p>
+</blockquote>
+<p>从源码中我们可以更好的看出改变<br>lucene 4.10 的源码里 BooleanQuery 的类 主要方法如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">/* 构造器*/</span><br><span class="line">public BooleanQuery() &#123;</span><br><span class="line">    this.disableCoord = false;</span><br><span class="line">&#125;</span><br><span class="line">public BooleanQuery(boolean disableCoord) &#123;</span><br><span class="line">    this.disableCoord = disableCoord;</span><br><span class="line">&#125;</span><br><span class="line">/*主要方法*/</span><br><span class="line">public void add(BooleanClause clause) &#123;</span><br><span class="line">    if(this.clauses.size() &gt;= maxClauseCount) &#123;</span><br><span class="line">        throw new BooleanQuery.TooManyClauses();</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        this.clauses.add(clause);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p> lucene 6.6 的源码里， BooleanQuery 的主要方法如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">private BooleanQuery(boolean disableCoord, int minimumNumberShouldMatch, BooleanClause[] clauses)</span><br></pre></td></tr></table></figure></p>
+<p>可以看出 ， BooleanQuery 的构造器的范围是<strong> private </strong>的，只能在类的内部调用。<br>并且最大的改变是多出了静态内部类 <strong>Builder</strong><br>以下是 Builder 的部分源码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">public static class Builder &#123;</span><br><span class="line">    private boolean disableCoord;</span><br><span class="line">    private int minimumNumberShouldMatch;</span><br><span class="line">    private final List&lt;BooleanClause&gt; clauses = new ArrayList();</span><br><span class="line">    /* 无参构造器 */</span><br><span class="line">    // 相当于 BooleanQuery 的 构造器</span><br><span class="line">    public Builder() &#123;</span><br><span class="line">    &#125;</span><br><span class="line">    //相当于 BooleanQuery 的 add 方法</span><br><span class="line">    public BooleanQuery.Builder add(Query query, Occur occur) &#123;</span><br><span class="line">        return this.add(new BooleanClause(query, occur));</span><br><span class="line">    &#125;</span><br><span class="line">    //返回值是 BooleanQuery, 构造一个BooleanQuery 类。</span><br><span class="line">    public BooleanQuery build() &#123;</span><br><span class="line">        return new BooleanQuery(this.disableCoord, this.minimumNumberShouldMatch, (BooleanClause[])this.clauses.toArray(new BooleanClause[0]), null);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="2-结论"><a href="#2-结论" class="headerlink" title="2.结论"></a>2.结论</h3><p>通过用静态内部类实例化自身的方法，加强了类自身的稳定性与安全性。避免可能发生的小意外，而导致代码出现问题的可能性</p>
+<h3 id="3-代码对比-1"><a href="#3-代码对比-1" class="headerlink" title="3.代码对比"></a>3.代码对比</h3><p>下面给出代码，可以更好的看出差别<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">//原先的 使用方法</span><br><span class="line">BooleanQuery bq = new BooleanQuery();     </span><br><span class="line">bq.add(q1, Occur.SHOULD);     </span><br><span class="line">bq.add(q2, Occur.SHOULD); bq.add(q3, Occur.MUST); </span><br><span class="line"></span><br><span class="line">//现在的 使用方法</span><br><span class="line">BooleanQuery bq = new BooleanQuery.Builder()</span><br><span class="line">                                     .add(q1, Occur.SHOULD)    </span><br><span class="line">                                     .add(q2, Occur.SHOULD)</span><br><span class="line">                                     .add(q3, Occur.SHOULD)</span><br><span class="line">                                     .build();</span><br></pre></td></tr></table></figure></p>
+<h2 id="5-setBoost-方法的废除"><a href="#5-setBoost-方法的废除" class="headerlink" title="5. setBoost()方法的废除"></a>5. setBoost()方法的废除</h2><p>在 lucene 4.10 包中， setBoost方法被用于 相关度 的排序中。改变创建索引时的 Boost – 权值。根据一系列计算方法 （旧版采用的 <strong>空间向量模型算法</strong>），最终得出其打分。<br>代码如下 ：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Field fi1 = <span class="keyword">new</span> Field(<span class="string">"id"</span> , <span class="number">1</span>, STORE.YES)；</span><br><span class="line"><span class="comment">// Boost 值默认为 1.0f </span></span><br><span class="line">fi1.setBoost(<span class="number">100f</span>)</span><br><span class="line">Document <span class="keyword">do</span> = <span class="keyword">new</span> Document();</span><br><span class="line"><span class="keyword">do</span>.add(fi1);</span><br></pre></td></tr></table></figure>
+<p>而在新版 lucene 6.6 中， setBoost 方法被 废除<br>根据<a href="https://lucene.apache.org/core/6_6_0/core/index.html" target="_blank" rel="noopener">lucene 的官方文档</a>中的说法</p>
+<blockquote>
+<p>org.apache.lucene.document.Field.setBoost(float)<br>Index-time boosts are deprecated, please index index-time scoring factors into a doc value field and combine them with the score at query time using eg. FunctionScoreQuery.</p>
+</blockquote>
+<blockquote>
+<p>中文翻译后：<br>索引时权值被废除，请将索引时打分因素添加入field域中，然后在查询时，使用功能性打分查询语句，进行关联查询。</p>
+</blockquote>
+<blockquote>
+<p>我在查看了 大部分关联的 api 后，发现了几个与之相关的 类    </p>
+<ol>
+<li>BoostAttribute</li>
+<li>termsEnum</li>
+<li>MultiQuery    </li>
+</ol>
+</blockquote>
+<blockquote>
+<p><a href="https://lucene.apache.org/core/6_6_0/core/index.html" target="_blank" rel="noopener">lucene 的官方文档</a>中对 BoostAttribute 的描述是这样的。<br>BoostAttribute    —   &gt;<br>Add this Attribute to a TermsEnum returned by MultiTermQuery.getTermsEnum(Terms,AttributeSource) and update the boost on each returned term.<br>方法描述如下</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">protected abstract TermsEnum getTermsEnum(Terms terms,AttributeSource atts)	</span><br><span class="line">//Construct the enumeration to be used, expanding the pattern term.</span><br><span class="line">//很明显，这是个抽象方法，必须由子类实现</span><br><span class="line">`</span><br></pre></td></tr></table></figure>
+<p><strong>BoostAttribute </strong>是个接口，其实现类 BoostAttributeImpl 中源码如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">public BoostAttributeImpl() &#123;</span><br><span class="line">&#125;</span><br><span class="line">public void setBoost(float boost) &#123;</span><br><span class="line">    this.boost = boost;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>推测使用如下     —  以下是伪代码</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">//设置 Boost 属性</span><br><span class="line">BoostAttribute ba = new BoostAttributeImpl();</span><br><span class="line">ba.setBoost(100f);</span><br><span class="line">//设置 Query 的实现类</span><br><span class="line">Query query =  new MultiTermqueryChildren(new Terms（)）;</span><br><span class="line">TermEnum te = query.getTermsEnum(Terms,ba);</span><br></pre></td></tr></table></figure>
+<p><strong>具体方法还不清楚，希望知道的大神可以给我解答</strong> </p>
+<p>另外，还有两个便于操作的类：</p>
+<ol>
+<li>BoostQuery</li>
+<li>MultiFieldQueryParser</li>
+</ol>
+<h3 id="1-BoostQuery"><a href="#1-BoostQuery" class="headerlink" title="1.BoostQuery"></a>1.BoostQuery</h3><p>源码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">BoostQuery</span><span class="params">(Query query, <span class="keyword">float</span> boost)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.query = (Query)Objects.requireNonNull(query);</span><br><span class="line">    <span class="keyword">this</span>.boost = boost;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>分析：<br>相当于一个包装类，将 Query 设置 Boost 值 ，然后包装起来。<br>再通过复合查询语句，可以突出 Query 的优先级。    </p>
+<p>使用如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//查询 索引域 中的 file_name , file_content</span></span><br><span class="line">Query q1 = <span class="keyword">new</span> TermQuery(<span class="keyword">new</span> Term(“file_name” ,”springmvc.txt”);</span><br><span class="line">Query q2 = <span class="keyword">new</span> TermQuery(<span class="keyword">new</span> Term(“file_content”,”springmvc.txt”);</span><br><span class="line"><span class="comment">//将 q1 设置 Boost 值 </span></span><br><span class="line">BoostQuery q3 = <span class="keyword">new</span> BoostQuery(q1,<span class="number">100f</span>);</span><br><span class="line"><span class="comment">//复合语句查询</span></span><br><span class="line">BooleanQuery.Builder() builder = <span class="keyword">new</span> <span class="keyword">new</span> BooleanQuery.Builder();</span><br><span class="line">builder.add(q3, Occur.MUST)</span><br><span class="line">builder.add(q2, Occur.MUST)</span><br><span class="line"><span class="comment">//由于 file_name 的查询语句经过 BoostQuery 的包装</span></span><br><span class="line"><span class="comment">//因此 file_name 的优先级更高。</span></span><br><span class="line">BooleanQuery query = builder.build();</span><br></pre></td></tr></table></figure>
+<p>2.MultiFieldQueryParser<br>和原先版本相同 ， 就不阐述源码，直接上使用方法<br>使用如下 ：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//设置组合查询域</span></span><br><span class="line">String[] fields = &#123;<span class="string">"file_name"</span>,<span class="string">"file_content"</span>&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//设置评分,文件名称中包括关键字的评分高</span></span><br><span class="line">Map&lt;String,Float&gt; boosts = <span class="keyword">new</span> HashMap&lt;String,Float&gt;();</span><br><span class="line">boosts.put(<span class="string">"file_name"</span>, <span class="number">10.0f</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//创建查询解析器</span></span><br><span class="line">QueryParser queryParser =  <span class="keyword">new</span> MultiFieldQueryParser(fields, <span class="keyword">new</span> IKAnalyzer(), boosts);</span><br><span class="line"><span class="comment">//查询文件名、文件内容中包括“springmvc.txt”关键字的文档，由于设置了文件名称域的加权值高，所以名称中匹配到关键字的应该排在前边</span></span><br><span class="line">Query query = queryParser.parse(<span class="string">"springmvc.txt"</span>);</span><br></pre></td></tr></table></figure>
+<h2 id="6-中文分词器-–-iKAnalyzer-的-lucene-6-6-适配"><a href="#6-中文分词器-–-iKAnalyzer-的-lucene-6-6-适配" class="headerlink" title="6. 中文分词器 – iKAnalyzer 的 lucene 6.6 适配"></a>6. 中文分词器 – iKAnalyzer 的 lucene 6.6 适配</h2><blockquote>
+<p>调皮的超链接<a href="http://3dot141.cn/blogs/47564.html" target="_blank" rel="noopener">个人博客中有更多</a></p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/killJava/" rel="tag"># killJava</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blogs/3153.html" rel="next" title="killBase系列 -- C/S 与 B/S 架构的区别">
+                <i class="fa fa-chevron-left"></i> killBase系列 -- C/S 与 B/S 架构的区别
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blogs/21184.html" rel="prev" title="从 Socket 编程 到 OkHttp 框架">
+                从 Socket 编程 到 OkHttp 框架 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">3Dot141</p>
+              <p class="site-description motion-element" itemprop="description">Nothing is impossible to a willing heart.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">49</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-IndexWriterConfig"><span class="nav-number">2.</span> <span class="nav-text">1.IndexWriterConfig</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Directory"><span class="nav-number">3.</span> <span class="nav-text">2.Directory</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-legacyXXField-与legacyNumericRangeQuery"><span class="nav-number">4.</span> <span class="nav-text">3.legacyXXField 与legacyNumericRangeQuery</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-分析"><span class="nav-number">4.1.</span> <span class="nav-text">1. 分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-结论："><span class="nav-number">4.2.</span> <span class="nav-text">2.结论：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-代码对比"><span class="nav-number">4.3.</span> <span class="nav-text">3.代码对比</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-BooleanQuery-的构造方法改变"><span class="nav-number">5.</span> <span class="nav-text">4.BooleanQuery() 的构造方法改变</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-分析-1"><span class="nav-number">5.1.</span> <span class="nav-text">1.分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-结论"><span class="nav-number">5.2.</span> <span class="nav-text">2.结论</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-代码对比-1"><span class="nav-number">5.3.</span> <span class="nav-text">3.代码对比</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-setBoost-方法的废除"><span class="nav-number">6.</span> <span class="nav-text">5. setBoost()方法的废除</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-BoostQuery"><span class="nav-number">6.1.</span> <span class="nav-text">1.BoostQuery</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-中文分词器-–-iKAnalyzer-的-lucene-6-6-适配"><span class="nav-number">7.</span> <span class="nav-text">6. 中文分词器 – iKAnalyzer 的 lucene 6.6 适配</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">3Dot141</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
