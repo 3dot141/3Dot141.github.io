@@ -101,7 +101,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="killBase," />
+  <meta name="keywords" content="For You" />
 
 
 
@@ -117,18 +117,17 @@
 
 
 
-<meta name="description" content="设计模式过去，曾经看过一本书， Head First 设计模式。那是第一次真正意义上的接触设计模式上面的东西。生动形象加上贴图作为例子。可以说是对设计模式有了一点初步的了解，但是，碍于时间原因，不过是浅尝辄止吧。不过，现在入职后，因为要阅读大量的源码，所以，需要对代码结构有更深层次的了解。因此，通过设计模式进行对照，一方面方便源码的阅读，一方面加深自己对设计模式的印象。 不过这一次的博客，不能像过">
-<meta name="keywords" content="killBase">
+<meta name="description" content="Java序列化就是把Java对象按照一定的格式存到文件或者磁盘当中，那么Java内置的序列化有几种方式呢？每种方式的相同点和不同点是什么呢？ 序列化的进阶：即三种方式，任何一种方式都可以进行序列化和反序列化 第一种使用默认的序列化机制，即实现Serializable接口即可，不需要实现任何方法。 该接口没有任何方法，只是一个标记而已，告诉Java虚拟机该类可以被序列化了。然后利用ObjectOut">
 <meta property="og:type" content="article">
-<meta property="og:title" content="killBase系列 -- 设计模式">
-<meta property="og:url" content="https://3dot141.com/blogs/5b269d9f.html">
+<meta property="og:title" content="Java 内置序列化的三种方式">
+<meta property="og:url" content="https://3dot141.com/blogs/38ecb4b6.html">
 <meta property="og:site_name" content="killCode">
-<meta property="og:description" content="设计模式过去，曾经看过一本书， Head First 设计模式。那是第一次真正意义上的接触设计模式上面的东西。生动形象加上贴图作为例子。可以说是对设计模式有了一点初步的了解，但是，碍于时间原因，不过是浅尝辄止吧。不过，现在入职后，因为要阅读大量的源码，所以，需要对代码结构有更深层次的了解。因此，通过设计模式进行对照，一方面方便源码的阅读，一方面加深自己对设计模式的印象。 不过这一次的博客，不能像过">
+<meta property="og:description" content="Java序列化就是把Java对象按照一定的格式存到文件或者磁盘当中，那么Java内置的序列化有几种方式呢？每种方式的相同点和不同点是什么呢？ 序列化的进阶：即三种方式，任何一种方式都可以进行序列化和反序列化 第一种使用默认的序列化机制，即实现Serializable接口即可，不需要实现任何方法。 该接口没有任何方法，只是一个标记而已，告诉Java虚拟机该类可以被序列化了。然后利用ObjectOut">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-08-02T11:58:04.000Z">
+<meta property="og:updated_time" content="2018-12-23T13:09:11.742Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="killBase系列 -- 设计模式">
-<meta name="twitter:description" content="设计模式过去，曾经看过一本书， Head First 设计模式。那是第一次真正意义上的接触设计模式上面的东西。生动形象加上贴图作为例子。可以说是对设计模式有了一点初步的了解，但是，碍于时间原因，不过是浅尝辄止吧。不过，现在入职后，因为要阅读大量的源码，所以，需要对代码结构有更深层次的了解。因此，通过设计模式进行对照，一方面方便源码的阅读，一方面加深自己对设计模式的印象。 不过这一次的博客，不能像过">
+<meta name="twitter:title" content="Java 内置序列化的三种方式">
+<meta name="twitter:description" content="Java序列化就是把Java对象按照一定的格式存到文件或者磁盘当中，那么Java内置的序列化有几种方式呢？每种方式的相同点和不同点是什么呢？ 序列化的进阶：即三种方式，任何一种方式都可以进行序列化和反序列化 第一种使用默认的序列化机制，即实现Serializable接口即可，不需要实现任何方法。 该接口没有任何方法，只是一个标记而已，告诉Java虚拟机该类可以被序列化了。然后利用ObjectOut">
 
 
 
@@ -158,7 +157,7 @@
 
 
 
-  <link rel="canonical" href="https://3dot141.com/blogs/5b269d9f.html"/>
+  <link rel="canonical" href="https://3dot141.com/blogs/38ecb4b6.html"/>
 
 
 
@@ -174,7 +173,7 @@
 
 
 
-  <title>killBase系列 -- 设计模式 | killCode</title>
+  <title>Java 内置序列化的三种方式 | killCode</title>
   
 
 
@@ -365,7 +364,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://3dot141.com/blogs/5b269d9f.html">
+    <link itemprop="mainEntityOfPage" href="https://3dot141.com/blogs/38ecb4b6.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="3Dot141">
@@ -382,7 +381,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">killBase系列 -- 设计模式</h1>
+          <h1 class="post-title" itemprop="name headline">Java 内置序列化的三种方式</h1>
         
 
         <div class="post-meta">
@@ -394,8 +393,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-03T00:00:00+08:00">
-                2018-08-03
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-23T21:07:01+08:00">
+                2018-12-23
               </time>
             
 
@@ -405,28 +404,6 @@
           </span>
 
           
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Code/" itemprop="url" rel="index">
-                    <span itemprop="name">Code</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
 
           
             
@@ -435,8 +412,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/blogs/5b269d9f.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/blogs/5b269d9f.html" itemprop="commentCount"></span>
+                <a href="/blogs/38ecb4b6.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/blogs/38ecb4b6.html" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -444,7 +421,7 @@
 
           
           
-             <span id="/blogs/5b269d9f.html" class="leancloud_visitors" data-flag-title="killBase系列 -- 设计模式">
+             <span id="/blogs/38ecb4b6.html" class="leancloud_visitors" data-flag-title="Java 内置序列化的三种方式">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -469,7 +446,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  843
+                  797
                 </span>
               
 
@@ -506,39 +483,26 @@
       
 
       
-        <h1 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h1><p>过去，曾经看过一本书， Head First 设计模式。<br>那是第一次真正意义上的接触设计模式上面的东西。生动形象加上贴图作为例子。<br>可以说是对设计模式有了一点初步的了解，但是，碍于时间原因，不过是浅尝辄止吧。<br>不过，现在入职后，因为要阅读大量的源码，所以，需要对代码结构有更深层次的了解。<br>因此，通过设计模式进行对照，一方面方便源码的阅读，一方面加深自己对设计模式的印象。</p>
-<p>不过这一次的博客，不能像过去那样，只是作为一个知识的储存场所。应该是整理思维脉络的时候。<br>所以，这一次的大概逻辑是</p>
-<ol>
-<li>先把自己能想象到的设计模式列出来。</li>
-<li>然后把作用列出来。</li>
-<li>然后是 Uml 图。</li>
-<li>最后做补充。</li>
-</ol>
-<h2 id="Factory-Method"><a href="#Factory-Method" class="headerlink" title="Factory Method"></a>Factory Method</h2><p>生成实例的工厂。 有别于静态工厂。</p>
-<h2 id="Template-Method"><a href="#Template-Method" class="headerlink" title="Template Method"></a>Template Method</h2><p>将逻辑写到抽象类中，然后具体实现由子类实现</p>
-<h2 id="Iterator-模式"><a href="#Iterator-模式" class="headerlink" title="Iterator 模式"></a>Iterator 模式</h2><p>帮助遍历整个集合</p>
-<h2 id="Adapter"><a href="#Adapter" class="headerlink" title="Adapter"></a>Adapter</h2><p>将两个不同的类，组合起来。并对外界表现为其中一个的模样</p>
-<h2 id="Bridge"><a href="#Bridge" class="headerlink" title="Bridge"></a>Bridge</h2><p>桥接，说明有两个岸。分别代表功能层次与实现层次</p>
-<h2 id="State"><a href="#State" class="headerlink" title="State"></a>State</h2><p>取消 if 语句</p>
-<h2 id="Builder"><a href="#Builder" class="headerlink" title="Builder"></a>Builder</h2><p>灵活的创建相应的对象。</p>
-<h2 id="Composite"><a href="#Composite" class="headerlink" title="Composite"></a>Composite</h2><p>File 与 Directory ， 但是同属于 Item</p>
-<h2 id="Abstract-Factory"><a href="#Abstract-Factory" class="headerlink" title="Abstract Factory"></a>Abstract Factory</h2><p>上面的工厂是生成不同的实例，而这里的工厂是生成不同的工厂。</p>
-<h2 id="Visitor-模式"><a href="#Visitor-模式" class="headerlink" title="Visitor 模式"></a>Visitor 模式</h2><p>交给 拜访者 做某些事情。</p>
-<h2 id="Chain-of-Responsibility"><a href="#Chain-of-Responsibility" class="headerlink" title="Chain of Responsibility"></a>Chain of Responsibility</h2><p>一层层的向下推卸责任。</p>
-<h2 id="Command"><a href="#Command" class="headerlink" title="Command"></a>Command</h2><p>这里的主体，是 Command , 但往往每个命令存在单一的指令。。不是单一的策略。而是可以多个命令顺序执行。并且是由命令执行。 <code>execute</code></p>
-<h2 id="Strategy"><a href="#Strategy" class="headerlink" title="Strategy"></a>Strategy</h2><p>这里的策略内的方法是实现上一层逻辑的基础，内部可能存在多个方法，只要替换了这个类，整个逻辑就不一样了。</p>
-<h2 id="Observer"><a href="#Observer" class="headerlink" title="Observer"></a>Observer</h2><h2 id="Mediator-模式"><a href="#Mediator-模式" class="headerlink" title="Mediator 模式"></a>Mediator 模式</h2><p>交给中立者仲裁</p>
-<h2 id="Decorator-模式"><a href="#Decorator-模式" class="headerlink" title="Decorator 模式"></a>Decorator 模式</h2><p>添加装饰<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">new SideBorder(</span><br><span class="line">    new FullBorder(</span><br><span class="line">        new SideBoder(</span><br><span class="line">            new SideBoder()</span><br><span class="line">        )</span><br><span class="line">    )</span><br><span class="line">)</span><br></pre></td></tr></table></figure></p>
-<p>类似于这种，可以一致持续下去。</p>
-<h2 id="Facade-模式"><a href="#Facade-模式" class="headerlink" title="Facade 模式"></a>Facade 模式</h2><p>将处理的逻辑隐藏起来。·</p>
-<h2 id="Memento-模式"><a href="#Memento-模式" class="headerlink" title="Memento 模式"></a>Memento 模式</h2><p>储存 snapshot</p>
-<h2 id="Protype-模式"><a href="#Protype-模式" class="headerlink" title="Protype 模式"></a>Protype 模式</h2><p>基于原型的模式上，加入一些新功能。<br>利用了 clone() 方法 – 默认浅拷贝</p>
-<ol>
-<li>使用原型模式创建对象比直接new一个对象在性能上要好的多，因为Object类的clone方法是一个本地方法，它直接操作内存中的二进制流，特别是复制大对象时，性能的差别非常明显。</li>
-<li>使用原型模式的另一个好处是简化对象的创建，使得创建对象就像我们在编辑文档时的复制粘贴一样简单。</li>
-<li>因为以上优点，所以在需要重复地创建相似对象时可以考虑使用原型模式。比如需要在一个循环体内创建对象，假如对象创建过程比较复杂或者循环次数很多的话，使用原型模式不但可以简化创建过程，而且可以使系统的整体性能提高很多。</li>
-</ol>
-<h2 id="Flyweight-模式"><a href="#Flyweight-模式" class="headerlink" title="Flyweight 模式"></a>Flyweight 模式</h2><h2 id="Proxy-模式"><a href="#Proxy-模式" class="headerlink" title="Proxy 模式"></a>Proxy 模式</h2>
+        <p>Java序列化就是把Java对象按照一定的格式存到文件或者磁盘当中，那么Java内置的序列化有几种方式呢？每种方式的相同点和不同点是什么呢？</p>
+<p>序列化的进阶：即三种方式，任何一种方式都可以进行序列化和反序列化</p>
+<h2 id="第一种"><a href="#第一种" class="headerlink" title="第一种"></a>第一种</h2><p>使用默认的序列化机制，即实现Serializable接口即可，不需要实现任何方法。</p>
+<p>该接口没有任何方法，只是一个标记而已，告诉Java虚拟机该类可以被序列化了。然后利用ObjectOutputStream进行序列化和用ObjectInputStream进行反序列化。</p>
+<p><strong>注意：</strong></p>
+<p>该方式下序列化机制会自动保存该对象的成员变量，static成员变量和transient关键字修饰的成员变量不会被序列化保存。</p>
+<p>这是最简单的一种方式，因为这种方式让序列化机制看起来很方便（然后，我们在进行对象序列化时，只需要使用ObjectOutputStream和ObjectInputStream的writeObject(object)方法和readObject()方法，就可以把传入的对象参数序列化和反序列化了，其他不用管）。有时候想自己来控制序列化哪些成员，还有如何保存static和transient成员？</p>
+<p><strong>再注意</strong>：</p>
+<p>该方式下，反序列化时不会调用该对象的构造器，但是会调用父类的构造器，如果父类没有默认构造器则会报错。<strong>static字段是类共享的字段，当该类的一个对象被序列化后，这个static变量可能会被另一个对象改变，所以这就决定了静态变量是不能序列化的，但如果再加上final修饰，就可以被序列化了，因为这是一个常量，不会改变。</strong></p>
+<h2 id="第二种"><a href="#第二种" class="headerlink" title="第二种"></a>第二种</h2><p>实现Externalizable接口。</p>
+<p>Externalizable 接口是继承自 Serializable 接口的，我们在实现 Externalizable 接口时，必须实现writeExternal(ObjectOutput)和readExternal(ObjectInput)方法，在这两个方法下我们可以手动的进行序列化和反序列化那些需要保存的成员变量。</p>
+<p>反序列化时，首先会调用对象的默认构造器（没有则报错，如果默认构造器不是public的也会报错），然后再调用readExternal方法。</p>
+<p>这种方式一定要显式的序列化成员变量，使得整个序列化过程是可控制的，可以自己选择将哪些部分序列化。</p>
+<p>第三种</p>
+<p>实现Serializable接口，在该实现类中再增加writeObject方法和readObject方法。该方式要严格遵循以下两个方法的方法签名：</p>
+<p>writeObject和readObject</p>
+<p>在这两个方法里面需要使用stream.defaultWriteObject()序列化那些非static和非transient修饰的成员变量，<strong>static的和transient的变量则用stream.writeObject(object)显式序列化。</strong></p>
+<p>在序列化输出的时候，writeObject(object)会检查object参数，如果object拥有自己的writeObject()方法，那么就会使用它自己的writeObject()方法进行序列化。readObject()也采用了类似的步骤进行处理。如果object参数没有writeObject()方法，在readObject方法中就不能调用stream.readObject()，否则会报错。</p>
+<p>例如：</p>
+
       
     </div>
     
@@ -553,12 +517,6 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/killBase/" rel="tag"># killBase</a>
-          
-        </div>
-      
 
       
       
@@ -568,8 +526,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/blogs/b493d1fd.html" rel="next" title="book -- 人月神话">
-                <i class="fa fa-chevron-left"></i> book -- 人月神话
+              <a href="/blogs/90ab9288.html" rel="next" title="Class + Static 代码块">
+                <i class="fa fa-chevron-left"></i> Class + Static 代码块
               </a>
             
           </div>
@@ -577,10 +535,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/blogs/bbd7ce62.html" rel="prev" title="book -- 学会提问">
-                book -- 学会提问 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -774,7 +728,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#设计模式"><span class="nav-text">设计模式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Factory-Method"><span class="nav-text">Factory Method</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Template-Method"><span class="nav-text">Template Method</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Iterator-模式"><span class="nav-text">Iterator 模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Adapter"><span class="nav-text">Adapter</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Bridge"><span class="nav-text">Bridge</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#State"><span class="nav-text">State</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Builder"><span class="nav-text">Builder</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Composite"><span class="nav-text">Composite</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Abstract-Factory"><span class="nav-text">Abstract Factory</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Visitor-模式"><span class="nav-text">Visitor 模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Chain-of-Responsibility"><span class="nav-text">Chain of Responsibility</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Command"><span class="nav-text">Command</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Strategy"><span class="nav-text">Strategy</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Observer"><span class="nav-text">Observer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mediator-模式"><span class="nav-text">Mediator 模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Decorator-模式"><span class="nav-text">Decorator 模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Facade-模式"><span class="nav-text">Facade 模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Memento-模式"><span class="nav-text">Memento 模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Protype-模式"><span class="nav-text">Protype 模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Flyweight-模式"><span class="nav-text">Flyweight 模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Proxy-模式"><span class="nav-text">Proxy 模式</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第一种"><span class="nav-text">第一种</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二种"><span class="nav-text">第二种</span></a></li></ol></div>
             
 
           </div>
