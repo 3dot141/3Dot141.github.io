@@ -6,8 +6,20 @@
       <title>Java 内置序列化的三种方式</title>
       <link href="/blogs/38ecb4b6.html"/>
       <url>/blogs/38ecb4b6.html</url>
-      <content type="html"><![CDATA[<p>Java序列化就是把Java对象按照一定的格式存到文件或者磁盘当中，那么Java内置的序列化有几种方式呢？每种方式的相同点和不同点是什么呢？</p><p>序列化的进阶：即三种方式，任何一种方式都可以进行序列化和反序列化</p><h2 id="第一种"><a href="#第一种" class="headerlink" title="第一种"></a>第一种</h2><p>使用默认的序列化机制，即实现Serializable接口即可，不需要实现任何方法。</p><p>该接口没有任何方法，只是一个标记而已，告诉Java虚拟机该类可以被序列化了。然后利用ObjectOutputStream进行序列化和用ObjectInputStream进行反序列化。</p><p><strong>注意：</strong></p><p>该方式下序列化机制会自动保存该对象的成员变量，static成员变量和transient关键字修饰的成员变量不会被序列化保存。</p><p>这是最简单的一种方式，因为这种方式让序列化机制看起来很方便（然后，我们在进行对象序列化时，只需要使用ObjectOutputStream和ObjectInputStream的writeObject(object)方法和readObject()方法，就可以把传入的对象参数序列化和反序列化了，其他不用管）。有时候想自己来控制序列化哪些成员，还有如何保存static和transient成员？</p><p><strong>再注意</strong>：</p><p>该方式下，反序列化时不会调用该对象的构造器，但是会调用父类的构造器，如果父类没有默认构造器则会报错。<strong>static字段是类共享的字段，当该类的一个对象被序列化后，这个static变量可能会被另一个对象改变，所以这就决定了静态变量是不能序列化的，但如果再加上final修饰，就可以被序列化了，因为这是一个常量，不会改变。</strong></p><h2 id="第二种"><a href="#第二种" class="headerlink" title="第二种"></a>第二种</h2><p>实现Externalizable接口。</p><p>Externalizable 接口是继承自 Serializable 接口的，我们在实现 Externalizable 接口时，必须实现writeExternal(ObjectOutput)和readExternal(ObjectInput)方法，在这两个方法下我们可以手动的进行序列化和反序列化那些需要保存的成员变量。</p><p>反序列化时，首先会调用对象的默认构造器（没有则报错，如果默认构造器不是public的也会报错），然后再调用readExternal方法。</p><p>这种方式一定要显式的序列化成员变量，使得整个序列化过程是可控制的，可以自己选择将哪些部分序列化。</p><p>第三种</p><p>实现Serializable接口，在该实现类中再增加writeObject方法和readObject方法。该方式要严格遵循以下两个方法的方法签名：</p><p>writeObject和readObject</p><p>在这两个方法里面需要使用stream.defaultWriteObject()序列化那些非static和非transient修饰的成员变量，<strong>static的和transient的变量则用stream.writeObject(object)显式序列化。</strong></p><p>在序列化输出的时候，writeObject(object)会检查object参数，如果object拥有自己的writeObject()方法，那么就会使用它自己的writeObject()方法进行序列化。readObject()也采用了类似的步骤进行处理。如果object参数没有writeObject()方法，在readObject方法中就不能调用stream.readObject()，否则会报错。</p><p>例如：</p>]]></content>
+      <content type="html"><![CDATA[<p>Java序列化就是把Java对象按照一定的格式存到文件或者磁盘当中，那么Java内置的序列化有几种方式呢？每种方式的相同点和不同点是什么呢？</p><p>序列化的进阶：即三种方式，任何一种方式都可以进行序列化和反序列化</p><h2 id="第一种"><a href="#第一种" class="headerlink" title="第一种"></a>第一种</h2><p>使用默认的序列化机制，即实现Serializable接口即可，不需要实现任何方法。</p><p>该接口没有任何方法，只是一个标记而已，告诉Java虚拟机该类可以被序列化了。然后利用ObjectOutputStream进行序列化和用ObjectInputStream进行反序列化。</p><p><strong>注意：</strong></p><p>该方式下序列化机制会自动保存该对象的成员变量，static成员变量和transient关键字修饰的成员变量不会被序列化保存。</p><p>这是最简单的一种方式，因为这种方式让序列化机制看起来很方便（然后，我们在进行对象序列化时，只需要使用ObjectOutputStream和ObjectInputStream的writeObject(object)方法和readObject()方法，就可以把传入的对象参数序列化和反序列化了，其他不用管）。有时候想自己来控制序列化哪些成员，还有如何保存static和transient成员？</p><p><strong>再注意</strong>：</p><p>该方式下，反序列化时不会调用该对象的构造器，但是会调用父类的构造器，如果父类没有默认构造器则会报错。<strong>static字段是类共享的字段，当该类的一个对象被序列化后，这个static变量可能会被另一个对象改变，所以这就决定了静态变量是不能序列化的，但如果再加上final修饰，就可以被序列化了，因为这是一个常量，不会改变。</strong></p><h2 id="第二种"><a href="#第二种" class="headerlink" title="第二种"></a>第二种</h2><p>实现Externalizable接口。</p><p>Externalizable 接口是继承自 Serializable 接口的，我们在实现 Externalizable 接口时，必须实现writeExternal(ObjectOutput)和readExternal(ObjectInput)方法，在这两个方法下我们可以手动的进行序列化和反序列化那些需要保存的成员变量。</p><p>反序列化时，首先会调用对象的默认构造器（没有则报错，如果默认构造器不是public的也会报错），然后再调用readExternal方法。</p><p>这种方式一定要显式的序列化成员变量，使得整个序列化过程是可控制的，可以自己选择将哪些部分序列化。</p><p>第三种</p><p>实现Serializable接口，在该实现类中再增加writeObject方法和readObject方法。该方式要严格遵循以下两个方法的方法签名：</p><p>writeObject和readObject</p><p>在这两个方法里面需要使用stream.defaultWriteObject()序列化那些非static和非transient修饰的成员变量，<strong>static的和transient的变量则用stream.writeObject(object)显式序列化。</strong></p><p>在序列化输出的时候，writeObject(object)会检查object参数，如果object拥有自己的writeObject()方法，那么就会使用它自己的writeObject()方法进行序列化。readObject()也采用了类似的步骤进行处理。</p><p><strong>如果object参数没有writeObject()方法，在readObject方法中就不能调用stream.readObject()，否则会报错。</strong></p>]]></content>
       
+      <categories>
+          
+          <category> Code </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> killJava </tag>
+            
+        </tags>
       
     </entry>
     
