@@ -60,10 +60,10 @@
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.6.0">
 
 
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.6.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-medium-self.png?v=6.6.0">
 
 
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.6.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-small-self.png?v=6.6.0">
 
 
   <link rel="mask-icon" href="/images/logo.svg?v=6.6.0" color="#222">
@@ -403,12 +403,443 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://3dot141.com/blogs/10580.html">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="3Dot141">
+      <meta itemprop="description" content="Nothing is impossible to a willing heart.">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="killCode">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/blogs/10580.html" class="post-title-link" itemprop="https://3dot141.com/page/6/index.html">killJtools -- Maven 入门详解</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2017-11-17 00:00:00" itemprop="dateCreated datePublished" datetime="2017-11-17T00:00:00+08:00">2017-11-17</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-04-05 22:21:40" itemprop="dateModified" datetime="2018-04-05T22:21:40+08:00">2018-04-05</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Code/" itemprop="url" rel="index"><span itemprop="name">Code</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/blogs/10580.html#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count valine-comment-count" data-xid="/blogs/10580.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/blogs/10580.html" class="leancloud_visitors" data-flag-title="killJtools -- Maven 入门详解">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Views: </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count: </span>
+                
+                <span title="Words count">8.6k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">One coffee &asymp;</span>
+                
+                <span title="One coffee">14 mins.</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><h3 id="1-更改仓库目录"><a href="#1-更改仓库目录" class="headerlink" title="1.更改仓库目录"></a>1.更改仓库目录</h3><p>maven\conf\settings.xml</p>
+<localrepository><strong> 路径 </strong> </localrepository>
+
+<h3 id="2-目录结构"><a href="#2-目录结构" class="headerlink" title="2.目录结构"></a>2.目录结构</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">src</span><br><span class="line">	main</span><br><span class="line">		java</span><br><span class="line">		resources（暂时省略）</span><br><span class="line">test</span><br><span class="line">		java</span><br><span class="line">		resources（暂时省略）</span><br><span class="line">pom.xm</span><br></pre></td></tr></table></figure>
+<h3 id="3-pom-xml"><a href="#3-pom-xml" class="headerlink" title="3.pom.xml"></a>3.pom.xml</h3><p><strong>HelloWorld</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;&gt;</span><br><span class="line">  &lt;!-- 模型版本号：4.0.0 --&gt;</span><br><span class="line">  &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>可以被当作其他项目的依赖项</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">  &lt;!-- 组织名称：暂时使用 组织名称+项目名称 作为组织名称 --&gt;</span><br><span class="line">  &lt;!-- 组织名称：实际名称 按照访问路径规范设置，通常以功能作为名称：eg: junit spring --&gt;</span><br><span class="line">  &lt;groupId&gt;cn.itcast.maven&lt;/groupId&gt;</span><br><span class="line">  &lt;!-- 项目名称 --&gt;</span><br><span class="line">  &lt;artifactId&gt;HelloWorld&lt;/artifactId&gt;</span><br><span class="line">  &lt;!-- 当前项目版本号：同一个项目开发过程中可以发布多个版本，此处标示0.0.1版 --&gt;</span><br><span class="line">  &lt;!-- 当前项目版本号：每个工程发布后可以发布多个版本，依赖时调取不同的版本，使用不同的版本号 --&gt;</span><br><span class="line">  &lt;version&gt;0.0.1&lt;/version&gt; </span><br><span class="line"></span><br><span class="line">  &lt;!-- 发布时的文件类型：默认jar包 --&gt;</span><br><span class="line">  &lt;packaging&gt;war&lt;/packaging&gt;</span><br><span class="line">  &lt;!-- 名称：可省略 --&gt;</span><br><span class="line">  &lt;name&gt;Hello&lt;/name&gt;</span><br><span class="line">  &lt;!-- 资源下载路径：存在默认值&gt;</span><br><span class="line">  &lt;url&gt;http://maven.apache.org&lt;/url&gt;</span><br><span class="line">  </span><br><span class="line">  &lt;properties&gt;</span><br><span class="line">    &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;</span><br><span class="line">  &lt;/properties&gt;</span><br><span class="line"></span><br><span class="line">  &lt;!-- 依赖关系 --&gt;</span><br><span class="line">	&lt;dependencies&gt;</span><br><span class="line">		&lt;!-- 依赖设置 --&gt;</span><br><span class="line">		&lt;dependency&gt;</span><br><span class="line">    &lt;!-- 坐标 --&gt;</span><br><span class="line"></span><br><span class="line">			&lt;!-- 依赖组织名称 --&gt;</span><br><span class="line">			&lt;groupId&gt;junit&lt;/groupId&gt;</span><br><span class="line">			&lt;!-- 依赖项目名称 --&gt;</span><br><span class="line">			&lt;artifactId&gt;junit&lt;/artifactId&gt;</span><br><span class="line">			&lt;!-- 依赖版本名称 --&gt;</span><br><span class="line">			&lt;version&gt;4.9&lt;/version&gt;</span><br><span class="line">			&lt;!-- 依赖范围：test包下依赖该设置 --&gt;</span><br><span class="line">			&lt;scope&gt;test&lt;/scope&gt;</span><br><span class="line"></span><br><span class="line">		&lt;/dependency&gt;		</span><br><span class="line">	&lt;/dependencies&gt;</span><br><span class="line">&lt;/project&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="4-命令"><a href="#4-命令" class="headerlink" title="4.命令"></a>4.命令</h3><ol>
+<li>打开cmd命令行，进入Hello项目根目录(包含有pom.xml文件的目录)</li>
+<li>执行 mvn compile命令<br> 执行完毕后，生成了maven工程编译完成后字节码文件的生成目录target</li>
+<li>cmd 中继续录入mvn clean命令<br> 执行完毕后，字节码生成目录target被删除</li>
+<li>cmd 中录入 mvn clean test命令<br> 执行完毕后，字节码生成目录中生成了被测试类与测试类的编译字节码和测试执行过程日志与详细报告</li>
+<li>cmd 中录入 mvn clean compile命令<br> 组合指令，先执行clean，再执行compile，通常应用于上线前执行，清除测试类</li>
+<li>cmd 中录入 mvn clean test命令<br> 组合指令，先执行clean，再执行test，通常应用于测试环节</li>
+<li>cmd 中录入 mvn clean package命令<br> 组合指令，先执行clean，再执行package，将项目打包，通常应用于发布前<br> 执行过程：<pre><code>- 清理————清空环境
+- 编译————编译源码
+- 测试————测试源码
+- 打包————将编译的非测试类打包
+</code></pre></li>
+<li>cmd 中录入 mvn clean install 查看仓库，当前项目被发布到仓库中<br> 组合指令，先执行clean，再执行install，将项目打包，通常应用于发布前<br> 执行过程：<pre><code>清理————清空环境
+编译————编译源码
+测试————测试源码
+打包————将编译的非测试类打包
+部署————将打好的包发布到资源仓库中
+</code></pre></li>
+</ol>
+<h3 id="5-坐标"><a href="#5-坐标" class="headerlink" title="5.坐标"></a>5.坐标</h3><p><strong><a href="https://www.mvnrepository.com" target="_blank" rel="noopener">依赖查询地址</a></strong></p>
+<ul>
+<li>groupid: 定义当前Maven项目隶属项目</li>
+<li>artifactld: 定义初建项目中的一个模块</li>
+<li>version：定义当前项目的当前版本</li>
+<li>packaging: 定义该项目的打包方式</li>
+<li>scoge：范围</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>依赖范围</th>
+<th>主代码</th>
+<th>测试代码</th>
+<th>运行时</th>
+<th>例子</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>compile</td>
+<td>y</td>
+<td>y</td>
+<td>y</td>
+<td>jdk</td>
+</tr>
+<tr>
+<td>test</td>
+<td>-</td>
+<td>y</td>
+<td>-</td>
+<td>junit</td>
+</tr>
+<tr>
+<td>provided</td>
+<td>y</td>
+<td>y</td>
+<td>-</td>
+<td>servlet-api</td>
+</tr>
+<tr>
+<td>runtime</td>
+<td>-</td>
+<td>-</td>
+<td>y</td>
+<td>JDBC Drive</td>
+</tr>
+</tbody>
+</table>
+<h3 id="6-依赖"><a href="#6-依赖" class="headerlink" title="6.依赖"></a>6.依赖</h3><ol>
+<li>依赖传递：<ul>
+<li>直接依赖</li>
+<li>间接依赖</li>
+</ul>
+</li>
+<li>依赖范围<br><strong>列是第一直接依赖，行是第二间接依赖</strong></li>
+</ol>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>compile</th>
+<th>test</th>
+<th>provided</th>
+<th>runtime</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>compile</td>
+<td>compile</td>
+<td>-</td>
+<td>-</td>
+<td>runtime</td>
+</tr>
+<tr>
+<td>test</td>
+<td>test</td>
+<td>-</td>
+<td>-</td>
+<td>test</td>
+</tr>
+<tr>
+<td>provided</td>
+<td>provided</td>
+<td>-</td>
+<td>provided</td>
+<td>provided</td>
+</tr>
+<tr>
+<td>runtime</td>
+<td>runtime</td>
+<td>-</td>
+<td>-</td>
+<td>runtime</td>
+</tr>
+</tbody>
+</table>
+<ol start="3">
+<li><strong>可选依赖</strong>：  控制该依赖使用时，是否向下传递 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">      &lt;optional&gt;true&lt;/optional&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>true : 代表不向下传递<br>false：向下传递</p>
+<ol start="4">
+<li><p>排除依赖 :主动选择是否要使用传递的依赖。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">&lt;-- 设置当前依赖中是否使用间接依赖 --&gt;</span><br><span class="line">    &lt;exclusions&gt;</span><br><span class="line">      &lt;exclusion&gt;</span><br><span class="line">        &lt;groupId&gt;&lt;/groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;&lt;/artifactId&gt;</span><br><span class="line">      &lt;/exclusion&gt;</span><br><span class="line">    &lt;/exclusions&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>依赖冲突</p>
+</li>
+</ol>
+<ul>
+<li>如果一个配置中依赖写了多个，以最后一个为准。</li>
+</ul>
+<h3 id="7-生命周期"><a href="#7-生命周期" class="headerlink" title="7.生命周期"></a>7.生命周期</h3><ol>
+<li>三大生命周期：内有许多个按顺序执行的流程。<ul>
+<li>clean</li>
+<li>default </li>
+<li>site</li>
+</ul>
+</li>
+<li>自定义插件+插件<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;bulid&gt;</span><br><span class="line">    &lt;plugin&gt;</span><br><span class="line">    &lt;!-- 定义插件的坐标 --&gt;</span><br><span class="line">        &lt;groupId&gt;org.apache.maven.plugins&lt;groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;maven-source-plugins&lt;/artifactId&gt;</span><br><span class="line">        &lt;version&gt;2.2.1&lt;/version&gt;</span><br><span class="line">        &lt;!-- 具体的执行位置 --&gt;</span><br><span class="line">        &lt;executions&gt;</span><br><span class="line">            &lt;execution&gt;</span><br><span class="line">                &lt;goals&gt;</span><br><span class="line">                    &lt;goal&gt;jar-no-fork&lt;/goal&gt;</span><br><span class="line">                    &lt;phase&gt;process-classes&lt;/phase&gt;</span><br><span class="line">                &lt;goals&gt;</span><br><span class="line">            &lt;/exclusion&gt;</span><br><span class="line">        &lt;executions&gt;</span><br><span class="line">    &lt;/plugin&gt;</span><br><span class="line">&lt;/build&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="8-继承-聚合"><a href="#8-继承-聚合" class="headerlink" title="8.继承+聚合"></a>8.继承+聚合</h3><p><strong>1.</strong> 继承：消除重复配置 </p>
+<ul>
+<li><strong>父工程</strong></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;packaging&gt;pom&lt;/packaging&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>子工程</strong></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">&lt;parent&gt;</span><br><span class="line">    &lt;!-- 与父工程版本一致，自身可以不写 --&gt;</span><br><span class="line">    &lt;groupId&gt;cn.itcast&lt;/groupId&gt;</span><br><span class="line">    &lt;!--  父工程类名  --&gt;</span><br><span class="line">    &lt;artifactId&gt;ZParent&lt;/artifactId&gt;</span><br><span class="line">    &lt;!-- 与父工程版本一致，自身可以不写 --&gt;</span><br><span class="line">    &lt;version&gt;0.0.1-SNAPSHOT&lt;/version&gt;</span><br><span class="line">    &lt;relativePath&gt;../ZParent&lt;/relativePath&gt;</span><br><span class="line">&lt;/parent&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- 版本统一管理 --&gt;</span><br><span class="line">&lt;!-- 父工程设置版本，子工程再次设置时不用写版本号 --&gt;</span><br><span class="line">&lt;!-- 不会被子工程直接继承，而是当子工程设置时，才会自己设置版本 --&gt;</span><br><span class="line">&lt;dependencyManagement&gt;</span><br><span class="line">    &lt;dependencies&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;version&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br><span class="line">    &lt;/dependencies&gt;</span><br><span class="line">&lt;/dependencyManagement&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- 设置常量 --&gt;</span><br><span class="line">&lt;properties&gt;</span><br><span class="line">    &lt;log4j.version&gt;1.2.15&lt;/log4j.version&gt;</span><br><span class="line">&lt;/properties&gt;</span><br><span class="line"></span><br><span class="line">&lt;version&gt;$&#123;log4j.version&#125;&lt;/version&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>2.</strong> 聚合:减少操作，将多个一同编译。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;modules&gt;</span><br><span class="line">    &lt;module&gt;&lt;/module&gt;</span><br><span class="line">    &lt;module&gt;&lt;/module&gt;</span><br><span class="line">&lt;modules&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="9-本地仓库-私服-中央仓库"><a href="#9-本地仓库-私服-中央仓库" class="headerlink" title="9.本地仓库+私服+中央仓库"></a>9.本地仓库+私服+中央仓库</h3><p><strong>流程：</strong>个人 –&gt; 私服 –&gt; 中央</p>
+<ol>
+<li>私服： Nexus<br> 1.将 Nexus.war 包 放入 tomcat/webapps/<br> 2.启动tomcat,打开网址<a href="http://localhost:8080/nexus/index.html#welcome" target="_blank" rel="noopener">http://localhost:8080/nexus/index.html#welcome</a><br> 3.</li>
+<li><p>介绍：</p>
+<ol>
+<li>Repository:<ol>
+<li>central 中央仓库</li>
+<li>central M1 shadow 镜像仓库，防止中央仓库出现问题</li>
+<li>3rd party 第三方仓库<br> Artifact Upload</li>
+<li>Apache Sanpshots 还未完全开发好，试用</li>
+<li>release</li>
+<li>snapshots</li>
+</ol>
+</li>
+<li>Type:<ol>
+<li>proxy 远程代理</li>
+<li>hosted 本地</li>
+<li>group 群组</li>
+<li>vitual </li>
+</ol>
+</li>
+<li><p>Browse Index:下载Index索引并进行构建搜索<br> 1.可能通过这个 <strong>索引</strong> 下载文件出错。<br> 解决方法：将本地仓库中的旧文件完全删除，然后重新下载。</p>
+<p> 作用：找到依赖配置</p>
+</li>
+</ol>
+</li>
+<li><p>使用<br> 配置所有构建均从私服下载</p>
+<ol>
+<li><p><strong><code>~/.m2/setting.xml</code></strong><br>或<br><strong><code>~/config/setting.xml</code></strong> </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line">&lt;settings&gt;</span><br><span class="line">    &lt;!-- 配置拦截 --&gt;</span><br><span class="line">    &lt;mirrors&gt;</span><br><span class="line">        &lt;mirror&gt;</span><br><span class="line">            &lt;!--此处配置所有的构建均从私有仓库中下载 *代表所有，也可以写central --&gt;</span><br><span class="line">            &lt;id&gt;nexus&lt;/id&gt;</span><br><span class="line"></span><br><span class="line">            &lt;!-- 下载东西的 id 在此处配置 --&gt;</span><br><span class="line">            &lt;mirrorOf&gt;*&lt;/mirrorOf&gt;</span><br><span class="line"></span><br><span class="line">            &lt;!-- 私服网站上对应的 group 群组地址 --&gt;</span><br><span class="line">            &lt;url&gt;http://192.168.1.100:8000/nexus/content/groups/public&lt;/url&gt;</span><br><span class="line">        &lt;/mirror&gt;</span><br><span class="line">    &lt;/mirrors&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- 定义策略 --&gt;</span><br><span class="line">    &lt;profiles&gt;</span><br><span class="line">        &lt;profile&gt;</span><br><span class="line">            &lt;id&gt;nexus&lt;/id&gt;</span><br><span class="line">            &lt;!—所有请求均通过镜像 --&gt;</span><br><span class="line"></span><br><span class="line">            &lt;!-- jar包 --&gt;</span><br><span class="line">            &lt;repositories&gt;</span><br><span class="line">                &lt;repository&gt;</span><br><span class="line">                    &lt;!-- 与网站上的名称对应 --&gt;</span><br><span class="line">                    &lt;id&gt;central&lt;/id&gt;</span><br><span class="line">                    &lt;url&gt;http://central&lt;/url&gt;</span><br><span class="line"></span><br><span class="line">                    &lt;!-- 代表两种包的不同状态 --&gt;</span><br><span class="line">                    &lt;releases&gt;&lt;enabled&gt;true&lt;/enabled&gt;&lt;/releases&gt;</span><br><span class="line">                    &lt;snapshots&gt;&lt;enabled&gt;true&lt;/enabled&gt;&lt;/snapshots&gt;</span><br><span class="line"></span><br><span class="line">                &lt;/repository&gt;</span><br><span class="line">            &lt;/repositories&gt;</span><br><span class="line"></span><br><span class="line">            &lt;!-- maven插件包 --&gt;</span><br><span class="line"></span><br><span class="line">            &lt;pluginRepositories&gt;</span><br><span class="line">                &lt;pluginRepository&gt;</span><br><span class="line">                    &lt;id&gt;central&lt;/id&gt;</span><br><span class="line">                    &lt;url&gt;http://central&lt;/url&gt;</span><br><span class="line">                    &lt;releases&gt;&lt;enabled&gt;true&lt;/enabled&gt;&lt;/releases&gt;</span><br><span class="line">                    &lt;snapshots&gt;&lt;enabled&gt;true&lt;/enabled&gt;&lt;/snapshots&gt;</span><br><span class="line">                &lt;/pluginRepository&gt;</span><br><span class="line">            &lt;/pluginRepositories&gt;</span><br><span class="line">        &lt;/profile&gt;</span><br><span class="line">    &lt;/profiles&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- 使用策略 --&gt;</span><br><span class="line"></span><br><span class="line">    &lt;activeProfiles&gt;</span><br><span class="line">    &lt;!--make the profile active all the time --&gt;</span><br><span class="line">        &lt;!-- 名称与 profile 的 id 名称一致 --&gt;</span><br><span class="line">        &lt;activeProfile&gt;nexus&lt;/activeProfile&gt;</span><br><span class="line">    &lt;/activeProfiles&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- 设置权限 --&gt;</span><br><span class="line">    &lt;servers&gt;</span><br><span class="line">        &lt;server&gt;</span><br><span class="line">            &lt;id&gt;releases&lt;/id&gt;</span><br><span class="line">            &lt;username&gt;admin&lt;/username&gt;</span><br><span class="line">            &lt;password&gt;admin123&lt;/password&gt;</span><br><span class="line">        &lt;/server&gt;</span><br><span class="line">        &lt;server&gt;</span><br><span class="line">            &lt;id&gt;snapshots&lt;/id&gt;</span><br><span class="line">            &lt;username&gt;admin&lt;/username&gt;</span><br><span class="line">            &lt;password&gt;admin123&lt;/password&gt;</span><br><span class="line">        &lt;/server&gt;</span><br><span class="line">    &lt;servers&gt;</span><br><span class="line">&lt;settings&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>本地仓库与上文修改的xml文件一致。</strong></p>
+</li>
+<li><strong>pom.xml文件</strong></li>
+</ol>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;distributionManagement&gt; </span><br><span class="line">     &lt;repository&gt; </span><br><span class="line">         &lt;id&gt;releases&lt;/id&gt; </span><br><span class="line">         &lt;name&gt;Internal Releases&lt;/name&gt; </span><br><span class="line">         &lt;url&gt;http://localhost:8000/nexus/content/repositories/releases/&lt;/url&gt; </span><br><span class="line">     &lt;/repository&gt; </span><br><span class="line">     &lt;snapshotRepository&gt; </span><br><span class="line">         &lt;id&gt;snapshots&lt;/id&gt; </span><br><span class="line">         &lt;name&gt;Internal Snapshots&lt;/name&gt; </span><br><span class="line">         &lt;url&gt;http://localhost:8000/nexus/content/repositories/snapshots/&lt;/url&gt; </span><br><span class="line">     &lt;/snapshotRepository&gt; </span><br><span class="line"> &lt;/distributionManagement&gt;</span><br></pre></td></tr></table></figure>
+<pre><code>4. 上传
+mvn -deploy
+
+&lt;!-- 对应上传的文件夹是 SNAPSHOT --&gt;
+&lt;version&gt; -SNAPSHOT &lt;/version&gt;
+
+&lt;!-- 对应上传的文件夹是 RELEASE --&gt;
+&lt;version&gt; -RELEASE &lt;/version&gt;
+
+&lt;!-- 对应对哪些项目打包 --&gt;
+&lt;modules&gt;&lt;/modules&gt;
+</code></pre>
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://3dot141.com/blogs/3152.html">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="3Dot141">
       <meta itemprop="description" content="Nothing is impossible to a willing heart.">
-      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="image" content="/images/avatar.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
@@ -635,7 +1066,7 @@
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="3Dot141">
       <meta itemprop="description" content="Nothing is impossible to a willing heart.">
-      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="image" content="/images/avatar.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
@@ -862,7 +1293,7 @@
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="3Dot141">
       <meta itemprop="description" content="Nothing is impossible to a willing heart.">
-      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="image" content="/images/avatar.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
@@ -1084,239 +1515,12 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://3dot141.com/blogs/3153.html">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="3Dot141">
-      <meta itemprop="description" content="Nothing is impossible to a willing heart.">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="killCode">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/blogs/3153.html" class="post-title-link" itemprop="https://3dot141.com/page/6/index.html">killBase系列 -- C/S 与 B/S 架构的区别</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2017-10-12 00:00:00" itemprop="dateCreated datePublished" datetime="2017-10-12T00:00:00+08:00">2017-10-12</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2018-04-06 11:11:30" itemprop="dateModified" datetime="2018-04-06T11:11:30+08:00">2018-04-06</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Code/" itemprop="url" rel="index"><span itemprop="name">Code</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/blogs/3153.html#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count valine-comment-count" data-xid="/blogs/3153.html" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/blogs/3153.html" class="leancloud_visitors" data-flag-title="killBase系列 -- C/S 与 B/S 架构的区别">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Views: </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words count: </span>
-                
-                <span title="Words count">1.2k</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">One coffee &asymp;</span>
-                
-                <span title="One coffee">2 mins.</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          最近的面试，有一道题讲的是 c/s 与 b/s 的区别，自己对此了解甚少，所以回来 将这部分 知识 填补上。
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/blogs/3153.html">
-                Read more &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://3dot141.com/blogs/25108.html">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="3Dot141">
       <meta itemprop="description" content="Nothing is impossible to a willing heart.">
-      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="image" content="/images/avatar.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
@@ -1538,12 +1742,12 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://3dot141.com/blogs/21184.html">
+    <link itemprop="mainEntityOfPage" href="https://3dot141.com/blogs/29869.html">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="3Dot141">
       <meta itemprop="description" content="Nothing is impossible to a willing heart.">
-      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="image" content="/images/avatar.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
@@ -1558,7 +1762,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/blogs/21184.html" class="post-title-link" itemprop="https://3dot141.com/page/6/index.html">从 Socket 编程 到 OkHttp 框架</a>
+                <a href="/blogs/29869.html" class="post-title-link" itemprop="https://3dot141.com/page/6/index.html">killJava系列 -- ConcurrentHashmap源码分析</a>
               
             
           </h1>
@@ -1600,7 +1804,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-04-06 11:10:10" itemprop="dateModified" datetime="2018-04-06T11:10:10+08:00">2018-04-06</time>
+                <time title="Modified: 2018-04-05 22:18:50" itemprop="dateModified" datetime="2018-04-05T22:18:50+08:00">2018-04-05</time>
               
             
           </span>
@@ -1632,8 +1836,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/blogs/21184.html#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count valine-comment-count" data-xid="/blogs/21184.html" itemprop="commentCount"></span>
+                <a href="/blogs/29869.html#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count valine-comment-count" data-xid="/blogs/29869.html" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1641,7 +1845,7 @@
 
           
           
-             <span id="/blogs/21184.html" class="leancloud_visitors" data-flag-title="从 Socket 编程 到 OkHttp 框架">
+             <span id="/blogs/29869.html" class="leancloud_visitors" data-flag-title="killJava系列 -- ConcurrentHashmap源码分析">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -1666,7 +1870,7 @@
                 
                   <span class="post-meta-item-text">Words count: </span>
                 
-                <span title="Words count">9k</span>
+                <span title="Words count">34k</span>
               
 
               
@@ -1680,7 +1884,7 @@
                 
                   <span class="post-meta-item-text">One coffee &asymp;</span>
                 
-                <span title="One coffee">15 mins.</span>
+                <span title="One coffee">57 mins.</span>
               
             </div>
           
@@ -1701,465 +1905,11 @@
 
       
         
-          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近在做一个项目的时候，因为项目要求跨域连接。所以，使用了<strong>Okhttp</strong>框架。其内部原理是基于 socket 网络编程的。因为自己在这方面比较薄弱，所以写这一篇文章进行相关的总结。<br>
+          临近求职季，将自己学的一些杂七杂八的东西汇总起来，整合知识点，对这些面试的重点进行抽丝剥茧般的扫除，争取进入一家好的企业。
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/blogs/21184.html#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-         
-          <!--/noindex-->
-        
-      
-    </p></div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://3dot141.com/blogs/21748.html">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="3Dot141">
-      <meta itemprop="description" content="Nothing is impossible to a willing heart.">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="killCode">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/blogs/21748.html" class="post-title-link" itemprop="https://3dot141.com/page/6/index.html">killJava系列 -- 文件类相关</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2017-10-12 00:00:00" itemprop="dateCreated datePublished" datetime="2017-10-12T00:00:00+08:00">2017-10-12</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2018-04-05 22:15:40" itemprop="dateModified" datetime="2018-04-05T22:15:40+08:00">2018-04-05</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Code/" itemprop="url" rel="index"><span itemprop="name">Code</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/blogs/21748.html#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count valine-comment-count" data-xid="/blogs/21748.html" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/blogs/21748.html" class="leancloud_visitors" data-flag-title="killJava系列 -- 文件类相关">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Views: </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words count: </span>
-                
-                <span title="Words count">14k</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">One coffee &asymp;</span>
-                
-                <span title="One coffee">23 mins.</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>最近作项目的时候，用java获取文件。<br>虽然用框架很容易，但是其内部的原理让我很疑惑。在自己写相似的代码的时候，往往会出现各种各样的错误。所以这里，对相关的类以及方法进行一个整合。<br>比如 file 类，path 类。 绝对路径与相对路径。 getResource 方法 ， getRealPath方法等。<br>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/blogs/21748.html#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-         
-          <!--/noindex-->
-        
-      
-    </p></div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://3dot141.com/blogs/facc1860.html">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="3Dot141">
-      <meta itemprop="description" content="Nothing is impossible to a willing heart.">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="killCode">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/blogs/facc1860.html" class="post-title-link" itemprop="https://3dot141.com/page/6/index.html">数据库范式与优化</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2017-10-12 00:00:00" itemprop="dateCreated datePublished" datetime="2017-10-12T00:00:00+08:00">2017-10-12</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2018-12-23 20:50:19" itemprop="dateModified" datetime="2018-12-23T20:50:19+08:00">2018-12-23</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Code/" itemprop="url" rel="index"><span itemprop="name">Code</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/blogs/facc1860.html#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count valine-comment-count" data-xid="/blogs/facc1860.html" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/blogs/facc1860.html" class="leancloud_visitors" data-flag-title="数据库范式与优化">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Views: </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words count: </span>
-                
-                <span title="Words count">4k</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">One coffee &asymp;</span>
-                
-                <span title="One coffee">7 mins.</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          填坑，数据库关系
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/blogs/facc1860.html">
+              <a class="btn" href="/blogs/29869.html">
                 Read more &raquo;
               </a>
             </div>
@@ -2224,7 +1974,7 @@
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="3Dot141">
       <meta itemprop="description" content="Nothing is impossible to a willing heart.">
-      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="image" content="/images/avatar.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
@@ -2446,12 +2196,12 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://3dot141.com/blogs/93.html">
+    <link itemprop="mainEntityOfPage" href="https://3dot141.com/blogs/27541.html">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="3Dot141">
       <meta itemprop="description" content="Nothing is impossible to a willing heart.">
-      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="image" content="/images/avatar.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
@@ -2466,7 +2216,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/blogs/93.html" class="post-title-link" itemprop="https://3dot141.com/page/6/index.html">逐梦Offer -- 6 个月学习归纳[整合版]</a>
+                <a href="/blogs/27541.html" class="post-title-link" itemprop="https://3dot141.com/page/6/index.html">搜索为将 -- Solr 从入门到进阶(一)</a>
               
             
           </h1>
@@ -2508,7 +2258,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-12-23 21:50:23" itemprop="dateModified" datetime="2018-12-23T21:50:23+08:00">2018-12-23</time>
+                <time title="Modified: 2018-04-05 22:23:58" itemprop="dateModified" datetime="2018-04-05T22:23:58+08:00">2018-04-05</time>
               
             
           </span>
@@ -2525,7 +2275,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Interview/" itemprop="url" rel="index"><span itemprop="name">Interview</span></a></span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Code/" itemprop="url" rel="index"><span itemprop="name">Code</span></a></span>
 
                 
                 
@@ -2540,8 +2290,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/blogs/93.html#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count valine-comment-count" data-xid="/blogs/93.html" itemprop="commentCount"></span>
+                <a href="/blogs/27541.html#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count valine-comment-count" data-xid="/blogs/27541.html" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -2549,7 +2299,7 @@
 
           
           
-             <span id="/blogs/93.html" class="leancloud_visitors" data-flag-title="逐梦Offer -- 6 个月学习归纳[整合版]">
+             <span id="/blogs/27541.html" class="leancloud_visitors" data-flag-title="搜索为将 -- Solr 从入门到进阶(一)">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -2574,7 +2324,7 @@
                 
                   <span class="post-meta-item-text">Words count: </span>
                 
-                <span title="Words count">9.8k</span>
+                <span title="Words count">8.3k</span>
               
 
               
@@ -2588,7 +2338,7 @@
                 
                   <span class="post-meta-item-text">One coffee &asymp;</span>
                 
-                <span title="One coffee">16 mins.</span>
+                <span title="One coffee">14 mins.</span>
               
             </div>
           
@@ -2609,11 +2359,465 @@
 
       
         
-          从今年 3 月份开始，进行 Java 的学习，到现在已经 6 个月了。虽然目前的自己还只是一个半路出家的菜鸟，但是，相比于之前，我清楚的感知到自己的进步（滑稽）。昨夜西风凋碧树，独上高楼，望尽天涯路。
+          现在这个时代，大数据是非常火的一个概念，通过大数据做搜索，找到顾客的痛点，并依据此，进行针对性的布局，可以极大的提高网站的访问量。而在JAVA中最火的莫过于 lucene ， 而 lucene 过于底层，不方便做开发，所以就出现了另外的，发展的更好的 solr 与 elasticsearch ，这里，我们对 solr 6.6 版本，进行一个简单的入门。
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/blogs/93.html">
+              <a class="btn" href="/blogs/27541.html">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://3dot141.com/blogs/3153.html">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="3Dot141">
+      <meta itemprop="description" content="Nothing is impossible to a willing heart.">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="killCode">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/blogs/3153.html" class="post-title-link" itemprop="https://3dot141.com/page/6/index.html">killBase系列 -- C/S 与 B/S 架构的区别</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2017-10-12 00:00:00" itemprop="dateCreated datePublished" datetime="2017-10-12T00:00:00+08:00">2017-10-12</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-04-06 11:11:30" itemprop="dateModified" datetime="2018-04-06T11:11:30+08:00">2018-04-06</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Code/" itemprop="url" rel="index"><span itemprop="name">Code</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/blogs/3153.html#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count valine-comment-count" data-xid="/blogs/3153.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/blogs/3153.html" class="leancloud_visitors" data-flag-title="killBase系列 -- C/S 与 B/S 架构的区别">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Views: </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count: </span>
+                
+                <span title="Words count">1.2k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">One coffee &asymp;</span>
+                
+                <span title="One coffee">2 mins.</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          最近的面试，有一道题讲的是 c/s 与 b/s 的区别，自己对此了解甚少，所以回来 将这部分 知识 填补上。
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/blogs/3153.html">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://3dot141.com/blogs/43623.html">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="3Dot141">
+      <meta itemprop="description" content="Nothing is impossible to a willing heart.">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="killCode">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/blogs/43623.html" class="post-title-link" itemprop="https://3dot141.com/page/6/index.html">搜索为将 -- lucene 6.6 学习心得</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2017-10-12 00:00:00" itemprop="dateCreated datePublished" datetime="2017-10-12T00:00:00+08:00">2017-10-12</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-04-05 22:23:44" itemprop="dateModified" datetime="2018-04-05T22:23:44+08:00">2018-04-05</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Code/" itemprop="url" rel="index"><span itemprop="name">Code</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/blogs/43623.html#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count valine-comment-count" data-xid="/blogs/43623.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/blogs/43623.html" class="leancloud_visitors" data-flag-title="搜索为将 -- lucene 6.6 学习心得">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Views: </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count: </span>
+                
+                <span title="Words count">8k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">One coffee &asymp;</span>
+                
+                <span title="One coffee">13 mins.</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          我在学习lucene 的时候，发现网上的资料大多已经过时。我找到的学习的资料是 lucene 4.10 版本，比较沉旧，查阅最新的 lucene 版本 6.6 的官方文档，整理出以下几个使用中的不同。
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/blogs/43623.html">
                 Read more &raquo;
               </a>
             </div>
@@ -2696,7 +2900,7 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/avatar.png" alt="3Dot141">
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="3Dot141">
             
               <p class="site-author-name" itemprop="name">3Dot141</p>
               <p class="site-description motion-element" itemprop="description">Nothing is impossible to a willing heart.</p>
@@ -2709,7 +2913,7 @@
                 
                   <a href="/archives">
                 
-                    <span class="site-state-item-count">66</span>
+                    <span class="site-state-item-count">67</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -2873,7 +3077,7 @@
     
       <span class="post-meta-item-text">Total count: </span>
     
-    <span title="Total count">289k</span>
+    <span title="Total count">290k</span>
   
 
   
@@ -2884,7 +3088,7 @@
     
       <span class="post-meta-item-text">Many coffee &asymp;</span>
     
-    <span title="Many coffee">8:02</span>
+    <span title="Many coffee">8:04</span>
   
 </div>
 
