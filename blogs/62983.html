@@ -112,14 +112,14 @@
 <meta property="og:site_name" content="killCode">
 <meta property="og:description" content="最近看了一本 《springboot》实战，里面介绍了 springboot 整合 JPA ，但是我常用的 mybatis 没有介绍到。所以在这里，进行一下总结。">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="http://ovmspkp0s.bkt.clouddn.com/201803022342_600.png">
-<meta property="og:image" content="http://ovmspkp0s.bkt.clouddn.com/201803030042_159.png">
-<meta property="og:image" content="http://ovmspkp0s.bkt.clouddn.com/201803022316_983.png">
-<meta property="og:updated_time" content="2019-01-16T09:14:35.484Z">
+<meta property="og:image" content="http://3dot141.com/201803022342_600.png">
+<meta property="og:image" content="http://3dot141.com/201803030042_159.png">
+<meta property="og:image" content="http://3dot141.com/201803022316_983.png">
+<meta property="og:updated_time" content="2019-08-26T15:16:16.628Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SpringBoot 与 mybatis 框架整合。">
 <meta name="twitter:description" content="最近看了一本 《springboot》实战，里面介绍了 springboot 整合 JPA ，但是我常用的 mybatis 没有介绍到。所以在这里，进行一下总结。">
-<meta name="twitter:image" content="http://ovmspkp0s.bkt.clouddn.com/201803022342_600.png">
+<meta name="twitter:image" content="http://3dot141.com/201803022342_600.png">
 
 
 
@@ -470,7 +470,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-01-16 17:14:35" itemprop="dateModified" datetime="2019-01-16T17:14:35+08:00">2019-01-16</time>
+                <time title="Modified: 2019-08-26 23:16:16" itemprop="dateModified" datetime="2019-08-26T23:16:16+08:00">2019-08-26</time>
               
             
           </span>
@@ -536,7 +536,7 @@
                 
                   <span class="post-meta-item-text">Words count: </span>
                 
-                <span title="Words count">6.5k</span>
+                <span title="Words count">6.6k</span>
               
 
               
@@ -580,7 +580,7 @@
 <h3 id="添加-spring-devtools-properties-文件"><a href="#添加-spring-devtools-properties-文件" class="headerlink" title="添加 spring-devtools.properties 文件"></a>添加 spring-devtools.properties 文件</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">restart.include.mapper=/mapper-[\\w-\\.]+jar</span><br><span class="line">restart.include.pagehelper=/pagehelper-[\\w-\\.]+jar</span><br></pre></td></tr></table></figure>
 <h2 id="兼容生成的-mapper"><a href="#兼容生成的-mapper" class="headerlink" title="兼容生成的 mapper"></a>兼容生成的 mapper</h2><p>为了使 生成 的 mapper 被扫描到。<br>可以使用两种方法</p>
 <ol>
-<li>在类上添加 @Mapper 注解<br><img src="http://ovmspkp0s.bkt.clouddn.com/201803022342_600.png" alt=""><br><strong>重点：</strong><br>这里要求 springboot 的工程结构如下：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">com</span><br><span class="line">  +- example</span><br><span class="line">    +- myproject</span><br><span class="line">      +- Application.java</span><br><span class="line">      |</span><br><span class="line">      +- domain</span><br><span class="line">      |  +- Customer.java</span><br><span class="line">      |  +- CustomerRepository.java</span><br><span class="line">      |</span><br><span class="line">      +- service</span><br><span class="line">      |  +- CustomerService.java</span><br><span class="line">      |</span><br><span class="line">      +- web</span><br><span class="line">      |  +- CustomerController.java</span><br><span class="line">      |</span><br></pre></td></tr></table></figure>
+<li>在类上添加 @Mapper 注解<br><img src="http://3dot141.com/201803022342_600.png" alt=""><br><strong>重点：</strong><br>这里要求 springboot 的工程结构如下：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">com</span><br><span class="line">  +- example</span><br><span class="line">    +- myproject</span><br><span class="line">      +- Application.java</span><br><span class="line">      |</span><br><span class="line">      +- domain</span><br><span class="line">      |  +- Customer.java</span><br><span class="line">      |  +- CustomerRepository.java</span><br><span class="line">      |</span><br><span class="line">      +- service</span><br><span class="line">      |  +- CustomerService.java</span><br><span class="line">      |</span><br><span class="line">      +- web</span><br><span class="line">      |  +- CustomerController.java</span><br><span class="line">      |</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 <p>即 domain , service , web 的包要放到 Application启动类的 同级或 下级中。<br>详情请见这一份博客。</p>
@@ -588,11 +588,12 @@
 <li>在启动类上 添加 @MapperScanner 注解。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="meta">@MapperScan</span>(<span class="string">"com.killcode.mybatis_test.mapper"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MybatisTestApplication</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		SpringApplication.run(MybatisTestApplication.class, args);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
-<p>这里要注意，根据作者所说， 要使用 tk.mybatis.spring.annotation.MapperScan .<br><img src="http://ovmspkp0s.bkt.clouddn.com/201803030042_159.png" alt=""></p>
+<p>这里要注意，根据作者所说， 要使用 tk.mybatis.spring.annotation.MapperScan .<br><img src="http://3dot141.com/201803030042_159.png" alt=""></p>
 <h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><p>test 文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">@RunWith(SpringRunner.class)</span><br><span class="line">@SpringBootTest(classes = MybatisTestApplication.class)</span><br><span class="line">public class MybatisTestApplicationTests &#123;</span><br><span class="line"></span><br><span class="line">	@Autowired</span><br><span class="line">	private OneMapper oneMapper;</span><br><span class="line">	@Test</span><br><span class="line">	@Rollback</span><br><span class="line">	public void contextLoads() &#123;</span><br><span class="line">		One one = new One();</span><br><span class="line">		one.setAge(12);</span><br><span class="line">		one.setName(&quot;test&quot;);</span><br><span class="line">		oneMapper.insert(one);</span><br><span class="line">		System.out.println(one);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <h2 id="解惑"><a href="#解惑" class="headerlink" title="解惑"></a>解惑</h2><h3 id="1、-关于-spring-DevTools-配置"><a href="#1、-关于-spring-DevTools-配置" class="headerlink" title="1、 关于 spring DevTools 配置"></a>1、 关于 spring DevTools 配置</h3><p>在使用 DevTools 时，通用Mapper经常会出现 class x.x.A cannot be cast to x.x.A。<br>同一个类如果使用了不同的类加载器，就会产生这样的错误，所以解决方案就是让通用Mapper和实体类使用相同的类加载器即可。<br>DevTools 默认会对 IDE 中引入的所有项目使用 restart 类加载器，对于引入的 jar 包使用 base 类加载器，因此只要保证通用Mapper的jar包使用 restart 类加载器即可。</p>
-<h2 id="疑问"><a href="#疑问" class="headerlink" title="疑问"></a>疑问</h2><p>1、<br>当配置 mybatis.mapper-loccations 这个类时<br>会有两个类同时满足条件，如图<br><img src="http://ovmspkp0s.bkt.clouddn.com/201803022316_983.png" alt=""></p>
+<h2 id="疑问"><a href="#疑问" class="headerlink" title="疑问"></a>疑问</h2><p>1、<br>当配置 mybatis.mapper-loccations 这个类时<br>会有两个类同时满足条件，如图<br><img src="http://3dot141.com/201803022316_983.png" alt=""></p>
 <p>并且这两个类的版本不同，所以springboot 是如何选择的呢？</p>
+<p>�以springboot 是如何选择的呢？</p>
 
       
     </div>
@@ -639,8 +640,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/blogs/19977.html" rel="prev" title="SpringBoot 工程结构">
-                SpringBoot 工程结构 <i class="fa fa-chevron-right"></i>
+              <a href="/blogs/33506.html" rel="prev" title="killWeb -- dns介绍">
+                killWeb -- dns介绍 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -899,7 +900,7 @@
     
       <span class="post-meta-item-text">Total count: </span>
     
-    <span title="Total count">292k</span>
+    <span title="Total count">293k</span>
   
 
   
@@ -910,7 +911,7 @@
     
       <span class="post-meta-item-text">Many coffee &asymp;</span>
     
-    <span title="Many coffee">8:07</span>
+    <span title="Many coffee">8:09</span>
   
 </div>
 

@@ -112,19 +112,20 @@
 <meta property="og:site_name" content="killCode">
 <meta property="og:description" content="通过 UML 图，我们可以更好的了解类与类之间的关系。可以对架构进行更加深入的分析。">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="http://ovmspkp0s.bkt.clouddn.com/201804211726_419.png">
-<meta property="og:image" content="http://ovmspkp0s.bkt.clouddn.com/201804211736_912.png">
-<meta property="og:image" content="http://ovmspkp0s.bkt.clouddn.com/201804230932_432.png">
-<meta property="og:image" content="http://ovmspkp0s.bkt.clouddn.com/201804230944_281.png">
-<meta property="og:image" content="http://ovmspkp0s.bkt.clouddn.com/201804230943_336.png">
-<meta property="og:image" content="http://ovmspkp0s.bkt.clouddn.com/201804231000_201.png">
-<meta property="og:image" content="http://ovmspkp0s.bkt.clouddn.com/201804231020_862.png">
+<meta property="og:image" content="http://3dot141.com/201804211726_419.png">
+<meta property="og:image" content="http://3dot141.com/201804211736_912.png">
+<meta property="og:image" content="http://3dot141.com/201804230932_432.png">
+<meta property="og:image" content="http://3dot141.com/201804230944_281.png">
+<meta property="og:image" content="http://3dot141.com/201804230943_336.png">
+<meta property="og:image" content="http://3dot141.com/201804231000_201.png">
+<meta property="og:image" content="http://3dot141.com/201804231020_862.png">
+<meta property="og:image" content="http://3dot141.com/201804231012_370.png">
 <meta property="og:image" content="http://ovmspkp0s.bkt.clouddn.com/201804231012_370.png">
-<meta property="og:updated_time" content="2018-07-08T14:28:52.000Z">
+<meta property="og:updated_time" content="2019-08-26T15:16:16.612Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="killBase系列 -- UML 图入门">
 <meta name="twitter:description" content="通过 UML 图，我们可以更好的了解类与类之间的关系。可以对架构进行更加深入的分析。">
-<meta name="twitter:image" content="http://ovmspkp0s.bkt.clouddn.com/201804211726_419.png">
+<meta name="twitter:image" content="http://3dot141.com/201804211726_419.png">
 
 
 
@@ -475,7 +476,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-07-08 22:28:52" itemprop="dateModified" datetime="2018-07-08T22:28:52+08:00">2018-07-08</time>
+                <time title="Modified: 2019-08-26 23:16:16" itemprop="dateModified" datetime="2019-08-26T23:16:16+08:00">2019-08-26</time>
               
             
           </span>
@@ -541,7 +542,7 @@
                 
                   <span class="post-meta-item-text">Words count: </span>
                 
-                <span title="Words count">846</span>
+                <span title="Words count">877</span>
               
 
               
@@ -577,25 +578,27 @@
       
 
       
-        <h2 id="UML-类"><a href="#UML-类" class="headerlink" title="UML 类"></a>UML 类</h2><p><img src="http://ovmspkp0s.bkt.clouddn.com/201804211726_419.png" alt=""></p>
+        <h2 id="UML-类"><a href="#UML-类" class="headerlink" title="UML 类"></a>UML 类</h2><p><img src="http://3dot141.com/201804211726_419.png" alt=""></p>
 <h2 id="UML-的多重性修饰"><a href="#UML-的多重性修饰" class="headerlink" title="UML 的多重性修饰"></a>UML 的多重性修饰</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">0..*    0 个到多个</span><br><span class="line">*       0 个到多个</span><br><span class="line">1..*    1 个到多个</span><br><span class="line">6       刚好 6 个</span><br><span class="line">3，6    3 个或 6 个</span><br></pre></td></tr></table></figure>
 <h2 id="UML-类间关系"><a href="#UML-类间关系" class="headerlink" title="UML 类间关系"></a>UML 类间关系</h2><ol>
 <li>继承</li>
 <li>实现</li>
-<li><p>依赖<br>可以简单的理解，就是一个类A使用到了另一个类B，而这种使用关系是具有偶然性的、、临时性的、非常弱的，但是B类的变化会影响到A；比如某人要过河，需要借用一条船，此时人与船之间的关系就是依赖；表现在代码层面，为类B作为参数被类A在某个method方法中使用；<br><img src="http://ovmspkp0s.bkt.clouddn.com/201804211736_912.png" alt=""></p>
+<li><p>依赖<br>可以简单的理解，就是一个类A使用到了另一个类B，而这种使用关系是具有偶然性的、、临时性的、非常弱的，但是B类的变化会影响到A；比如某人要过河，需要借用一条船，此时人与船之间的关系就是依赖；表现在代码层面，为类B作为参数被类A在某个method方法中使用；<br><img src="http://3dot141.com/201804211736_912.png" alt=""></p>
 </li>
-<li><p>关联<br>他体现的是两个类、或者类与接口之间语义级别的一种强依赖关系，比如我和我的朋友；这种关系比依赖更强、不存在依赖关系的偶然性、关系也不是临时性的，一般是长期性的，而且双方的关系一般是平等的、关联可以是单向、双向的；表现在代码层面，为被关联类B以类属性的形式出现在关联类A中，也可能是关联类A引用了一个类型为被关联类B的全局变量；<br><img src="http://ovmspkp0s.bkt.clouddn.com/201804230932_432.png" alt=""></p>
+<li><p>关联<br>他体现的是两个类、或者类与接口之间语义级别的一种强依赖关系，比如我和我的朋友；这种关系比依赖更强、不存在依赖关系的偶然性、关系也不是临时性的，一般是长期性的，而且双方的关系一般是平等的、关联可以是单向、双向的；表现在代码层面，为被关联类B以类属性的形式出现在关联类A中，也可能是关联类A引用了一个类型为被关联类B的全局变量；<br><img src="http://3dot141.com/201804230932_432.png" alt=""></p>
 </li>
 </ol>
 <ol start="5">
-<li>聚合<br>聚合是关联关系的一种特例，他体现的是整体与部分、拥有的关系，即<strong>has-a</strong>的关系，<strong>此时整体与部分之间是可分离的，他们可以具有各自的生命周期</strong>，部分可以属于多个整体对象，也可以为多个整体对象共享；比如计算机与CPU、公司与员工的关系等；表现在代码层面，和关联关系是一致的，只能从语义级别来区分；<br><img src="http://ovmspkp0s.bkt.clouddn.com/201804230944_281.png" alt=""></li>
+<li>聚合<br>聚合是关联关系的一种特例，他体现的是整体与部分、拥有的关系，即<strong>has-a</strong>的关系，<strong>此时整体与部分之间是可分离的，他们可以具有各自的生命周期</strong>，部分可以属于多个整体对象，也可以为多个整体对象共享；比如计算机与CPU、公司与员工的关系等；表现在代码层面，和关联关系是一致的，只能从语义级别来区分；<br><img src="http://3dot141.com/201804230944_281.png" alt=""></li>
 </ol>
 <ol start="6">
-<li>组合<br>组合也是关联关系的一种特例，他体现的是一种<strong>contains-a</strong>的关系，这种关系比聚合更强，也称为强聚合；他同样体现整体与部分间的关系，但<strong>此时整体与部分是不可分的，整体的生命周期结束也就意味着部分的生命周期结束</strong>；比如你和你的大脑；表现在代码层面，和关联关系是一致的，只能从语义级别来区分；<br><img src="http://ovmspkp0s.bkt.clouddn.com/201804230943_336.png" alt=""></li>
+<li>组合<br>组合也是关联关系的一种特例，他体现的是一种<strong>contains-a</strong>的关系，这种关系比聚合更强，也称为强聚合；他同样体现整体与部分间的关系，但<strong>此时整体与部分是不可分的，整体的生命周期结束也就意味着部分的生命周期结束</strong>；比如你和你的大脑；表现在代码层面，和关联关系是一致的，只能从语义级别来区分；<br><img src="http://3dot141.com/201804230943_336.png" alt=""></li>
 </ol>
 <p><strong>强弱程度 ：</strong> 组合&gt;聚合&gt;关联&gt;依赖</p>
-<h2 id="UML-时序图"><a href="#UML-时序图" class="headerlink" title="UML 时序图"></a>UML 时序图</h2><p><img src="http://ovmspkp0s.bkt.clouddn.com/201804231000_201.png" alt=""></p>
-<h2 id="UML-状态图"><a href="#UML-状态图" class="headerlink" title="UML 状态图"></a>UML 状态图</h2><p><img src="http://ovmspkp0s.bkt.clouddn.com/201804231020_862.png" alt=""><br>状态是用圆角矩形表示。这个矩形可以有两个分隔栏。<br>顶部分隔栏是对状态进行命名。<br>底部分隔栏是状态的内部迁移。 使用 事件名/动作 表示<br>可以有两个特殊的事件，进入 – entry , 退出 – exit</p>
+<h2 id="UML-时序图"><a href="#UML-时序图" class="headerlink" title="UML 时序图"></a>UML 时序图</h2><p><img src="http://3dot141.com/201804231000_201.png" alt=""></p>
+<h2 id="UML-状态图"><a href="#UML-状态图" class="headerlink" title="UML 状态图"></a>UML 状态图</h2><p><img src="http://3dot141.com/201804231020_862.png" alt=""><br>状态是用圆角矩形表示。这个矩形可以有两个分隔栏。<br>顶部分隔栏是对状态进行命名。<br>底部分隔栏是状态的内部迁移。 使用 事件名/动作 表示<br>可以有两个特殊的事件，进入 – entry , 退出 – exit</p>
+<p><img src="http://3dot141.com/201804231012_370.png" alt=""></p>
+<p>��殊的事件，进入 – entry , 退出 – exit</p>
 <p><img src="http://ovmspkp0s.bkt.clouddn.com/201804231012_370.png" alt=""></p>
 
       
@@ -903,7 +906,7 @@
     
       <span class="post-meta-item-text">Total count: </span>
     
-    <span title="Total count">292k</span>
+    <span title="Total count">293k</span>
   
 
   
@@ -914,7 +917,7 @@
     
       <span class="post-meta-item-text">Many coffee &asymp;</span>
     
-    <span title="Many coffee">8:07</span>
+    <span title="Many coffee">8:09</span>
   
 </div>
 

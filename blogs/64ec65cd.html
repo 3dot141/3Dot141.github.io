@@ -112,7 +112,7 @@
 <meta property="og:site_name" content="killCode">
 <meta property="og:description" content="简单记录一下这一周遇到的 bug">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-07-23T01:32:48.000Z">
+<meta property="og:updated_time" content="2019-08-26T15:16:16.575Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="killWork -- bug&#39;s party -- 180723">
 <meta name="twitter:description" content="简单记录一下这一周遇到的 bug">
@@ -466,7 +466,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-07-23 09:32:48" itemprop="dateModified" datetime="2018-07-23T09:32:48+08:00">2018-07-23</time>
+                <time title="Modified: 2019-08-26 23:16:16" itemprop="dateModified" datetime="2019-08-26T23:16:16+08:00">2019-08-26</time>
               
             
           </span>
@@ -572,7 +572,7 @@
 <p>cd /usr/local/nginx/../redis_test</p>
 <p>进入 /usr/local/nginx/<br>然后上一个文件夹 即 /usr/local/<br>最后进入 redis_test</p>
 <h3 id="tomcat-部署不了项目"><a href="#tomcat-部署不了项目" class="headerlink" title="tomcat 部署不了项目"></a>tomcat 部署不了项目</h3><p>因为自己在 catalina.bat 上写了 jvm 的参数</p>
-<h2 id="localhost-8080-没反应"><a href="#localhost-8080-没反应" class="headerlink" title="localhost:8080 没反应"></a>localhost:8080 没反应</h2><p>localhost:8080 没反应的原因<br>我们的项目的工件输出目录在下图红色矩形框出来的地方，而不是在安装的tomcat的Apache-tomcat的webapps的目录下。<br>所以就相当于，IDEA在H:\IdeaProjects\DialogeEngine\out\artifacts虚拟了一个Tomcat，<br>而在H:\IdeaProjects\DialogeEngine\out\artifacts下又没有Tomcat首页的工程。而此时并没有把Tomcat首页的工程部署到服务器，所以就访问不到Tomcat首页，而访问到的是我们项目里的其他页面信息。<br>![](<a href="http://ovmspkp0s.bkt.clouddn.com/201807170952_57.png" target="_blank" rel="noopener">http://ovmspkp0s.bkt.clouddn.com/201807170952_57.png</a></p>
+<h2 id="localhost-8080-没反应"><a href="#localhost-8080-没反应" class="headerlink" title="localhost:8080 没反应"></a>localhost:8080 没反应</h2><p>localhost:8080 没反应的原因<br>我们的项目的工件输出目录在下图红色矩形框出来的地方，而不是在安装的tomcat的Apache-tomcat的webapps的目录下。<br>所以就相当于，IDEA在H:\IdeaProjects\DialogeEngine\out\artifacts虚拟了一个Tomcat，<br>而在H:\IdeaProjects\DialogeEngine\out\artifacts下又没有Tomcat首页的工程。而此时并没有把Tomcat首页的工程部署到服务器，所以就访问不到Tomcat首页，而访问到的是我们项目里的其他页面信息。<br>![](<a href="http://3dot141.com/201807170952_57.png">http://3dot141.com/201807170952_57.png</a></p>
 <h2 id="Xshell-Socket-error-Event-32-Error-10053"><a href="#Xshell-Socket-error-Event-32-Error-10053" class="headerlink" title="Xshell Socket error Event: 32 Error: 10053"></a>Xshell Socket error Event: 32 Error: 10053</h2><p>重新更改权限(系统配置文件请勿随意开放为所有权限，切记)<br>chmod 400 /etc/ssh/*<br>重启SSH<br>service sshd restart<br>重启网关<br>service network restart</p>
 <p><a href="https://www.codetd.com/article/354498" target="_blank" rel="noopener">原文链接</a></p>
 <h2 id="Tomcat-停机过程分析"><a href="#Tomcat-停机过程分析" class="headerlink" title="Tomcat 停机过程分析"></a>Tomcat 停机过程分析</h2><h2 id="文件或字符串-MD5-校验"><a href="#文件或字符串-MD5-校验" class="headerlink" title="文件或字符串 MD5 校验"></a>文件或字符串 MD5 校验</h2><p>获取文件的MD5码：<br>System.out.println(DigestUtils.md5Hex(new FileInputStream(new File(“C:/ttt/new1328505655521”))));</p>
@@ -582,7 +582,7 @@
 <ol>
 <li>将需要新增的节点下aof、rdb等本地备份文件删除；</li>
 <li>同时将新Node的集群配置文件删除,即：删除你redis.conf里面cluster-config-file所在的文件；</li>
-<li>再次添加新节点如果还是报错，则登录新Node,./redis-cli–h x –p对数据库进行清除：<br> 172.168.63.201:7001&gt;  flushdb      #清空当前数据库<br><strong>注：</strong> 每一个集群中的节点都需要还原。</li>
+<li>再次添加新节点如果还是报错，则登录新Node,./redis-cli–h x –p对数据库进行清除：<br> 172.168.63.201:7001&gt;  flushdb      #清空当前数据库<br><strong>注：</strong> 每一个集群中的节点都需要还原。<br>�要还原。</li>
 </ol>
 
       
@@ -890,7 +890,7 @@
     
       <span class="post-meta-item-text">Total count: </span>
     
-    <span title="Total count">292k</span>
+    <span title="Total count">293k</span>
   
 
   
@@ -901,7 +901,7 @@
     
       <span class="post-meta-item-text">Many coffee &asymp;</span>
     
-    <span title="Many coffee">8:07</span>
+    <span title="Many coffee">8:09</span>
   
 </div>
 
