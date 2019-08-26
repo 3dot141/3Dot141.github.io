@@ -111,14 +111,14 @@
 <meta property="og:site_name" content="killCode">
 <meta property="og:description" content="windows 上设置 ipv6">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="http://3dot141.com/201711162032_700.png">
-<meta property="og:image" content="http://3dot141.com/201711162035_906.png">
-<meta property="og:image" content="http://3dot141.com/201711162038_895.png">
-<meta property="og:updated_time" content="2019-08-26T15:16:16.676Z">
+<meta property="og:image" content="http://kk.3dot141.com/201711162032_700.png">
+<meta property="og:image" content="http://kk.3dot141.com/201711162035_906.png">
+<meta property="og:image" content="http://kk.3dot141.com/201711162038_895.png">
+<meta property="og:updated_time" content="2019-08-26T15:53:42.718Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="live_Win_IPv6Setting">
 <meta name="twitter:description" content="windows 上设置 ipv6">
-<meta name="twitter:image" content="http://3dot141.com/201711162032_700.png">
+<meta name="twitter:image" content="http://kk.3dot141.com/201711162032_700.png">
 
 
 
@@ -469,7 +469,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-08-26 23:16:16" itemprop="dateModified" datetime="2019-08-26T23:16:16+08:00">2019-08-26</time>
+                <time title="Modified: 2019-08-26 23:53:42" itemprop="dateModified" datetime="2019-08-26T23:53:42+08:00">2019-08-26</time>
               
             
           </span>
@@ -535,7 +535,7 @@
                 
                   <span class="post-meta-item-text">Words count: </span>
                 
-                <span title="Words count">955</span>
+                <span title="Words count">940</span>
               
 
               
@@ -573,10 +573,10 @@
       
         <h4 id="1-开启-ipv4-到-ipv6-的转换"><a href="#1-开启-ipv4-到-ipv6-的转换" class="headerlink" title="1. 开启 ipv4 到 ipv6 的转换"></a>1. 开启 ipv4 到 ipv6 的转换</h4><p>将以下代码保存为 <strong>.bat</strong> 格式，并以管理员方式运行<br>@echo off<br>netsh interface isatap set state default<br>netsh interface teredo set state default<br>netsh interface teredo set state server=teredo.remlab.net<br>netsh interface ipv6 set teredo enterpriseclient</p>
 <h2 id="cmd"><a href="#cmd" class="headerlink" title="cmd"></a>cmd</h2><h4 id="2-开启路由的-ipv6-功能"><a href="#2-开启路由的-ipv6-功能" class="headerlink" title="2. 开启路由的 ipv6 功能"></a>2. 开启路由的 ipv6 功能</h4><p>netsh int ipv6 add route ::/0 “有效的Teredo接口名称”,<strong>成功会提示 “确定”</strong></p>
-<p>有效的接口名称查看方法：<br>这里的有效接口就是你的网络适配器的名称。如下图：<br><img src="http://3dot141.com/201711162032_700.png" alt=""><br>我是使用的 “ 无线网络连接 ” 。<br>所以我应该在 命令行中输入 ：<br><code>netsh int ipv6 add route ::/0 &quot;无线网络连接&quot;</code><br>设置好后，可以通过如下命令查看<br><code>netsh int ipv6 show route</code> , 效果图如下：<br><img src="http://3dot141.com/201711162035_906.png" alt=""></p>
+<p>有效的接口名称查看方法：<br>这里的有效接口就是你的网络适配器的名称。如下图：<br><img src="http://kk.3dot141.com/201711162032_700.png" alt=""><br>我是使用的 “ 无线网络连接 ” 。<br>所以我应该在 命令行中输入 ：<br><code>netsh int ipv6 add route ::/0 &quot;无线网络连接&quot;</code><br>设置好后，可以通过如下命令查看<br><code>netsh int ipv6 show route</code> , 效果图如下：<br><img src="http://kk.3dot141.com/201711162035_906.png" alt=""></p>
 <p>然后就可以登入这个网站进行 <a href="http://test-ipv6.com/" target="_blank" rel="noopener">ipv6测试</a></p>
 <hr>
-<h4 id="3-Teredo-驱动问题"><a href="#3-Teredo-驱动问题" class="headerlink" title="3. Teredo 驱动问题"></a>3. Teredo 驱动问题</h4><p>失败的情况<br><img src="http://3dot141.com/201711162038_895.png" alt=""><br>我原先这个驱动 <code>Microsoft Teredo Tunneling Adapter</code> 是无法启动的。上面显示一个黄色的图标。</p>
+<h4 id="3-Teredo-驱动问题"><a href="#3-Teredo-驱动问题" class="headerlink" title="3. Teredo 驱动问题"></a>3. Teredo 驱动问题</h4><p>失败的情况<br><img src="http://kk.3dot141.com/201711162038_895.png" alt=""><br>我原先这个驱动 <code>Microsoft Teredo Tunneling Adapter</code> 是无法启动的。上面显示一个黄色的图标。</p>
 <p>通过以下方式，可以解决。</p>
 <pre><code>1. 使用管理员账号打开的命令提示符；
 2. 输入netsh并按回车键；
@@ -590,7 +590,6 @@
 10. 打开设备管理器---操作---添加过时硬件。 
 11. 安装驱动 &quot;Microsoft Teredo Tunneling Adapter&quot;
 </code></pre><p>然后重新使用上面的方式，就可以进行测试。</p>
-<p>�面的方式，就可以进行测试。</p>
 
       
     </div>
@@ -891,7 +890,7 @@
     
       <span class="post-meta-item-text">Total count: </span>
     
-    <span title="Total count">293k</span>
+    <span title="Total count">292k</span>
   
 
   
@@ -902,7 +901,7 @@
     
       <span class="post-meta-item-text">Many coffee &asymp;</span>
     
-    <span title="Many coffee">8:09</span>
+    <span title="Many coffee">8:07</span>
   
 </div>
 

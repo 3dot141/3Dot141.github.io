@@ -112,12 +112,12 @@
 <meta property="og:site_name" content="killCode">
 <meta property="og:description" content="前言最近在做一个项目的时候，因为项目要求跨域连接。所以，使用了Okhttp框架。其内部原理是基于 socket 网络编程的。因为自己在这方面比较薄弱，所以写这一篇文章进行相关的总结。">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="http://3dot141.com/201709181056_373.png">
-<meta property="og:updated_time" content="2019-08-26T15:17:51.438Z">
+<meta property="og:image" content="http://kk.3dot141.com/201709181056_373.png">
+<meta property="og:updated_time" content="2019-08-26T15:53:42.672Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="从 Socket 编程 到 OkHttp 框架">
 <meta name="twitter:description" content="前言最近在做一个项目的时候，因为项目要求跨域连接。所以，使用了Okhttp框架。其内部原理是基于 socket 网络编程的。因为自己在这方面比较薄弱，所以写这一篇文章进行相关的总结。">
-<meta name="twitter:image" content="http://3dot141.com/201709181056_373.png">
+<meta name="twitter:image" content="http://kk.3dot141.com/201709181056_373.png">
 
 
 
@@ -468,7 +468,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-08-26 23:17:51" itemprop="dateModified" datetime="2019-08-26T23:17:51+08:00">2019-08-26</time>
+                <time title="Modified: 2019-08-26 23:53:42" itemprop="dateModified" datetime="2019-08-26T23:53:42+08:00">2019-08-26</time>
               
             
           </span>
@@ -586,7 +586,7 @@
 </li>
 </ol>
 <h3 id="3-Socket"><a href="#3-Socket" class="headerlink" title="3. Socket"></a>3. Socket</h3><p>首先介绍下关于 linux 下的套接字连接原理，帮助理解</p>
-<p><img src="http://3dot141.com/201709181056_373.png" alt=""></p>
+<p><img src="http://kk.3dot141.com/201709181056_373.png" alt=""></p>
 <p>下面介绍java 下 Socket的使用</p>
 <h4 id="1-Socket-的构造方法"><a href="#1-Socket-的构造方法" class="headerlink" title="1.Socket 的构造方法"></a>1.Socket 的构造方法</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">（<span class="number">1</span>）Socket()</span><br><span class="line"></span><br><span class="line">（<span class="number">2</span>）Socket(InetAddress address, <span class="keyword">int</span> port)<span class="keyword">throws</span> UnknownHostException,IOException</span><br><span class="line"></span><br><span class="line"><span class="comment">// 设定远程服务器地址与客户端地址</span></span><br><span class="line">（<span class="number">3</span>）Socket(InetAddress address, <span class="keyword">int</span> port, InetAddress localAddr, <span class="keyword">int</span> localPort)<span class="keyword">throws</span> IOException</span><br><span class="line"></span><br><span class="line">（<span class="number">4</span>）Socket(String host, <span class="keyword">int</span> port) <span class="keyword">throws</span> UnknownHostException,IOException</span><br><span class="line"></span><br><span class="line"><span class="comment">// 设定远程服务器地址与客户端地址</span></span><br><span class="line">（<span class="number">5</span>）Socket(String host, <span class="keyword">int</span> port, InetAddress localAddr, <span class="keyword">int</span> localPort) <span class="keyword">throws</span> IOException</span><br></pre></td></tr></table></figure>
 <h4 id="2-获取Socket信息"><a href="#2-获取Socket信息" class="headerlink" title="2.获取Socket信息"></a>2.获取Socket信息</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>. getInetAddress()：获得远程服务器的IP地址。</span><br><span class="line"></span><br><span class="line"><span class="number">2</span>. getPort()：获得远程服务器的端口。</span><br><span class="line"></span><br><span class="line"><span class="number">3</span>. getLocalAddress()：获得客户本地的IP地址。</span><br><span class="line"></span><br><span class="line"><span class="number">4</span>. getLocalPort()：获得客户本地的端口。</span><br><span class="line"></span><br><span class="line"><span class="number">5</span>. getInputStream()：获得输入流。如果Socket还没有连接，或者已经关闭，或者已经通过shutdownInput()方法关闭输入流，那么此方法会抛出IOException。</span><br><span class="line"></span><br><span class="line"><span class="number">6</span>. getOutputStream()：获得输出流。如果Socket还没有连接，或者已经关闭，或者已经通过shutdownOutput()方法关闭输出流，那么此方法会抛出IOException。</span><br></pre></td></tr></table></figure>
@@ -636,7 +636,7 @@
 <p>如果有对 okhttp 框架感兴趣的，可以参阅下面的网址。我就不献丑了。<br><a href="http://www.jcodecraeer.com/a/anzhuokaifa/androidkaifa/2015/0326/2643.html" target="_blank" rel="noopener">okhttp 源码解析</a><br><a href="http://www.jcodecraeer.com/a/anzhuokaifa/androidkaifa/2015/0106/2275.html" target="_blank" rel="noopener">okhttp 使用教程</a></p>
 <h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>路漫漫其修远兮，吾将上下而求索。<br>在程序员的道路上，我还只是一个刚上路的小学生，怀着对代码世界的向往，砥砺前行。</p>
 <blockquote>
-<p>stay hungry, stay foolish<br>与诸君共勉。<br>您的每一次点赞，关注都是对我的一种激励。<br>我的个人博客 – <a href="https://3dot141.cn" target="_blank" rel="noopener">killCode</a><br>谢谢。<br>cn)<br>谢谢。</p>
+<p>stay hungry, stay foolish<br>与诸君共勉。<br>您的每一次点赞，关注都是对我的一种激励。<br>我的个人博客 – <a href="https://3dot141.cn" target="_blank" rel="noopener">killCode</a><br>谢谢。</p>
 </blockquote>
 
       
@@ -674,8 +674,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/blogs/5049.html" rel="next" title="搜索为将 -- Solr 从入门到进阶(二)">
-                <i class="fa fa-chevron-left"></i> 搜索为将 -- Solr 从入门到进阶(二)
+              <a href="/blogs/43623.html" rel="next" title="搜索为将 -- lucene 6.6 学习心得">
+                <i class="fa fa-chevron-left"></i> 搜索为将 -- lucene 6.6 学习心得
               </a>
             
           </div>
@@ -684,8 +684,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/blogs/25914.html" rel="prev" title="逐梦offer -- JVM知识总结">
-                逐梦offer -- JVM知识总结 <i class="fa fa-chevron-right"></i>
+              <a href="/blogs/51669.html" rel="prev" title="Mybatis逆向工程">
+                Mybatis逆向工程 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -944,7 +944,7 @@
     
       <span class="post-meta-item-text">Total count: </span>
     
-    <span title="Total count">293k</span>
+    <span title="Total count">292k</span>
   
 
   
@@ -955,7 +955,7 @@
     
       <span class="post-meta-item-text">Many coffee &asymp;</span>
     
-    <span title="Many coffee">8:09</span>
+    <span title="Many coffee">8:07</span>
   
 </div>
 

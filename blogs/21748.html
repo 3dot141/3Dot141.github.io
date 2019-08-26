@@ -112,18 +112,18 @@
 <meta property="og:site_name" content="killCode">
 <meta property="og:description" content="前言最近作项目的时候，用java获取文件。虽然用框架很容易，但是其内部的原理让我很疑惑。在自己写相似的代码的时候，往往会出现各种各样的错误。所以这里，对相关的类以及方法进行一个整合。比如 file 类，path 类。 绝对路径与相对路径。 getResource 方法 ， getRealPath方法等。">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="http://3dot141.com/201709172153_892.png">
-<meta property="og:image" content="http://3dot141.com/201709172154_836.png">
-<meta property="og:image" content="http://3dot141.com/201709172336_740.png">
-<meta property="og:image" content="http://3dot141.com/201709172357_508.png">
-<meta property="og:image" content="http://3dot141.com/201709172153_892.png">
-<meta property="og:image" content="http://3dot141.com/201709172154_836.png">
-<meta property="og:image" content="http://3dot141.com/201709172357_508.png">
-<meta property="og:updated_time" content="2019-08-26T15:17:51.457Z">
+<meta property="og:image" content="http://kk.3dot141.com/201709172153_892.png">
+<meta property="og:image" content="http://kk.3dot141.com/201709172154_836.png">
+<meta property="og:image" content="http://kk.3dot141.com/201709172336_740.png">
+<meta property="og:image" content="http://kk.3dot141.com/201709172357_508.png">
+<meta property="og:image" content="http://kk.3dot141.com/201709172153_892.png">
+<meta property="og:image" content="http://kk.3dot141.com/201709172154_836.png">
+<meta property="og:image" content="http://kk.3dot141.com/201709172357_508.png">
+<meta property="og:updated_time" content="2019-08-26T15:53:42.689Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="killJava系列 -- 文件类相关">
 <meta name="twitter:description" content="前言最近作项目的时候，用java获取文件。虽然用框架很容易，但是其内部的原理让我很疑惑。在自己写相似的代码的时候，往往会出现各种各样的错误。所以这里，对相关的类以及方法进行一个整合。比如 file 类，path 类。 绝对路径与相对路径。 getResource 方法 ， getRealPath方法等。">
-<meta name="twitter:image" content="http://3dot141.com/201709172153_892.png">
+<meta name="twitter:image" content="http://kk.3dot141.com/201709172153_892.png">
 
 
 
@@ -474,7 +474,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-08-26 23:17:51" itemprop="dateModified" datetime="2019-08-26T23:17:51+08:00">2019-08-26</time>
+                <time title="Modified: 2019-08-26 23:53:42" itemprop="dateModified" datetime="2019-08-26T23:53:42+08:00">2019-08-26</time>
               
             
           </span>
@@ -581,8 +581,8 @@
 <p>输出的结果如下</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">D:\sy.ini</span><br><span class="line">D:\sy.ini</span><br><span class="line">sy.ini</span><br><span class="line">D:\Programme\0-Java\J_Example\Arithmetic\sy.ini</span><br></pre></td></tr></table></figure>
 <p>用两张图片辅助结果</p>
-<p><img src="http://3dot141.com/201709172153_892.png" alt=""></p>
-<p><img src="http://3dot141.com/201709172154_836.png" alt=""></p>
+<p><img src="http://kk.3dot141.com/201709172153_892.png" alt=""></p>
+<p><img src="http://kk.3dot141.com/201709172154_836.png" alt=""></p>
 <p>从这个结果中，我们可以看出两点</p>
 <ol>
 <li>getPath 只是简单的返回 你赋予的String 值，不管是 相对路径还是绝对路径。</li>
@@ -630,7 +630,7 @@
 <ol start="6">
 <li>输入输出流</li>
 </ol>
-<p>Path类<br><img src="http://3dot141.com/201709172336_740.png" alt=""></p>
+<p>Path类<br><img src="http://kk.3dot141.com/201709172336_740.png" alt=""></p>
 <p>File类<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">File file = new File(&quot;D://test02/test02/test02.txt&quot;);</span><br><span class="line">FileInputStream fileInputStream = new FileInputStream(file);</span><br><span class="line">FileReader fileReader = new FileReader(file);</span><br></pre></td></tr></table></figure></p>
 <p>相对比，我们也可以看出，Path类相对 file类也简化了很多操作。更有利于开发。</p>
 <ol start="7">
@@ -638,7 +638,7 @@
 </li>
 </ol>
 <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ol>
-<li>关于路径的使用总结。<br><img src="http://3dot141.com/201709172357_508.png" alt=""></li>
+<li>关于路径的使用总结。<br><img src="http://kk.3dot141.com/201709172357_508.png" alt=""></li>
 <li>关于Path 与 File 类的使用总结。<br>Path 类 相比较于 File 类 ，在操作上更直观，没有涉及到更深的层面.可以看出 研发人员 从中作出了很多改进。 可以让人更专注于逻辑的编写，而非是 底层的基础。<br>虽然并没有针对其 性能作出确切的比较，不过就现有的网络统计来说， Path 类在使用中大都会比 File 类快 , 并且在最新的 lucene 中，也是用 Path 代替了 file 的操作， 相关的文章请参考 []。<br>综上，推荐使用 Path 类替代 File 类。</li>
 </ol>
 <h3 id="前言-1"><a href="#前言-1" class="headerlink" title="前言"></a>前言</h3><p>最近作项目的时候，用java获取文件。<br>虽然用框架很容易，但是其内部的原理让我很疑惑。在自己写相似的代码的时候，往往会出现各种各样的错误。所以这里，对相关的类以及方法进行一个整合。<br>比如 file 类，path 类。 绝对路径与相对路径。 getResource 方法 ， getRealPath方法等。</p>
@@ -648,8 +648,8 @@
 <p>输出的结果如下</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">D:\sy.ini</span><br><span class="line">D:\sy.ini</span><br><span class="line">sy.ini</span><br><span class="line">D:\Programme\0-Java\J_Example\Arithmetic\sy.ini</span><br></pre></td></tr></table></figure>
 <p>用两张图片辅助结果</p>
-<p><img src="http://3dot141.com/201709172153_892.png" alt=""></p>
-<p><img src="http://3dot141.com/201709172154_836.png" alt=""></p>
+<p><img src="http://kk.3dot141.com/201709172153_892.png" alt=""></p>
+<p><img src="http://kk.3dot141.com/201709172154_836.png" alt=""></p>
 <p>从这个结果中，我们可以看出两点</p>
 <ol>
 <li>getPath 只是简单的返回 你赋予的String 值，不管是 相对路径还是绝对路径。</li>
@@ -798,7 +798,7 @@ ex.printStackTrace();
 // 移动 方法
 File file = new File(&quot;D://test02/test02/test02.txt&quot;);
 file.renameTo(new File(&quot;D://test02/test02/test.txt&quot;));
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">从这里我们可以看出， path 类相对应的 复制方法 非常简单，不需要使用 直接使用输入输出流就可以复制文件。</span><br><span class="line"></span><br><span class="line">6. 输入输出流</span><br><span class="line"></span><br><span class="line">Path类</span><br><span class="line">![](http://3dot141.com/201709172336_740.png)</span><br><span class="line"></span><br><span class="line">File类</span><br></pre></td></tr></table></figure>
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">从这里我们可以看出， path 类相对应的 复制方法 非常简单，不需要使用 直接使用输入输出流就可以复制文件。</span><br><span class="line"></span><br><span class="line">6. 输入输出流</span><br><span class="line"></span><br><span class="line">Path类</span><br><span class="line">![](http://kk.3dot141.com/201709172336_740.png)</span><br><span class="line"></span><br><span class="line">File类</span><br></pre></td></tr></table></figure>
 <pre><code>File file = new File(&quot;D://test02/test02/test02.txt&quot;);
 FileInputStream fileInputStream = new FileInputStream(file);
 FileReader fileReader = new FileReader(file);
@@ -806,10 +806,9 @@ FileReader fileReader = new FileReader(file);
 <p>path.toFile()<br>File.toPath()</p>
 <p><code>`</code></p>
 <h3 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h3><ol>
-<li>关于路径的使用总结。<br><img src="http://3dot141.com/201709172357_508.png" alt=""></li>
+<li>关于路径的使用总结。<br><img src="http://kk.3dot141.com/201709172357_508.png" alt=""></li>
 <li>关于Path 与 File 类的使用总结。<br>Path 类 相比较于 File 类 ，在操作上更直观，没有涉及到更深的层面.可以看出 研发人员 从中作出了很多改进。 可以让人更专注于逻辑的编写，而非是 底层的基础。<br>虽然并没有针对其 性能作出确切的比较，不过就现有的网络统计来说， Path 类在使用中大都会比 File 类快 , 并且在最新的 lucene 中，也是用 Path 代替了 file 的操作， 相关的文章请参考 []。<br>综上，推荐使用 Path 类替代 File 类。</li>
 </ol>
-<p>h 代替了 file 的操作， 相关的文章请参考 []。<br>综上，推荐使用 Path 类替代 File 类。</p>
 
       
     </div>
@@ -846,8 +845,8 @@ FileReader fileReader = new FileReader(file);
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/blogs/29869.html" rel="next" title="killJava系列 -- ConcurrentHashmap源码分析">
-                <i class="fa fa-chevron-left"></i> killJava系列 -- ConcurrentHashmap源码分析
+              <a href="/blogs/facc1860.html" rel="next" title="数据库范式与优化">
+                <i class="fa fa-chevron-left"></i> 数据库范式与优化
               </a>
             
           </div>
@@ -856,8 +855,8 @@ FileReader fileReader = new FileReader(file);
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/blogs/47564.html" rel="prev" title="搜索为将 -- IKAnalyzer中文搜词器">
-                搜索为将 -- IKAnalyzer中文搜词器 <i class="fa fa-chevron-right"></i>
+              <a href="/blogs/29869.html" rel="prev" title="killJava系列 -- ConcurrentHashmap源码分析">
+                killJava系列 -- ConcurrentHashmap源码分析 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -1116,7 +1115,7 @@ FileReader fileReader = new FileReader(file);
     
       <span class="post-meta-item-text">Total count: </span>
     
-    <span title="Total count">293k</span>
+    <span title="Total count">292k</span>
   
 
   
@@ -1127,7 +1126,7 @@ FileReader fileReader = new FileReader(file);
     
       <span class="post-meta-item-text">Many coffee &asymp;</span>
     
-    <span title="Many coffee">8:09</span>
+    <span title="Many coffee">8:07</span>
   
 </div>
 

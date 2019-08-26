@@ -111,14 +111,14 @@
 <meta property="og:site_name" content="killCode">
 <meta property="og:description" content="由于自己最近从 android 叛变到了 ios 的阵营，所以，用了一天的时间来琢磨相关的效率工具，提高自己的工作效率。作为一个程序员，那必须好好的折腾下，才合适。终于在我的不懈努力（折腾下），找到了一个 名词 url scheme。url scheme 是 ios 系统下，快捷启动应用与功能的一种方式。有关于 url scheme 的介绍可以从这类找">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="http://3dot141.com/201804142330_537.png">
-<meta property="og:image" content="http://3dot141.com/201804142335_514.png">
-<meta property="og:image" content="http://3dot141.com/201804142338_915.png">
-<meta property="og:updated_time" content="2019-08-26T15:16:16.670Z">
+<meta property="og:image" content="http://kk.3dot141.com/201804142330_537.png">
+<meta property="og:image" content="http://kk.3dot141.com/201804142335_514.png">
+<meta property="og:image" content="http://kk.3dot141.com/201804142338_915.png">
+<meta property="og:updated_time" content="2019-08-26T15:53:42.716Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="tool -- ios 中 url scheme 的使用">
 <meta name="twitter:description" content="由于自己最近从 android 叛变到了 ios 的阵营，所以，用了一天的时间来琢磨相关的效率工具，提高自己的工作效率。作为一个程序员，那必须好好的折腾下，才合适。终于在我的不懈努力（折腾下），找到了一个 名词 url scheme。url scheme 是 ios 系统下，快捷启动应用与功能的一种方式。有关于 url scheme 的介绍可以从这类找">
-<meta name="twitter:image" content="http://3dot141.com/201804142330_537.png">
+<meta name="twitter:image" content="http://kk.3dot141.com/201804142330_537.png">
 
 
 
@@ -469,7 +469,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-08-26 23:16:16" itemprop="dateModified" datetime="2019-08-26T23:16:16+08:00">2019-08-26</time>
+                <time title="Modified: 2019-08-26 23:53:42" itemprop="dateModified" datetime="2019-08-26T23:53:42+08:00">2019-08-26</time>
               
             
           </span>
@@ -535,7 +535,7 @@
                 
                   <span class="post-meta-item-text">Words count: </span>
                 
-                <span title="Words count">826</span>
+                <span title="Words count">809</span>
               
 
               
@@ -576,12 +576,11 @@
 <li>通过 <a href="https://itunes.apple.com/cn/app/launch-center-pro-shortcut-launcher-workflows/id532016360?mt=8" target="_blank" rel="noopener">lcp – launch center pro</a> 进行自动查找，因为不是认为控制的，所以不能保证可以得到自己想要的工具。</li>
 <li>使用 Itunes 安装应用，查找应用的安装包，然后进行解压，查找相应的 <strong>info.plist</strong>. Itunes 已经不再支持安装应用。</li>
 </ol>
-<p>通过自己对查找 url scheme 的了解，找到了一种方式，就是下载 越狱应用， 然后解压。<br>过程如下。<br>第一步、 安装电脑板 <a href="https://pro.25pp.com/" target="_blank" rel="noopener">pp 助手</a><br>第二步、 点击 找应用 -》 越狱应用 -》 搜索应用名 -》 <strong>直接安装</strong><br><strong>tips:</strong> 这一步好像会提示让你连接手机，不要连接，再说一次，不要连接，直接安装即可。<br><img src="http://3dot141.com/201804142330_537.png" alt=""><br>第三步、 正常解压缩 <code>.ipa</code> 文件<br><img src="http://3dot141.com/201804142335_514.png" alt=""><br>第四步、 打开 <code>.\paload\*.app\info.plist</code> 文件，搜索 <code>urlschemes</code> 如下图，可以找到 <code>weixin , weixinapp</code> 等，这些就是 基本 url scheme<br><img src="http://3dot141.com/201804142338_915.png" alt=""></p>
+<p>通过自己对查找 url scheme 的了解，找到了一种方式，就是下载 越狱应用， 然后解压。<br>过程如下。<br>第一步、 安装电脑板 <a href="https://pro.25pp.com/" target="_blank" rel="noopener">pp 助手</a><br>第二步、 点击 找应用 -》 越狱应用 -》 搜索应用名 -》 <strong>直接安装</strong><br><strong>tips:</strong> 这一步好像会提示让你连接手机，不要连接，再说一次，不要连接，直接安装即可。<br><img src="http://kk.3dot141.com/201804142330_537.png" alt=""><br>第三步、 正常解压缩 <code>.ipa</code> 文件<br><img src="http://kk.3dot141.com/201804142335_514.png" alt=""><br>第四步、 打开 <code>.\paload\*.app\info.plist</code> 文件，搜索 <code>urlschemes</code> 如下图，可以找到 <code>weixin , weixinapp</code> 等，这些就是 基本 url scheme<br><img src="http://kk.3dot141.com/201804142338_915.png" alt=""></p>
 <h2 id="寻找复杂-url-scheme"><a href="#寻找复杂-url-scheme" class="headerlink" title="寻找复杂 url scheme"></a>寻找复杂 url scheme</h2><ol>
 <li>是从官网找，一般为了方便用户的使用，官网上会有相应的介绍。</li>
 <li>是联系客服，尝试获取，我使用的 app 比较小众，所以正在尝试和客服沟通 ， 😰。</li>
 </ol>
-<p>�正在尝试和客服沟通 ， 😰。</p>
 
       
     </div>
@@ -882,7 +881,7 @@
     
       <span class="post-meta-item-text">Total count: </span>
     
-    <span title="Total count">293k</span>
+    <span title="Total count">292k</span>
   
 
   
@@ -893,7 +892,7 @@
     
       <span class="post-meta-item-text">Many coffee &asymp;</span>
     
-    <span title="Many coffee">8:09</span>
+    <span title="Many coffee">8:07</span>
   
 </div>
 

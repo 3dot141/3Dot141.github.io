@@ -115,10 +115,10 @@
 <meta property="og:image" content="https://3dot141.com/blogs/images/15476297695927.jpg">
 <meta property="og:image" content="https://3dot141.com/blogs/images/15476298240463.jpg">
 <meta property="og:image" content="https://3dot141.com/blogs/images/15476298599833.jpg">
-<meta property="og:image" content="http://3dot141.com/201710151610_922.png">
-<meta property="og:image" content="http://3dot141.com/201710151610_743.png">
-<meta property="og:image" content="http://3dot141.com/201710151908_543.png">
-<meta property="og:updated_time" content="2019-08-26T15:17:51.466Z">
+<meta property="og:image" content="http://kk.3dot141.com/201710151610_922.png">
+<meta property="og:image" content="http://kk.3dot141.com/201710151610_743.png">
+<meta property="og:image" content="http://kk.3dot141.com/201710151908_543.png">
+<meta property="og:updated_time" content="2019-08-26T15:53:42.695Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="逐梦offer -- JVM知识总结">
 <meta name="twitter:description" content="六月磨一剑，剑出试青锋。这是对这6个月以来，对 JVM 零散学习的总结，能力有限，希望诸君不要嘲笑哦。   ------ 1米88的大可爱？3dot141">
@@ -473,7 +473,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-08-26 23:17:51" itemprop="dateModified" datetime="2019-08-26T23:17:51+08:00">2019-08-26</time>
+                <time title="Modified: 2019-08-26 23:53:42" itemprop="dateModified" datetime="2019-08-26T23:53:42+08:00">2019-08-26</time>
               
             
           </span>
@@ -677,7 +677,7 @@
 <blockquote>
 <p>传统的GC收集器将连续的内存空间划分为新生代、老年代和永久代（JDK 8去除了永久代，引入了元空间Metaspace），这种划分的特点是各代的存储地址（逻辑地址，下同）是连续的。</p>
 </blockquote>
-<p>如下图所示：<br><img src="http://3dot141.com/201710151610_922.png" alt=""><br>而G1的各代存储地址是不连续的，每一代都使用了n个不连续的大小相同的Region，每个Region占有一块连续的虚拟内存地址。如下图所示：<br><img src="http://3dot141.com/201710151610_743.png" alt=""><br>在上图中，我们注意到还有一些Region标明了H，它代表Humongous，这表示这些Region存储的是巨大对象（humongous object，H-obj），即大小大于等于region一半的对象。H-obj有如下几个特征：</p>
+<p>如下图所示：<br><img src="http://kk.3dot141.com/201710151610_922.png" alt=""><br>而G1的各代存储地址是不连续的，每一代都使用了n个不连续的大小相同的Region，每个Region占有一块连续的虚拟内存地址。如下图所示：<br><img src="http://kk.3dot141.com/201710151610_743.png" alt=""><br>在上图中，我们注意到还有一些Region标明了H，它代表Humongous，这表示这些Region存储的是巨大对象（humongous object，H-obj），即大小大于等于region一半的对象。H-obj有如下几个特征：</p>
 <ul>
 <li>H-obj直接分配到了old gen (老年代)，防止了反复拷贝移动。</li>
 <li>H-obj在global concurrent marking 阶段的 <strong>cleanup</strong> 和 <strong>full GC</strong> 阶段回收。</li>
@@ -706,7 +706,7 @@
 <blockquote>
 <p>全称是Remembered Set，是辅助GC过程的一种结构，典型的空间换时间工具，和Card Table有些类似。<br>还有一种数据结构也是辅助GC的：Collection Set（CSet），它记录了 <strong>GC要收集的Region集合</strong> ，集合里的Region可以是任意年代的。<br>在GC的时候，对于old-&gt;young和old-&gt;old的跨代对象引用，只要扫描对应的CSet中的RSet即可。</p>
 </blockquote>
-<p>Rset : 属于points-into结构（谁引用了我的对象）<br>Card Table : 则是一种points-out（我引用了谁的对象）的结构<br>G1的RSet是在Card Table的基础上实现的：每个Region会记录下别的Region有指向自己的指针，并标记这些指针分别在哪些Card的范围内。<br>这个RSet其实是一个Hash Table，<strong>Key</strong> – 别的Region的<strong>起始地址</strong>，<strong>Value</strong>是一个集合 – 里面的元素是<strong>Card Table的Index</strong>。<br><img src="http://3dot141.com/201710151908_543.png" alt=""><br>这里解释一下 :<br>上图有三个 Region 。红色代表 Rset ， 灰色大方框代表 Card Table。<br>Region2 的 Rset2 中有两个 Region 的起始地址，分别指向 Region1  , Region3。 – 代表 Region1 与 Region3 引用了我的对象。<br>Region1 的 Card Table 位置上，存在一个 对 Region2 的引用。 – 代表 Region1 引用了 Region2 的对象。<br>Region3 同理。</p>
+<p>Rset : 属于points-into结构（谁引用了我的对象）<br>Card Table : 则是一种points-out（我引用了谁的对象）的结构<br>G1的RSet是在Card Table的基础上实现的：每个Region会记录下别的Region有指向自己的指针，并标记这些指针分别在哪些Card的范围内。<br>这个RSet其实是一个Hash Table，<strong>Key</strong> – 别的Region的<strong>起始地址</strong>，<strong>Value</strong>是一个集合 – 里面的元素是<strong>Card Table的Index</strong>。<br><img src="http://kk.3dot141.com/201710151908_543.png" alt=""><br>这里解释一下 :<br>上图有三个 Region 。红色代表 Rset ， 灰色大方框代表 Card Table。<br>Region2 的 Rset2 中有两个 Region 的起始地址，分别指向 Region1  , Region3。 – 代表 Region1 与 Region3 引用了我的对象。<br>Region1 的 Card Table 位置上，存在一个 对 Region2 的引用。 – 代表 Region1 引用了 Region2 的对象。<br>Region3 同理。</p>
 <p><strong>作用：</strong><br>在做YGC(Minor GC)的时候，只需要选定young generation region的RSet作为根集，这些RSet记录了old-&gt;young的跨代引用，避免了扫描整个old generation。<br>而mixed gc的时候，old generation中记录了old-&gt;old的RSet，young-&gt;old的引用由扫描全部young generation region得到，这样也不用扫描全部old generation region。所以RSet的引入大大减少了GC的工作量。</p>
 <hr>
 <p><strong>四、Pause Prediction Model</strong></p>
@@ -822,7 +822,6 @@
 <blockquote>
 <p>一只想当程序员的1米88<strong>处女座</strong>大可爱<strong>如此说</strong>。</p>
 </blockquote>
-<p>8<strong>处女座</strong>大可爱<strong>如此说</strong>。</p>
 
       
     </div>
@@ -859,8 +858,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/blogs/21184.html" rel="next" title="从 Socket 编程 到 OkHttp 框架">
-                <i class="fa fa-chevron-left"></i> 从 Socket 编程 到 OkHttp 框架
+              <a href="/blogs/27541.html" rel="next" title="搜索为将 -- Solr 从入门到进阶(一)">
+                <i class="fa fa-chevron-left"></i> 搜索为将 -- Solr 从入门到进阶(一)
               </a>
             
           </div>
@@ -1129,7 +1128,7 @@
     
       <span class="post-meta-item-text">Total count: </span>
     
-    <span title="Total count">293k</span>
+    <span title="Total count">292k</span>
   
 
   
@@ -1140,7 +1139,7 @@
     
       <span class="post-meta-item-text">Many coffee &asymp;</span>
     
-    <span title="Many coffee">8:09</span>
+    <span title="Many coffee">8:07</span>
   
 </div>
 

@@ -112,12 +112,12 @@
 <meta property="og:site_name" content="killCode">
 <meta property="og:description" content="springboot 包结构初级篇 root package结构：com.example.myproject 应用主类Application.java置于root package下，通常我们会在应用主类中做一些框架配置扫描等配置，我们放在root package下可以帮助程序减少手工配置来加载到我们希望被Spring加载的内容 实体（Entity）与数据访问层（Repository）置于com.e">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="http://3dot141.com/201803030029_161.png">
-<meta property="og:updated_time" content="2019-08-26T15:17:51.452Z">
+<meta property="og:image" content="http://kk.3dot141.com/201803030029_161.png">
+<meta property="og:updated_time" content="2019-08-26T15:53:42.685Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SpringBoot 工程结构">
 <meta name="twitter:description" content="springboot 包结构初级篇 root package结构：com.example.myproject 应用主类Application.java置于root package下，通常我们会在应用主类中做一些框架配置扫描等配置，我们放在root package下可以帮助程序减少手工配置来加载到我们希望被Spring加载的内容 实体（Entity）与数据访问层（Repository）置于com.e">
-<meta name="twitter:image" content="http://3dot141.com/201803030029_161.png">
+<meta name="twitter:image" content="http://kk.3dot141.com/201803030029_161.png">
 
 
 
@@ -468,7 +468,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-08-26 23:17:51" itemprop="dateModified" datetime="2019-08-26T23:17:51+08:00">2019-08-26</time>
+                <time title="Modified: 2019-08-26 23:53:42" itemprop="dateModified" datetime="2019-08-26T23:53:42+08:00">2019-08-26</time>
               
             
           </span>
@@ -580,7 +580,7 @@
 <h3 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h3><p>Application 是入口类， 其上有一个注解为 @SpringBootApplicaton<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">@Target(&#123;ElementType.TYPE&#125;)</span><br><span class="line">@Retention(RetentionPolicy.RUNTIME)</span><br><span class="line">@Documented</span><br><span class="line">@Inherited</span><br><span class="line">@SpringBootConfiguration</span><br><span class="line">@EnableAutoConfiguration</span><br><span class="line">@ComponentScan(</span><br><span class="line">    excludeFilters = &#123;@Filter(</span><br><span class="line">    type = FilterType.CUSTOM,</span><br><span class="line">    classes = &#123;TypeExcludeFilter.class&#125;</span><br><span class="line">), @Filter(</span><br><span class="line">    type = FilterType.CUSTOM,</span><br><span class="line">    classes = &#123;AutoConfigurationExcludeFilter.class&#125;</span><br><span class="line">)&#125;</span><br><span class="line">)</span><br><span class="line">public @interface SpringBootApplication &#123;</span><br></pre></td></tr></table></figure></p>
 <h4 id="EnableAutoConfiguration"><a href="#EnableAutoConfiguration" class="headerlink" title="@EnableAutoConfiguration"></a>@EnableAutoConfiguration</h4><p>其中 @EnableAutoConfiguration 的注解如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">@Target(&#123;ElementType.TYPE&#125;)</span><br><span class="line">@Retention(RetentionPolicy.RUNTIME)</span><br><span class="line">@Documented</span><br><span class="line">@Inherited</span><br><span class="line">@AutoConfigurationPackage</span><br><span class="line">@Import(&#123;AutoConfigurationImportSelector.class&#125;)</span><br><span class="line">public @interface EnableAutoConfiguration &#123;</span><br><span class="line">    String ENABLED_OVERRIDE_PROPERTY = &quot;spring.boot.enableautoconfiguration&quot;;</span><br><span class="line"></span><br><span class="line">    Class&lt;?&gt;[] exclude() default &#123;&#125;;</span><br><span class="line"></span><br><span class="line">    String[] excludeName() default &#123;&#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>@AutoConfigurationPackage 是引入 Registar.class </p>
-<p>AutoConfigurationImportSelector 则通过 SpringFactoriesLoader.loadFactoryNames 扫描 META/INF/spring.factories 文件。<br>spring-boot-autoconfigure 包下就存在 spring.factories 文件。<br><img src="http://3dot141.com/201803030029_161.png" alt=""><br>其中声明了有哪些自动配置。</p>
+<p>AutoConfigurationImportSelector 则通过 SpringFactoriesLoader.loadFactoryNames 扫描 META/INF/spring.factories 文件。<br>spring-boot-autoconfigure 包下就存在 spring.factories 文件。<br><img src="http://kk.3dot141.com/201803030029_161.png" alt=""><br>其中声明了有哪些自动配置。</p>
 <p><strong>总结</strong><br>因此 @EnableAutoConfiguration 会帮助 spring boot 根据类路径中的 jar 包依赖为当前项目进行自动配置</p>
 <h4 id="ComponentScan"><a href="#ComponentScan" class="headerlink" title="@ComponentScan"></a>@ComponentScan</h4><p>帮助扫描 @SpringBootApplication 所在类的同级包，以及下级包。</p>
 <h2 id="进阶篇"><a href="#进阶篇" class="headerlink" title="进阶篇"></a>进阶篇</h2><p>其他的RPC协议，多个微服务之间<br>整个项目可以拆分成多个微服务，每个微服务工程又可以分为core和service两个工程，如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">user-core</span><br><span class="line">user-service</span><br></pre></td></tr></table></figure></p>
@@ -605,7 +605,6 @@
 <li>数据传输类(vo)置于com.example.user.vo，为前端准备数据的json对象</li>
 </ol>
 <h3 id="公共项目commons-core"><a href="#公共项目commons-core" class="headerlink" title="公共项目commons-core"></a>公共项目commons-core</h3><p>可以把多个项目公共的代码抽取utils包下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">com</span><br><span class="line">  +- example</span><br><span class="line">    +- common</span><br><span class="line">      +- util</span><br><span class="line">	      |</span><br><span class="line">	      +- ftp</span><br><span class="line">	      |  +- FtpUtil.java</span><br><span class="line">	      |</span><br><span class="line">	      +- fastdfs</span><br><span class="line">	      |  +- FastdfsUtil.java</span><br><span class="line">	      |</span><br></pre></td></tr></table></figure></p>
-<p>|<br><code>`</code></p>
 
       
     </div>
@@ -652,8 +651,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/blogs/20329.html" rel="prev" title="SpringBoot 整合 RedisCache">
-                SpringBoot 整合 RedisCache <i class="fa fa-chevron-right"></i>
+              <a href="/blogs/62983.html" rel="prev" title="SpringBoot 与 mybatis 框架整合。">
+                SpringBoot 与 mybatis 框架整合。 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -912,7 +911,7 @@
     
       <span class="post-meta-item-text">Total count: </span>
     
-    <span title="Total count">293k</span>
+    <span title="Total count">292k</span>
   
 
   
@@ -923,7 +922,7 @@
     
       <span class="post-meta-item-text">Many coffee &asymp;</span>
     
-    <span title="Many coffee">8:09</span>
+    <span title="Many coffee">8:07</span>
   
 </div>
 

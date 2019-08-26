@@ -112,18 +112,18 @@
 <meta property="og:site_name" content="killCode">
 <meta property="og:description" content="最近一场面试，面试官问了我 对称加密与非对称加密的问题，虽然曾经看过一些内容，但是没有系统的整理，所以当被问的时候，脑子里一片空白，没有回答上来。因此，在这里重新梳理一下密码学的知识点，夯实一下基础。">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="http://3dot141.com/201710171653_195.png">
-<meta property="og:image" content="http://3dot141.com/201711110701_362.png">
-<meta property="og:image" content="http://3dot141.com/201711110709_795.png">
-<meta property="og:image" content="http://3dot141.com/201711110713_718.png">
-<meta property="og:image" content="http://3dot141.com/201711101750_461.png">
-<meta property="og:image" content="http://3dot141.com/201711101754_590.png">
-<meta property="og:image" content="http://3dot141.com/201711101753_329.png">
-<meta property="og:updated_time" content="2019-08-26T15:17:47.547Z">
+<meta property="og:image" content="http://kk.3dot141.com/201710171653_195.png">
+<meta property="og:image" content="http://kk.3dot141.com/201711110701_362.png">
+<meta property="og:image" content="http://kk.3dot141.com/201711110709_795.png">
+<meta property="og:image" content="http://kk.3dot141.com/201711110713_718.png">
+<meta property="og:image" content="http://kk.3dot141.com/201711101750_461.png">
+<meta property="og:image" content="http://kk.3dot141.com/201711101754_590.png">
+<meta property="og:image" content="http://kk.3dot141.com/201711101753_329.png">
+<meta property="og:updated_time" content="2019-08-26T15:53:42.662Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="killBase系列 -- 密码学">
 <meta name="twitter:description" content="最近一场面试，面试官问了我 对称加密与非对称加密的问题，虽然曾经看过一些内容，但是没有系统的整理，所以当被问的时候，脑子里一片空白，没有回答上来。因此，在这里重新梳理一下密码学的知识点，夯实一下基础。">
-<meta name="twitter:image" content="http://3dot141.com/201710171653_195.png">
+<meta name="twitter:image" content="http://kk.3dot141.com/201710171653_195.png">
 
 
 
@@ -474,7 +474,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-08-26 23:17:47" itemprop="dateModified" datetime="2019-08-26T23:17:47+08:00">2019-08-26</time>
+                <time title="Modified: 2019-08-26 23:53:42" itemprop="dateModified" datetime="2019-08-26T23:53:42+08:00">2019-08-26</time>
               
             
           </span>
@@ -673,7 +673,7 @@
 </ul>
 <p>详细版请见 <strong>附录</strong></p>
 <h5 id="3、-解密过程"><a href="#3、-解密过程" class="headerlink" title="3、 解密过程"></a>3、 解密过程</h5><p>　　加密和解密使用相同的算法！<br>　　DES加密和解密唯一的不同是密钥的次序相反。如果各轮加密密钥分别是K1，K2，K3…K16，那么解密密钥就是K16，K15，K14…K1。这也就是DES被称为对称算法的理由吧。</p>
-<h5 id="4、流程如图："><a href="#4、流程如图：" class="headerlink" title="4、流程如图："></a>4、流程如图：</h5><p><img src="http://3dot141.com/201710171653_195.png" alt=""></p>
+<h5 id="4、流程如图："><a href="#4、流程如图：" class="headerlink" title="4、流程如图："></a>4、流程如图：</h5><p><img src="http://kk.3dot141.com/201710171653_195.png" alt=""></p>
 <h5 id="5、注意："><a href="#5、注意：" class="headerlink" title="5、注意："></a>5、注意：</h5><p>DES算法中只用到64位密钥中的其中56位，而第8、16、24、……64位8个位并未参与DES运算</p>
 <h5 id="6、3DES"><a href="#6、3DES" class="headerlink" title="6、3DES"></a>6、3DES</h5><p>3DES（或称为Triple DES）</p>
 <blockquote>
@@ -761,9 +761,9 @@
 <ol>
 <li>准备： 通过可以抓取网络包的工具，这里通过 Wireshark 分析。<a href="http://www.cnblogs.com/tankxiao/archive/2012/10/10/2711777.html" target="_blank" rel="noopener">关于wireshark 的介绍请点击这里</a>.查看浏览器发送给服务器的 Ciper服务器的 Ciper</li>
 <li>流程： <ul>
-<li>浏览器首先发起握手协议， 一个’Client Hello’消息，如下图，按照Protocol协议顺序排序，然后，找到Client Hello，选中，依次查找 ‘Secure Sockets Layer’ -&gt; TLSv1.2 Record Layer -&gt; Handshake protocal -&gt;Ciper Suites.<img src="http://3dot141.com/201711110701_362.png" alt=""></li>
-<li>可以看到， Cipher有很多。总共16，第一个是Cipher Suite: TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256 (0xc02b)。<img src="http://3dot141.com/201711110709_795.png" alt=""></li>
-<li>如果按照顺序继续寻找第一个 Info 为’Sever Hello’ 的报文，可以找到相应的Cipher Suite: TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256 (0xc02b) 。<img src="http://3dot141.com/201711110713_718.png" alt="">.</li>
+<li>浏览器首先发起握手协议， 一个’Client Hello’消息，如下图，按照Protocol协议顺序排序，然后，找到Client Hello，选中，依次查找 ‘Secure Sockets Layer’ -&gt; TLSv1.2 Record Layer -&gt; Handshake protocal -&gt;Ciper Suites.<img src="http://kk.3dot141.com/201711110701_362.png" alt=""></li>
+<li>可以看到， Cipher有很多。总共16，第一个是Cipher Suite: TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256 (0xc02b)。<img src="http://kk.3dot141.com/201711110709_795.png" alt=""></li>
+<li>如果按照顺序继续寻找第一个 Info 为’Sever Hello’ 的报文，可以找到相应的Cipher Suite: TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256 (0xc02b) 。<img src="http://kk.3dot141.com/201711110713_718.png" alt="">.</li>
 </ul>
 </li>
 <li>Cipher介绍：<ul>
@@ -787,8 +787,8 @@
 <ol>
 <li>winpacp 安装 。。。<br><a href="https://www.winpcap.org/install/" target="_blank" rel="noopener">这里是下载网站</a><br>直接安装即可。</li>
 <li>开启 npf 服务<br>打开 cmd ,输入 <code>net start npf</code> ,提示：服务已经启动。</li>
-<li>进入界面，选择相应的网卡。<br><img src="http://3dot141.com/201711101750_461.png" alt=""><br>这里，可以通过 网络连接 看出来。<br><img src="http://3dot141.com/201711101754_590.png" alt=""><br>所以，我的是无线网络连接。</li>
-<li>最终界面<br><img src="http://3dot141.com/201711101753_329.png" alt=""><br>WireShark 主要分为这几个界面</li>
+<li>进入界面，选择相应的网卡。<br><img src="http://kk.3dot141.com/201711101750_461.png" alt=""><br>这里，可以通过 网络连接 看出来。<br><img src="http://kk.3dot141.com/201711101754_590.png" alt=""><br>所以，我的是无线网络连接。</li>
+<li>最终界面<br><img src="http://kk.3dot141.com/201711101753_329.png" alt=""><br>WireShark 主要分为这几个界面</li>
 <li>Display Filter(显示过滤器)，  用于过滤</li>
 <li>Packet List Pane(封包列表)， 显示捕获到的封包， 有源地址和目标地址，端口号。 颜色不同，代表</li>
 <li>Packet Details Pane(封包详细信息), 显示封包中的字段</li>
@@ -805,10 +805,6 @@
 <li><a href="http://www.ruanyifeng.com/blog/2013/07/rsa_algorithm_part_two.html" target="_blank" rel="noopener">阮一峰–RSA算法原理</a></li>
 <li><a href="http://blog.csdn.net/centralperk/article/details/8558678" target="_blank" rel="noopener">java中RSA加解密的实现</a></li>
 <li><a href="http://blog.sina.com.cn/s/blog_76550fd7010147tp.html" target="_blank" rel="noopener">关于RSA算法密钥长度/密文长度/明文长度</a></li>
-<li><a href="http://kb.cnblogs.com/page/530044/" target="_blank" rel="noopener">https背后的加密算法</a></li>
-</ol>
-<p>blog_76550fd7010147tp.html)</p>
-<ol start="5">
 <li><a href="http://kb.cnblogs.com/page/530044/" target="_blank" rel="noopener">https背后的加密算法</a></li>
 </ol>
 
@@ -1117,7 +1113,7 @@
     
       <span class="post-meta-item-text">Total count: </span>
     
-    <span title="Total count">293k</span>
+    <span title="Total count">292k</span>
   
 
   
@@ -1128,7 +1124,7 @@
     
       <span class="post-meta-item-text">Many coffee &asymp;</span>
     
-    <span title="Many coffee">8:09</span>
+    <span title="Many coffee">8:07</span>
   
 </div>
 
